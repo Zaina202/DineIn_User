@@ -12,6 +12,18 @@ namespace Dinein_UserApp.ViewModels
 {
     class ReservationViewModel : INotifyPropertyChanged
     {
+
+        private bool _isOneTwoChecked;
+        private bool _isTwoThreeChecked;
+        private bool _isFourChecked;
+        private bool _isFiveChecked;
+        private bool _isSixChecked;
+        private int _selectedValue;
+        private string selectedValue;
+        private string note;
+
+
+
         private int _hour = 0;
         private int _minute = 0;
 
@@ -100,7 +112,8 @@ namespace Dinein_UserApp.ViewModels
             {
                 ReservationModel reservationModel = new ReservationModel();
                 reservationModel.TimePicker = Time;
-               
+                reservationModel.NumberOfPeople = selectedValue;
+                reservationModel.Note = note;
 
 
                 DataBase dataBase = new DataBase();
@@ -109,7 +122,7 @@ namespace Dinein_UserApp.ViewModels
 
                 if (isSaved)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is: {Time} ", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is: {Time} with {selectedValue} People", "Ok");
                     Clear();
                 }
                 else
@@ -122,7 +135,8 @@ namespace Dinein_UserApp.ViewModels
         public void Clear()
         {
             Time = string.Empty;
-           
+            selectedValue = string.Empty;
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -130,6 +144,120 @@ namespace Dinein_UserApp.ViewModels
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+
+        public bool IsOneTwoChecked
+        {
+            get => _isOneTwoChecked;
+            set
+            {
+                if (_isOneTwoChecked != value)
+                {
+                    _isOneTwoChecked = value;
+                    if (value)
+                    {
+                        selectedValue = "1-2";
+                    }
+                    OnPropertyChanged(nameof(IsOneTwoChecked));
+                }
+            }
+        }
+
+
+        public bool IsTwoThreeChecked
+        {
+            get => _isTwoThreeChecked;
+            set
+            {
+                if (_isTwoThreeChecked != value)
+                {
+                    _isTwoThreeChecked = value;
+                    if (value)
+                    {
+                        selectedValue = "3-4";
+                    }
+                    OnPropertyChanged(nameof(IsTwoThreeChecked));
+                }
+            }
+        }
+
+        public bool IsFourChecked
+        {
+            get => _isFourChecked;
+            set
+            {
+                if (_isFourChecked != value)
+                {
+                    _isFourChecked = value;
+                    if (value)
+                    {
+                        selectedValue = "5-6";
+                    }
+                    OnPropertyChanged(nameof(IsFourChecked));
+                }
+            }
+        }
+
+        public bool IsFiveChecked
+        {
+            get => _isFiveChecked;
+            set
+            {
+                if (_isFiveChecked != value)
+                {
+                    _isFiveChecked = value;
+                    if (value)
+                    {
+                        selectedValue = "7-10";
+                    }
+                    OnPropertyChanged(nameof(IsFiveChecked));
+
+
+                }
+            }
+        }
+        public bool IsSixChecked
+        {
+            get => _isSixChecked;
+            set
+            {
+                if (_isSixChecked != value)
+                {
+                    _isSixChecked = value;
+                    if (value)
+                    {
+                        selectedValue = "more than 10 people";
+                    }
+                    OnPropertyChanged(nameof(IsSixChecked));
+
+                }
+            }
+        }
+
+
+
+        public int SelectedValue
+        {
+            get { return _selectedValue; }
+            set
+            {
+                if (_selectedValue != value)
+                {
+                    _selectedValue = value;
+                    OnPropertyChanged(nameof(SelectedValue));
+                }
+            }
+        }
+        public string Note
+        {
+            get { return note; }
+            set
+            {
+                note = value;
+                OnPropertyChanged(nameof(Note));
+            }
         }
     }
 }
