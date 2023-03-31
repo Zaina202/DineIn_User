@@ -22,7 +22,7 @@
             <Frame CornerRadius="20" 
            Padding="0"
            IsClippedToBounds="True">
-                <Image Source="RestauranPhoto.png"  Aspect="AspectFill" ></Image>
+                <Image Source="ResturantPhoto.jpg"  Aspect="AspectFill" HeightRequest="300"></Image>
 
             </Frame>
 
@@ -62,7 +62,7 @@
                     <Label Text="9:00 AM - 11:30 PM " TextColor="Black" Grid.Column="1" Grid.Row="1" FontSize="Subtitle" FontAttributes="Bold"></Label>
 
 
-                    <Image Source="telephone.png" Grid.Row="2" ></Image>
+                    <Image Source="phone.png" Grid.Row="2" ></Image>
                     <Label Text="0567170012  " TextColor="Black" Grid.Column="1" Grid.Row="2" FontSize="Subtitle" FontAttributes="Bold"></Label>
 
 
