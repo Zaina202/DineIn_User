@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Dinein_UserApp.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <Color x:Key="Primary">#F68C27</Color>
+            <Color x:Key="Secondry">#F5F5DC</Color>
+
+            <Style x:Key="LargButton" TargetType="Button">
+                <Setter Property="Background" Value="#F68C27"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="WidthRequest" Value="183"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+            <Style x:Key="SmallButton" TargetType="Button">
+                <Setter Property="Background" Value="#F68C27"/>
+                <Setter Property="TextColor" Value="White"/>
+                <Setter Property="WidthRequest" Value="129"/>
+                <Setter Property="HeightRequest" Value="49"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
