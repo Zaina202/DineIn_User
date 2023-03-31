@@ -16,5 +16,21 @@ namespace Dinein_UserApp.Views
         {
             InitializeComponent();
         }
+        private void ButtonConfirm_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MenuPage());
+
+        }
+
+        private void OnMinusButtonClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnPlusButtonClicked(object sender, EventArgs e)
+        {
+
+        }
     }
+ 
 }
