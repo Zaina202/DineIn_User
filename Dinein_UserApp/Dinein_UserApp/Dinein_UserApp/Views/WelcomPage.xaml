@@ -3,10 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Dinein_UserApp.Views.WelcomPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Dinein!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+
+    <Grid>
+        <Image Source="bakground.jpg"
+               Aspect="AspectFill" />
+        <Grid BackgroundColor="DimGray" Opacity="0.9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Margin="50,200,0,0" Source="dinein.png"
+             Aspect="AspectFill"
+             HeightRequest="105"
+             WidthRequest="290"
+             HorizontalOptions="Center"
+             VerticalOptions="Center"
+             Grid.Row="0"
+             Grid.Column="0">
+            </Image>
+
+            <Label Margin="113,0,0,300" Text="Welcome to DineIn..."
+               FontSize="Large"
+               TextColor="White"
+                   FontAttributes="Italic"
+               HorizontalOptions="Start"
+               VerticalOptions="Center"
+               Grid.Row="1"
+               Grid.ColumnSpan="2"/>
+        </Grid>
+    </Grid>
     </ContentPage.Content>
 </ContentPage>
