@@ -15,6 +15,12 @@ namespace Dinein_UserApp.Views
         public WelcomPage()
         {
             InitializeComponent();
+             StartTimer();
+        }
+        private async void StartTimer()
+        {
+            await Task.Delay(1000);
+            await Navigation.PushAsync(new Home());
         }
     }
 }

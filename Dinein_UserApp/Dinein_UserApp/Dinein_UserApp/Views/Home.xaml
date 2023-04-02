@@ -7,10 +7,88 @@
         <local:HomeViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Home Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+        <StackLayout Margin="16,64,16,35" >
+            <StackLayout>
+                <Label Text="Lemon W Na3na3" FontSize="Title"
+                       HorizontalOptions="CenterAndExpand"
+                       TextColor="Black"
+                       FontAttributes="Bold">
+
+                </Label>
+            </StackLayout>
+
+
+            <Frame CornerRadius="20" 
+           Padding="0"
+           IsClippedToBounds="True">
+                <Image Source="ResturantPhoto.jpg"  Aspect="AspectFill" HeightRequest="300"></Image>
+
+            </Frame>
+
+            <StackLayout>
+                <Grid Margin="25,10,20,20"  RowSpacing="20" ColumnSpacing="10">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+
+
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="20"  ></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="location.png" ></Image>
+                    <Label Grid.Column="1" >
+
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Palestine , Nablus"  FontSize="Subtitle" FontAttributes="Bold"  TextColor="Blue" TextDecorations="Underline">
+                                    <Span.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding TapCommand}"
+                                          CommandParameter="https://www.google.com/maps/dir/32.243712,35.2714752/32.2274067,35.2193241/@32.2317944,35.2221483,13z/data=!3m1!4b1!4m4!4m3!1m1!4e1!1m0" />
+                                    </Span.GestureRecognizers>
+                                </Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+
+                    </Label>
+
+                    <Image Source="clock.png" Grid.Row="1" ></Image>
+                    <Label Text="9:00 AM - 11:30 PM " TextColor="Black" Grid.Column="1" Grid.Row="1" FontSize="Subtitle" FontAttributes="Bold"></Label>
+
+
+                    <Image Source="phone.png" Grid.Row="2" ></Image>
+                    <Label Text="0567170012  " TextColor="Black" Grid.Column="1" Grid.Row="2" FontSize="Subtitle" FontAttributes="Bold"></Label>
+
+
+
+
+
+
+                </Grid>
+            </StackLayout>
+
+
+
+
+
+
+
+
+
+
+
+            <Button Style="{StaticResource LargButton}" 
+                    Margin="20,0,20,50"
+                    Text="Reserve"
+                    Clicked="Start_Reserve"/>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
