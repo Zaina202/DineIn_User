@@ -1,16 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
+             xmlns:view="clr-namespace:Dinein_UserApp.Views"
+             xmlns:local="clr-namespace:Dinein_UserApp.ViewModels" 
              x:Class="Dinein_UserApp.Views.MenuPage">
     <ContentPage.BindingContext>
         <local:MenuViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Menu Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Image Source="Cart.png" Margin="290,10,0,0"/>
+            <ListView x:Name="ItemListView" 
+                  CachingStrategy="RecycleElement"
+                  RowHeight="110" SeparatorColor="Transparent" SeparatorVisibility="Default" Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout BackgroundColor="{StaticResource Secondry}" Orientation="Horizontal" Margin="5">
+                            <Image Source="{Binding ImageUrl}" HeightRequest="110" WidthRequest="100"/>
+                            <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="Medium" TextColor="black"/>
+                            <Label Text="{Binding Price}" FontSize="Small" TextColor="black"/>
+                            </StackLayout>
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
