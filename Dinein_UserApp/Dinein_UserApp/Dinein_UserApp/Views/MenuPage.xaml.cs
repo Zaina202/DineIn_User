@@ -24,11 +24,11 @@ namespace Dinein_UserApp.Views
 
             MenuItems = new ObservableCollection<MenuItem>
         {
-            new MenuItem { Name = "Item 1",Price="0", ImageUrl = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
-            new MenuItem { Name = "Item 2",Price="0", ImageUrl = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
-            new MenuItem { Name = "Item 3",Price="0", ImageUrl = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
-            new MenuItem { Name = "Item 4",Price="0", ImageUrl = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
-            new MenuItem { Name = "Item 5",Price="0", ImageUrl = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
+            new MenuItem { Name = "Item 1",Price="0", Image = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
+            new MenuItem { Name = "Item 2",Price="0", Image = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
+            new MenuItem { Name = "Item 3",Price="0", Image = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
+            new MenuItem { Name = "Item 4",Price="0", Image = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
+            new MenuItem { Name = "Item 5",Price="0", Image = "https://scontent.fjrs29-1.fna.fbcdn.net/v/t39.30808-6/336647745_769731694713211_1320182345920490310_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=730e14&_nc_ohc=E1z3Nhku7JgAX-Ynp_d&_nc_ht=scontent.fjrs29-1.fna&oh=00_AfAyqoitaSRg_kKj-Jn4nA2yV5EIOOFZ84Kfl6emu8DC5A&oe=642FD66F" },
         };
             ItemListView.ItemsSource = MenuItems;
 
@@ -36,9 +36,26 @@ namespace Dinein_UserApp.Views
         public class MenuItem
         {
             public string Name { get; set; }
-            public string ImageUrl { get; set; }
+            public string Image { get; set; }
             public string Price { get; set; }
 
+        }
+
+        private void Save_Order(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new BillPage());
+
+        }
+        
+
+        private void Plus(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void Minus(object sender, EventArgs e)
+        {
+           
         }
     }
 }
