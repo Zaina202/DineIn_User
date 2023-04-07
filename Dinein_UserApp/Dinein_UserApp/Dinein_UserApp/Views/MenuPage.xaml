@@ -35,14 +35,14 @@
                                             </Grid>
                                         </StackLayout>
                                         <!--Margin="100,40,10,10"-->
-                                        <Grid HeightRequest="30" VerticalOptions="End" HorizontalOptions="Start" Margin="0,0,0,15" x:Name="stepperGrid">
+                                        <Grid HeightRequest="40" VerticalOptions="End" HorizontalOptions="Start" Margin="0,0,0,15" x:Name="stepperGrid">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="26" />
                                                 <ColumnDefinition Width="30"  />
                                                 <ColumnDefinition Width="26" />
                                             </Grid.ColumnDefinitions>
                                             <Button BackgroundColor="Transparent" Grid.Column="0" Clicked="Minus" ImageSource="minus.png" />
-                                            <Entry  IsReadOnly="True" Grid.Column="1" x:Name="counterEntry" Keyboard="Numeric" Text="0" Placeholder="0" BackgroundColor="White" HeightRequest="30" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
+                                            <Entry  IsReadOnly="True" Grid.Column="1" x:Name="counterEntry" Keyboard="Numeric" Text="0" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
                                             <Button BackgroundColor="Transparent" Grid.Column="2" Clicked="Plus" ImageSource="plus.png"  />
                                         </Grid>
                                     </StackLayout>

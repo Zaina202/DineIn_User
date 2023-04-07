@@ -15,7 +15,6 @@ namespace Dinein_UserApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
     {
-        // public ObservableCollection<MenuItem> MenuItems { get; set; }
 
 
         private Entry counterEntry;
@@ -23,7 +22,7 @@ namespace Dinein_UserApp.Views
         public MenuPage()
         {
             InitializeComponent();
-            counterEntry = (Entry)FindByName("counterEntry");
+           counterEntry = (Entry)FindByName("counterEntry");
 
 
         }
