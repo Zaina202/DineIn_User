@@ -8,7 +8,6 @@ namespace Dinein_UserApp.Models
     {
         public string Name { get; set; }
         public int Price { get; set; }
-
-        public string Image { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

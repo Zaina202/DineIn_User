@@ -43,7 +43,7 @@ namespace Dinein_UserApp.Services
                 {
                     Name = item.Object.Name,
                     Price = item.Object.Price,
-                    Image=item.Object.Image,
+                    ImageUrl=item.Object.ImageUrl,
                 };
                 MenuList.Add(Meal);
             }
