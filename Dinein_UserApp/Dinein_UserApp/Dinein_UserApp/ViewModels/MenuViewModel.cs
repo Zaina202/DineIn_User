@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-
+using Dinein_UserApp.Views;
 namespace Dinein_UserApp.ViewModels
 {
     class MenuViewModel : INotifyPropertyChanged
@@ -16,6 +16,7 @@ namespace Dinein_UserApp.ViewModels
         private DataBase dataBase;
 
         private List<Models.Menu> _menuItems;
+
         public List<Models.Menu> MenuItems
         {
             get { return _menuItems; }
@@ -72,6 +73,7 @@ namespace Dinein_UserApp.ViewModels
 
         private async void OnSaveOrderClicked()
         {
+            var _totalPrice = 0;
             var order = new Order
             {
                 MenuItemName = new List<string>(),
@@ -86,11 +88,16 @@ namespace Dinein_UserApp.ViewModels
                     order.MenuItemName.Add(menuItem.Name);
                     order.MenuItemPrice.Add(menuItem.Price);
                     order.Quantity.Add(menuItem.Quantity);
-                }
+                   _totalPrice += menuItem.Quantity * menuItem.Price;
+                 
+    }
             }
-
+              
+            order.TotalPrice = _totalPrice;
             await dataBase.OrderSave(order);
+            await Application.Current.MainPage.Navigation.PushAsync(new BillPage());
         }
+        
     }
 }
     
