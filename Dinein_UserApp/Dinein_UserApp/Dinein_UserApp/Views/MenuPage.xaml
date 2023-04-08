@@ -9,7 +9,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="300,0,0,0" Clicked="Save_Order"/>
+            <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="300,0,0,0" Command="{Binding SaveOrderCommand}"/>
             <!--x:Name="MenuListView"-->
             <ListView x:Name="ItemListView" 
                       ItemsSource="{Binding MenuItems}"
@@ -41,9 +41,12 @@
                                                 <ColumnDefinition Width="30"  />
                                                 <ColumnDefinition Width="26" />
                                             </Grid.ColumnDefinitions>
-                                            <Button BackgroundColor="Transparent" Grid.Column="0" Clicked="Minus" ImageSource="minus.png" />
-                                            <Entry  IsReadOnly="True" Grid.Column="1" x:Name="counterEntry" Keyboard="Numeric" Text="0" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
-                                            <Button BackgroundColor="Transparent" Grid.Column="2" Clicked="Plus" ImageSource="plus.png"  />
+
+                                            <Button BackgroundColor="Transparent" Grid.Column="0" Command="{Binding Path=BindingContext.MinusCommand, Source={x:Reference ItemListView}}" CommandParameter="{Binding .}" ImageSource="minus.png" />
+                                            <Entry IsReadOnly="True" Grid.Column="1" Text="{Binding Quantity}" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
+                                            <Button BackgroundColor="Transparent" Grid.Column="2" Command="{Binding Path=BindingContext.PlusCommand, Source={x:Reference ItemListView}}" CommandParameter="{Binding .}" ImageSource="plus.png"  />
+
+
                                         </Grid>
                                     </StackLayout>
                                 </Frame>

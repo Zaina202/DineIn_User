@@ -18,7 +18,7 @@ namespace Dinein_UserApp.Services
         public FirebaseClient fc = new FirebaseClient(FirebaseClient,
         new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FirebaseSecret) });
 
-        public async Task<bool> Save(ReservationModel reservation)
+        public async Task<bool> ReservationModelSave(ReservationModel reservation)
         {
             try
             {
@@ -48,6 +48,21 @@ namespace Dinein_UserApp.Services
                 MenuList.Add(Meal);
             }
             return MenuList;
+        }
+
+        public async Task<bool> OrderSave(Order order)
+        {
+            try
+            {
+                await fc.Child(nameof(Order)).PostAsync(JsonConvert.SerializeObject(order));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                return false;
+            }
         }
     }
 }
