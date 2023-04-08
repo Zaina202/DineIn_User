@@ -11,6 +11,40 @@
             <Label Text="Welcome to Bill Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <StackLayout>
+        </StackLayout>
+
+                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}"  HorizontalOptions="FillAndExpand"  Margin="10" >
+
+                <StackLayout >
+                    <Label  FontSize="Large" TextColor="black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Margin="3" >
+
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Total Price is :  "></Span>
+                                <Span Text="{Binding  TotalPrice}"></Span>
+                                <Span Text="   NIS" ></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+
+
+                    </Label>
+
+
+                    <Button Text="Confirm" Style="{StaticResource LargButton}" Grid.Row="1" Clicked="ConfirmButton_Clicked" HorizontalOptions="CenterAndExpand" Margin="3"></Button>
+                </StackLayout>
+                    
+
+                    
+
+
+                </Frame>
+
+        
+
+
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
