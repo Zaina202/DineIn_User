@@ -11,6 +11,7 @@
             <Label Text="Welcome to Bill Page!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding  TotalPrice}" FontSize="Small" TextColor="black"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
