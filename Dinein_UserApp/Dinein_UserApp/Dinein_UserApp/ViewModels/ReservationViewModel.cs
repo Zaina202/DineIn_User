@@ -117,7 +117,7 @@ namespace Dinein_UserApp.ViewModels
 
 
                 DataBase dataBase = new DataBase();
-                var isSaved = await dataBase.Save(reservationModel);
+                var isSaved = await dataBase.ReservationModelSave(reservationModel);
 
 
                 if (isSaved)
