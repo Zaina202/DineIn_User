@@ -16,5 +16,9 @@ namespace Dinein_UserApp.Views
         {
             InitializeComponent();
         }
+        private void Sign_Up(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new LoginPage());
+        }
     }
 }
