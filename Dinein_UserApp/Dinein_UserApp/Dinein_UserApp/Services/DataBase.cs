@@ -64,5 +64,15 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+        public async Task<int> GetTotalPrice()
+        {
+            var orders = await fc.Child("Order").OnceAsync<Order>();
+            int totalPrice = 0;
+            foreach (var order in orders)
+            {
+                totalPrice += order.Object.TotalPrice;
+            }
+            return totalPrice;
+        }
     }
 }

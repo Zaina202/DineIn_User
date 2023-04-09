@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dinein_UserApp.Services;
+using Dinein_UserApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,16 @@ namespace Dinein_UserApp.Views
         public BillPage()
         {
             InitializeComponent();
+            Task.Run(async () =>
+            {
+                var dataBase = new DataBase();
+                var totalPrice = await dataBase.GetTotalPrice();
+                var viewModel = new BillViewModel(totalPrice);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    BindingContext = viewModel;
+                });
+            });
         }
 
         private void ConfirmButton_Clicked(object sender, EventArgs e)
