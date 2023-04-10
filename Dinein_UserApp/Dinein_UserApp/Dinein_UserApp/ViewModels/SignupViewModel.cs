@@ -1,132 +1,136 @@
 ﻿using Dinein_UserApp.Models;
-using Firebase.Database;
-using Firebase.Database.Query;
-using MvvmHelpers;
 using System;
-using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-
 
 namespace Dinein_UserApp.ViewModels
 {
-    public class SignupViewModel : BaseViewModel
+    class SignupViewModel : INotifyPropertyChanged
     {
-        private string username;
-        private string email;
-        private string phoneNumber;
-        private string password;
-        private string confirmPassword;
+        private readonly UserModel _userModel;
 
-        public string Username
+        private string _name;
+        private string _email;
+        private string _password;
+        private string _confirmPassword;
+        private bool _isBusy;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public string Name
         {
-            get => username;
-            set => SetProperty(ref username, value);
+            get { return _name; }
+            set { _name = value; OnPropertyChanged(); }
         }
+
         public string Email
         {
-            get => email;
-            set => SetProperty(ref email, value);
-        }
-        public string PhoneNumber
-        {
-            get => phoneNumber;
-            set => SetProperty(ref phoneNumber, value);
+            get { return _email; }
+            set { _email = value; OnPropertyChanged(); }
         }
 
         public string Password
         {
-            get => password;
-            set => SetProperty(ref password, value);
+            get { return _password; }
+            set { _password = value; OnPropertyChanged(); }
         }
 
         public string ConfirmPassword
         {
-            get => confirmPassword;
-            set => SetProperty(ref confirmPassword, value);
-        }
-        private bool IsValidPhoneNumber(string phoneNumber)
-        {
-            if (string.IsNullOrEmpty(phoneNumber))
-            {
-                return false;
-            }
-
-            // use a regular expression to validate the phone number
-            var regex = new Regex(@"^05\d([-]{0,1})\d{7}$");
-            return regex.IsMatch(phoneNumber);// For now, we will just assume that all phone numbers are valid
-        }
-   
-        public Command SignUpCommand => new Command(async () =>
-        {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(PhoneNumber) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password) || string.IsNullOrWhiteSpace(ConfirmPassword))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Please fill in all required fields.", "OK");
-                return;
-            }
-
-            // check if password and confirm password match
-            if (Password != ConfirmPassword)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Passwords do not match.", "OK");
-                return;
-            }
-            if (!IsValidPhoneNumber(PhoneNumber))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid phone number.", "OK");
-                return;
-            }
-            if (!IsValidEmail(Email))
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid email.", "OK");
-                return;
-            }
-
-            // create new user object
-            var newUser = new User
-            {
-                Username = Username,
-                Email = Email,
-                PhoneNumber = PhoneNumber,
-                Password = HashPassword(Password) // encrypt the password using a cryptographic hash function
-            };
-            // get firebase database reference
-            var firebase = new FirebaseClient("https://dine-in-54308-default-rtdb.firebaseio.com/");
-
-            // check if phone number is already used
-            var existingUser = await firebase.Child("Users").OrderBy("PhoneNumber").EqualTo(PhoneNumber).OnceAsync<User>();
-            if (existingUser.Count > 0)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "Phone number is already taken.", "OK");
-                return;
-            }
-            // create new user node in database and set value to user object
-            await firebase.Child("Users").PostAsync(newUser);
-
-            // display success message
-            await Application.Current.MainPage.DisplayAlert("Success", "User account created successfully!", "OK");
-        });
-        public bool IsValidEmail(string email)
-        {
-            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-            Regex regex = new Regex(pattern);
-
-            Match match = regex.Match(email);
-
-            return match.Success;
-
+            get { return _confirmPassword; }
+            set { _confirmPassword = value; OnPropertyChanged(); }
         }
 
-        private string HashPassword(string password)
+        public bool IsBusy
         {
-            using (var sha256 = SHA256.Create())
+            get { return _isBusy; }
+            set { _isBusy = value; OnPropertyChanged(); }
+        }
+
+        public SignupViewModel()
+        {
+            _userModel = new UserModel();
+        }
+
+        public Command RegisterCommand => new Command(async () => await RegisterUserAsync());
+
+        private async Task RegisterUserAsync()
+        {
+            try
             {
-                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                var hashedString = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
-                return hashedString;
+                if (string.IsNullOrEmpty(Name))
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "Type name", "Ok");
+                    return;
+                }
+
+
+                if (string.IsNullOrEmpty(Email))
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "Type Email", "Ok");
+                    return;
+                }
+
+                if (Password.Length < 6)
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "password should be 6 digits", "Ok");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(Password))
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "Type password", "Ok");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(ConfirmPassword))
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "Type confirm Password", "Ok");
+                    return;
+                }
+
+                if (Password != ConfirmPassword)
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "password not match", "Ok");
+                    return;
+                }
+
+                IsBusy = true;
+                bool isSaved = await _userModel.RegisterUser(Email, Name, Password);
+
+                if (isSaved)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Register User", "Registration completed", "Ok");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Register User", "Registration failed", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message.Contains("EMAIL_EXISTS"))
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "email exist", "ok");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "ok");
+                }
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
-      
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        }
     }
 }

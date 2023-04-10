@@ -8,26 +8,19 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-
+         
             <Image Source="dinein1.png" Aspect="AspectFit"  Margin="10,30,10,30"/>
 
             <Frame BorderColor="Black" CornerRadius="15" Padding="5" Margin="35,5,35,5">
                 <StackLayout Orientation="Horizontal">
                     <Image Source="username.png"  Margin="10,0,0,0"/>
-                    <Entry Placeholder="Username" Text="{Binding Username}" />
+                    <Entry Placeholder="Username" Text="{Binding Name}" />
                 </StackLayout>
             </Frame>
             <Frame BorderColor="Black" CornerRadius="15" Padding="5" Margin="35,5,35,5">
                 <StackLayout Orientation="Horizontal">
                     <Image Source="username.png"  Margin="10,0,0,0"/>
                     <Entry Placeholder="Email" Text="{Binding Email}" />
-                </StackLayout>
-            </Frame>
-
-            <Frame BorderColor="Black" CornerRadius="15" Padding="5" Margin="35,5,35,5">
-                <StackLayout Orientation="Horizontal">
-                    <Image Source="phone1.png"  Margin="10,0,0,0"/>
-                    <Entry Placeholder="Phone Number" Text="{Binding PhoneNumber}" />
                 </StackLayout>
             </Frame>
 
@@ -48,7 +41,7 @@
             <Button Style="{StaticResource SmallButton}" 
                 Margin="65,30,65,0"
                Text="Sign Up"
-               Command="{Binding SignUpCommand}" />
+               Command="{Binding RegisterCommand}" />
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Label Text="Already have an account? " TextColor="Black" FontSize="Body" Margin="50,2,0,0" />
