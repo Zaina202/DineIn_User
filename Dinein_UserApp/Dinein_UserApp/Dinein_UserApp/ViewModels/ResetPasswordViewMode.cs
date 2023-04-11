@@ -1,22 +1,52 @@
-﻿using System;
+﻿using Dinein_UserApp.Services;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
-    public class ResetPasswordViewMode : ContentPage
+    class ResetPasswordViewModel : INotifyPropertyChanged
     {
-        public ResetPasswordViewMode()
+        private readonly DataBase dataBase;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ResetPasswordViewModel()
         {
-            Content = new StackLayout
+            dataBase = new DataBase();
+            ResetPasswordCommand = new Command(async () => await ResetPassword());
+        }
+
+        public string Email { get; set; }
+
+        public Command ResetPasswordCommand { get; }
+
+        private async Task ResetPassword()
+        {
+            try
             {
-                Children = {
-                    new Label { Text = "Welcome to Xamarin.Forms!" }
+                if (string.IsNullOrEmpty(Email))
+                {
+                    await Application.Current.MainPage.DisplayAlert("warning", "Type Email", "Ok");
+                    return;
                 }
-            };
+                bool result = await dataBase.ResetPassword(Email);
+                if (result)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Success", "Password reset email sent", "Ok");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Password reset failed", "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+            }
         }
     }
 }
