@@ -70,6 +70,7 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+
         public async Task<string> SignIn(string email, string password)
         {
             var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
