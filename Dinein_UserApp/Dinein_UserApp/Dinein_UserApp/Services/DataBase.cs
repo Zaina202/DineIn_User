@@ -70,7 +70,19 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
-
+        public async Task<string> SignIn(string email, string password)
+        {
+            var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+            if (!string.IsNullOrEmpty(authLink.FirebaseToken))
+            {
+                Application.Current.Properties["UID"] = authLink.User.LocalId;
+                return authLink.FirebaseToken;
+            }
+            else
+            {
+                return "";
+            }
+        }
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
