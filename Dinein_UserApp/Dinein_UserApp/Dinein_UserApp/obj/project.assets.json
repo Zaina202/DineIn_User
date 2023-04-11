@@ -1343,23 +1343,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User0\\.nuget\\packages\\": {},
+    "C:\\Users\\Alaseel\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
+      "projectUniqueName": "C:\\Users\\Alaseel\\Documents\\GitHub\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
       "projectName": "Dinein_UserApp",
-      "projectPath": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
-      "packagesPath": "C:\\Users\\User0\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\obj\\",
+      "projectPath": "C:\\Users\\Alaseel\\Documents\\GitHub\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
+      "packagesPath": "C:\\Users\\Alaseel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Alaseel\\Documents\\GitHub\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\User0\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Alaseel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],

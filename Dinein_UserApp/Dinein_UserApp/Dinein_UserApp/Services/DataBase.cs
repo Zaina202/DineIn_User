@@ -1,4 +1,5 @@
 ﻿using Dinein_UserApp.Models;
+using Firebase.Auth;
 using Firebase.Database;
 using Newtonsoft.Json;
 using System;
@@ -12,12 +13,17 @@ namespace Dinein_UserApp.Services
 {
     public class DataBase
     {
-        public static string FirebaseClient = ("https://dine-in-54308-default-rtdb.firebaseio.com/");
+        public static string FirebaseClient = "https://dine-in-54308-default-rtdb.firebaseio.com/";
         public static string FirebaseSecret = "1AO003FSpm2dGZn4321C88RKPu2T6DPnKLfBr1Dg";
 
         public FirebaseClient fc = new FirebaseClient(FirebaseClient,
         new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FirebaseSecret) });
-
+        static string webAPIkey = "\r\nAIzaSyBs4FwBJ8G5xNjnRKdFDYpv_lPuvSVWCyA";
+        FirebaseAuthProvider authProvider;
+        public DataBase()
+        {
+            authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIkey));
+        }
         public async Task<bool> ReservationModelSave(ReservationModel reservation)
         {
             try
@@ -64,15 +70,28 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
-        public async Task<int> GetTotalPrice()
+
+        public async Task<string> SignIn(string email, string password)
         {
-            var orders = await fc.Child("Order").OnceAsync<Order>();
-            int totalPrice = 0;
-            foreach (var order in orders)
+            var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+            if (!string.IsNullOrEmpty(authLink.FirebaseToken))
             {
-                totalPrice += order.Object.TotalPrice;
+                Application.Current.Properties["UID"] = authLink.User.LocalId;
+                return authLink.FirebaseToken;
             }
-            return totalPrice;
+            else
+            {
+                return "";
+            }
+        }
+        public async Task<bool> Register(string email, string name, string password)
+        {
+            var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
+            if (!string.IsNullOrEmpty(token.FirebaseToken))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
