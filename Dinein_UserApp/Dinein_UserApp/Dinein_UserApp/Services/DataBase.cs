@@ -84,6 +84,16 @@ namespace Dinein_UserApp.Services
                 return "";
             }
         }
+        public async Task<int> GetTotalPrice()
+        {
+            var orders = await fc.Child("Order").OnceAsync<Order>();
+            int totalPrice = 0;
+            foreach (var order in orders)
+            {
+                totalPrice += order.Object.TotalPrice;
+            }
+            return totalPrice;
+        }
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
