@@ -11,6 +11,8 @@ namespace Dinein_UserApp.Models
         public List<int> Quantity { get; set; }
         public List<string> Image { get; set; }
         public int TotalPrice { get; set; }
+        public string UserId { get; set; }
+
 
     }
 }

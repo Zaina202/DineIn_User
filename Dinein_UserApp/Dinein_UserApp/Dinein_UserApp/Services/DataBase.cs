@@ -70,6 +70,7 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
