@@ -103,5 +103,11 @@ namespace Dinein_UserApp.Services
             }
             return false;
         }
+        public async Task<bool> ResetPassword(string email)
+        {
+            await authProvider.SendPasswordResetEmailAsync(email);
+            return true;
+
+        }
     }
 }
