@@ -14,7 +14,7 @@
             <Frame BorderColor="Black" CornerRadius="15" Padding="5" Margin="35,40,35,5">
                 <StackLayout Orientation="Horizontal">
                     <Image Source="username.png" Margin="10,0,0,0" />
-                    <Entry Placeholder="Username" Text="{Binding Email}" />
+                    <Entry Placeholder="Email" Text="{Binding Email}" />
                 </StackLayout>
             </Frame>
 
