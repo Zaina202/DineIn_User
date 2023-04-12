@@ -70,6 +70,7 @@ namespace Dinein_UserApp.Services
             var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
             if (!string.IsNullOrEmpty(authLink.FirebaseToken))
             {
+                Application.Current.Properties["UID"] = authLink.User.LocalId;
                 return authLink.FirebaseToken;
             }
             else
