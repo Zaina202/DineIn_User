@@ -37,6 +37,8 @@ namespace Dinein_UserApp.ViewModels
                 if (result)
                 {
                     await Application.Current.MainPage.DisplayAlert("Success", "Password reset email sent", "Ok");
+                    await Shell.Current.GoToAsync("//LoginPage");
+
                 }
                 else
                 {

@@ -4,7 +4,7 @@
              x:Class="Dinein_UserApp.Views.Reserve" Shell.TabBarIsVisible="False" Shell.NavBarIsVisible="False">
     <ContentPage.Content>
 
-        <StackLayout Margin="16,64,16,35" >
+        <StackLayout Margin="16,100,16,35" >
             <StackLayout>
                 <Label Text="Lemon W Na3na3" FontSize="Title"
                        HorizontalOptions="CenterAndExpand"

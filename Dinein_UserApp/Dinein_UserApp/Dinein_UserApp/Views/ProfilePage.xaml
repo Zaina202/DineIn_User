@@ -7,16 +7,17 @@
         <local:ProfileViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout Margin="30, 30, 30, 30">
+        <StackLayout Margin="30, 10, 30, 30">
+            <Button HorizontalOptions="End" ImageSource="logout.png" BackgroundColor="Transparent" Clicked="Logout" Margin="0,0,-30,0"/>
             <Frame Padding="0"
-                   HeightRequest="200"
-                  WidthRequest="200"
+                   HeightRequest="150"
+                  WidthRequest="150"
                   BackgroundColor="white"
                    CornerRadius="100"
                    BorderColor="Teal"
                   HorizontalOptions="Center"
                   VerticalOptions="Center">
-                <Image Source="profile_picture.png" Scale="1" ></Image>
+                <Image Source="profilpage.png" Scale="1" ></Image>
             </Frame>
             <StackLayout 
                      Spacing="15">
@@ -40,28 +41,20 @@
                    FontSize="Large"
                    FontAttributes="Bold" />
                 </StackLayout>
-                <StackLayout Spacing="3">
-                    <Label Text="Point:"
-                      FontSize="Small"
-                   FontAttributes="Italic"
-                       TextColor="Gray"
-                       />
-                    <Label Text="50 Point"
-                   FontSize="Large"
-                   FontAttributes="Bold" />
-                </StackLayout>
+                
                 <StackLayout Spacing="10">
                     <Label Text="Offers:"
                       FontSize="Small"
                    FontAttributes="Italic"
                        TextColor="Gray"
                        />
-                    <Frame BackgroundColor="LightGray" 
+                    <Frame BackgroundColor="{StaticResource Secondry}" 
                    Margin="5" 
      
                    CornerRadius="10">
                         <ContentView  VerticalOptions="CenterAndExpand">
-                            <Label Text="Hi there! We have some exciting offers just for you. Get 20% off on all products today. Use code SAVE20 at checkout. Limited time only. Don't miss out!"
+                            <Label Text="Hi there! We have some exciting offers for you to try. 
+                                   Get 10% off if the bill was more than 200 NIS. Don't miss out!"
                FontSize="Medium"
                FontAttributes="Bold"
                TextColor="Black"

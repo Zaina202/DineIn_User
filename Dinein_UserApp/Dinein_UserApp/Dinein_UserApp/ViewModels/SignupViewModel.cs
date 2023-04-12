@@ -104,6 +104,8 @@ namespace Dinein_UserApp.ViewModels
                 if (isSaved)
                 {
                     await Application.Current.MainPage.DisplayAlert("Register User", "Registration completed", "Ok");
+                    await Shell.Current.GoToAsync("//LoginPage");
+
                 }
                 else
                 {

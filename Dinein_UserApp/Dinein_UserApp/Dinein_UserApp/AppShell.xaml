@@ -38,10 +38,10 @@
         <ShellContent Title="Profile" Icon="profile.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
     </TabBar>
 
-    
-    <TabBar >
-        <ShellContent Title="Reserve" ContentTemplate="{DataTemplate local:Reserve}" />
-    </TabBar>
+    <ShellContent Title="Login" ContentTemplate="{DataTemplate local:LoginPage}" Route="LoginPage" />
+    <ShellContent Title="Login" ContentTemplate="{DataTemplate local:SignupPage}" Route="SigupPage" />
+
+    <ShellContent Title="Reserve" ContentTemplate="{DataTemplate local:Reserve}" />
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//LoginPage");
