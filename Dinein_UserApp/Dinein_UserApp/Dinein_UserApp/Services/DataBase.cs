@@ -4,6 +4,7 @@ using Firebase.Database;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -108,6 +109,36 @@ namespace Dinein_UserApp.Services
             await authProvider.SendPasswordResetEmailAsync(email);
             return true;
 
+        }
+        public async Task<Users> GetUser(string userId)
+        {
+            {
+                try
+                {
+                    var userSnapshot = await fc.Child(nameof(Users)).OnceAsync<Users>();
+                    var userFirebaseObject = userSnapshot.FirstOrDefault();
+                    if (userFirebaseObject != null)
+                    {
+                        var user = userFirebaseObject.Object;
+                        user.Id = userFirebaseObject.Key;
+                        return user;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (FirebaseException ex)
+                {
+                    Console.WriteLine($"Firebase Exception: {ex.Message}");
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Exception: {ex.Message}");
+                    return null;
+                }
+            }
         }
     }
 }
