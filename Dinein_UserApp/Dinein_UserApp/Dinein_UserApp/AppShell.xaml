@@ -3,7 +3,8 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Dinein_UserApp.Views"
        Title="Dinein_UserApp"
-       x:Class="Dinein_UserApp.AppShell">
+       x:Class="Dinein_UserApp.AppShell"     FlyoutBehavior="Disabled">
+    
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -32,12 +33,15 @@
 
 
     <TabBar >
-        <ShellContent Title="Home" Icon="home.png" Route="Home" ContentTemplate="{DataTemplate local:Home}" />
+        <ShellContent Title="Home" Icon="home.png" Route="Home" ContentTemplate="{DataTemplate local:Reserve}" />
         <ShellContent Title="Current" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:CurrentReservationPage}" />
         <ShellContent Title="Profile" Icon="profile.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
     </TabBar>
 
-
+    
+    <TabBar >
+        <ShellContent Title="Reserve" ContentTemplate="{DataTemplate local:Reserve}" />
+    </TabBar>
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//LoginPage");

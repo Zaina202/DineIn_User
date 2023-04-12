@@ -24,8 +24,7 @@ namespace Dinein_UserApp.Views
 
         private void Start_Reserve(object sender, EventArgs e)
         {
-            //Navigation.PushAsync(new ReservationPage());
-            Navigation.PushAsync(new SignupPage());
+            Navigation.PushAsync(new ReservationPage());
 
         }
     }

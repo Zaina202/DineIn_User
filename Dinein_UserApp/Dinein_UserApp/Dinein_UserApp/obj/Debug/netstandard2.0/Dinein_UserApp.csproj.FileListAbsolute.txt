@@ -72,3 +72,6 @@ C:\Users\Alaseel\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dine
 C:\Users\Alaseel\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp\bin\Debug\netstandard2.0\ref\Dinein_UserApp.dll
 C:\Users\Alaseel\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp\bin\Debug\netstandard2.0\Dinein_UserApp.pdb
 C:\Users\Alaseel\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp\obj\Debug\netstandard2.0\Views\ResetPasswordPage.xaml.g.cs
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp\obj\Debug\netstandard2.0\Dinein_UserApp.csproj.AssemblyReference.cache
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp\obj\Debug\netstandard2.0\Views\Reserve.xaml.g.cs

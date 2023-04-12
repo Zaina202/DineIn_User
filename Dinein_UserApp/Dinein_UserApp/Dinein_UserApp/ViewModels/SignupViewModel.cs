@@ -63,38 +63,38 @@ namespace Dinein_UserApp.ViewModels
             {
                 if (string.IsNullOrEmpty(Name))
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "Type name", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Please fill name field!", "Ok");
                     return;
                 }
 
 
                 if (string.IsNullOrEmpty(Email))
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "Type Email", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Please fill Email field!", "Ok");
                     return;
                 }
 
                 if (Password.Length < 6)
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "password should be 6 digits", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "password should be at least 6 digits", "Ok");
                     return;
                 }
 
                 if (string.IsNullOrEmpty(Password))
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "Type password", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Please fill password field!", "Ok");
                     return;
                 }
 
                 if (string.IsNullOrEmpty(ConfirmPassword))
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "Type confirm Password", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Please fill confirm Password field!", "Ok");
                     return;
                 }
 
                 if (Password != ConfirmPassword)
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "password not match", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Password Not Match", "Ok");
                     return;
                 }
 

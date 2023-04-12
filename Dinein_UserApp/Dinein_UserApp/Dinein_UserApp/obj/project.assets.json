@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
+      "FirebaseAuthentication.net/3.7.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/netstandard1.1/Firebase.Auth.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/Firebase.Auth.dll": {}
+        }
+      },
       "FirebaseDatabase.net/4.2.0": {
         "type": "package",
         "dependencies": {
@@ -218,6 +231,18 @@
     }
   },
   "libraries": {
+    "FirebaseAuthentication.net/3.7.1": {
+      "sha512": "V8rIhr8rpvT8TjPJwMEbK8gX8uz5bYyTtFnzMZqEo/Tr/zPs1ycPcfqXmP3zLpTomuoZap7ER2xXrZyolcb1/g==",
+      "type": "package",
+      "path": "firebaseauthentication.net/3.7.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "firebaseauthentication.net.3.7.1.nupkg.sha512",
+        "firebaseauthentication.net.nuspec",
+        "lib/netstandard1.1/Firebase.Auth.dll"
+      ]
+    },
     "FirebaseDatabase.net/4.2.0": {
       "sha512": "Se6HQlm2QBHemcojMaZ0N4qHOp8H66dso3tGXiJUEaDpOwdHcNcUzF+bQDF8LfENCmBjxihYERHgL2IKZ5otwQ==",
       "type": "package",
@@ -1336,6 +1361,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "FirebaseAuthentication.net >= 3.7.1",
       "FirebaseDatabase.net >= 4.2.0",
       "NETStandard.Library >= 2.0.3",
       "Xamarin.Essentials >= 1.6.1",
@@ -1343,23 +1369,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Alaseel\\.nuget\\packages\\": {},
+    "C:\\Users\\User0\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alaseel\\Documents\\GitHub\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
+      "projectUniqueName": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
       "projectName": "Dinein_UserApp",
-      "projectPath": "C:\\Users\\Alaseel\\Documents\\GitHub\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
-      "packagesPath": "C:\\Users\\Alaseel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alaseel\\Documents\\GitHub\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\obj\\",
+      "projectPath": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
+      "packagesPath": "C:\\Users\\User0\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Alaseel\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User0\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -1386,6 +1412,10 @@
       "netstandard2.0": {
         "targetAlias": "netstandard2.0",
         "dependencies": {
+          "FirebaseAuthentication.net": {
+            "target": "Package",
+            "version": "[3.7.1, )"
+          },
           "FirebaseDatabase.net": {
             "target": "Package",
             "version": "[4.2.0, )"
