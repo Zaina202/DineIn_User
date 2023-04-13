@@ -92,7 +92,7 @@ namespace Dinein_UserApp.ViewModels
                  
     }
             }
-              
+            order.UserId = (string)Application.Current.Properties["UID"];
             order.TotalPrice = _totalPrice;
             await dataBase.OrderSave(order);
             await Application.Current.MainPage.Navigation.PushAsync(new BillPage());

@@ -4,6 +4,7 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "Dinein_UserApp.Android.dll" comes first in this list. */
 		"Dinein_UserApp.Android.dll",
 		"Dinein_UserApp.dll",
+		"Firebase.Auth.dll",
 		"Firebase.dll",
 		"FormsViewGroup.dll",
 		"LiteDB.dll",

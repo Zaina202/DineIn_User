@@ -1,8 +1,10 @@
 ﻿using Dinein_UserApp.Models;
+using Firebase.Auth;
 using Firebase.Database;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -12,12 +14,17 @@ namespace Dinein_UserApp.Services
 {
     public class DataBase
     {
-        public static string FirebaseClient = ("https://dine-in-54308-default-rtdb.firebaseio.com/");
+        public static string FirebaseClient = "https://dine-in-54308-default-rtdb.firebaseio.com/";
         public static string FirebaseSecret = "1AO003FSpm2dGZn4321C88RKPu2T6DPnKLfBr1Dg";
 
         public FirebaseClient fc = new FirebaseClient(FirebaseClient,
         new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FirebaseSecret) });
-
+        static string webAPIkey = "\r\nAIzaSyBs4FwBJ8G5xNjnRKdFDYpv_lPuvSVWCyA";
+        FirebaseAuthProvider authProvider;
+        public DataBase()
+        {
+            authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIkey));
+        }
         public async Task<bool> ReservationModelSave(ReservationModel reservation)
         {
             try
@@ -62,6 +69,75 @@ namespace Dinein_UserApp.Services
                 Console.WriteLine(ex.Message);
 
                 return false;
+            }
+        }
+
+        public async Task<string> SignIn(string email, string password)
+        {
+            var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+            if (!string.IsNullOrEmpty(authLink.FirebaseToken))
+            {
+                Application.Current.Properties["UID"] = authLink.User.LocalId;
+                return authLink.FirebaseToken;
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public async Task<int> GetTotalPrice()
+        {
+            var orders = await fc.Child("Order").OnceAsync<Order>();
+            int totalPrice = 0;
+            foreach (var order in orders)
+            {
+                totalPrice += order.Object.TotalPrice;
+            }
+            return totalPrice;
+        }
+        public async Task<bool> Register(string email, string name, string password)
+        {
+            var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
+            if (!string.IsNullOrEmpty(token.FirebaseToken))
+            {
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> ResetPassword(string email)
+        {
+            await authProvider.SendPasswordResetEmailAsync(email);
+            return true;
+
+        }
+        public async Task<Users> GetUser(string userId)
+        {
+            {
+                try
+                {
+                    var userSnapshot = await fc.Child(nameof(Users)).OnceAsync<Users>();
+                    var userFirebaseObject = userSnapshot.FirstOrDefault();
+                    if (userFirebaseObject != null)
+                    {
+                        var user = userFirebaseObject.Object;
+                        user.Id = userFirebaseObject.Key;
+                        return user;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (FirebaseException ex)
+                {
+                    Console.WriteLine($"Firebase Exception: {ex.Message}");
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Exception: {ex.Message}");
+                    return null;
+                }
             }
         }
     }

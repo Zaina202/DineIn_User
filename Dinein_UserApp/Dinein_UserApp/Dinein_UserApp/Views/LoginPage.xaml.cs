@@ -16,5 +16,16 @@ namespace Dinein_UserApp.Views
         {
             InitializeComponent();
         }
+
+        private void Button_SignUp(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new SignupPage());
+        }
+
+        private void Reset_Password(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ResetPasswordPage());
+
+        }
     }
 }

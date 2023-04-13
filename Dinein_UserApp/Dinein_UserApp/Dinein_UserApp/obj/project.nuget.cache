@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Wjrz+1fHoiGjX24Dsf4Zv66RxDAxlEwI4fNKtZrUKnz+d0SvU50IYr4K2Ef39wdq0uqwkazTcCvNMxAxhmRI9g==",
+  "dgSpecHash": "A9VfCe4tJujF/j5v0dgsjYs9YMN97n+mCHguKmMeXHWJA9Tdx1xql0FKciCRMdVi/7SM5Amsw64Zat4QGMCw7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\User0\\Desktop\\mobile\\DineIn_User\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp\\Dinein_UserApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\User0\\.nuget\\packages\\firebaseauthentication.net\\3.7.1\\firebaseauthentication.net.3.7.1.nupkg.sha512",
     "C:\\Users\\User0\\.nuget\\packages\\firebasedatabase.net\\4.2.0\\firebasedatabase.net.4.2.0.nupkg.sha512",
     "C:\\Users\\User0\\.nuget\\packages\\litedb\\4.1.4\\litedb.4.1.4.nupkg.sha512",
     "C:\\Users\\User0\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

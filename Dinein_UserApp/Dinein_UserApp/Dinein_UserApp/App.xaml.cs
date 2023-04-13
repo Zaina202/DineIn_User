@@ -15,6 +15,7 @@ namespace Dinein_UserApp
 
            // DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+
         }
 
         protected override void OnStart()

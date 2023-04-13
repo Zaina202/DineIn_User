@@ -114,6 +114,8 @@ namespace Dinein_UserApp.ViewModels
                 reservationModel.TimePicker = Time;
                 reservationModel.NumberOfPeople = selectedValue;
                 reservationModel.Note = note;
+                reservationModel.UserId = (string)Application.Current.Properties["UID"];
+
 
 
                 DataBase dataBase = new DataBase();
