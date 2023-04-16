@@ -30,7 +30,7 @@ namespace Dinein_UserApp.ViewModels
             var user = await dataBase.GetUser("Id");
          
             Name = user.Username;
-            Phone = user.PhoneNumber;
+            Email = user.Email;
             
 
         }
@@ -57,16 +57,16 @@ namespace Dinein_UserApp.ViewModels
 
 
 
-        private string phone;
-        public string Phone
+        private string email;
+        public string Email
         {
-            get { return phone; }
+            get { return email; }
             set
             {
-                if (phone != value)
+                if (email != value)
                 {
-                    phone = value;
-                    OnPropertyChanged(nameof(Phone));
+                    email = value;
+                    OnPropertyChanged(nameof(Email));
                 }
             }
         }
