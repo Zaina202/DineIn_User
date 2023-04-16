@@ -41,8 +41,8 @@
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" >
-                <Button Text="Edit" CornerRadius="{Binding EditButtonCornerRadius}" Margin="55,10,30,0" WidthRequest="130" HeightRequest="60"/>
-                <Button Text="Cancel" CornerRadius="{Binding CancelButtonCornerRadius}" Margin="10,10,0,0" WidthRequest="130" HeightRequest="60" Clicked="Button_Cancel"  />
+                <Button Text="Edit"  CornerRadius="20" Margin="55,10,30,0"  WidthRequest="130" HeightRequest="60"/>
+                <Button Text="Cancel" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130" HeightRequest="60" Clicked="Button_Cancel"  />
             </StackLayout>
 
             <StackLayout x:Name="guestStackLayout" BackgroundColor="{StaticResource Secondry}" Orientation="Horizontal" Margin="30,20,30,0">
