@@ -74,20 +74,16 @@ namespace Dinein_UserApp.ViewModels
         private async void OnSaveOrderClicked()
         {
             var _totalPrice = 0;
-            var order = new Order
-            {
-                MenuItemName = new List<string>(),
-                MenuItemPrice = new List<int>(),
-                Quantity = new List<int>()
-            };
+            var order = new Order();
+          
 
             foreach (var menuItem in MenuItems)
             {
                 if (menuItem.Quantity > 0)
                 {
-                    order.MenuItemName.Add(menuItem.Name);
-                    order.MenuItemPrice.Add(menuItem.Price);
-                    order.Quantity.Add(menuItem.Quantity);
+                    order.MenuItemName=(menuItem.Name);
+                    order.MenuItemPrice = (menuItem.Price);
+                    order.Quantity = (menuItem.Quantity);
                    _totalPrice += menuItem.Quantity * menuItem.Price;
                  
     }

@@ -37,7 +37,7 @@
                    FontAttributes="Italic"
                        TextColor="Gray"
                        />
-                    <Label Text="{Binding Phone}"
+                    <Label Text="{Binding Email}"
                    FontSize="Large"
                    FontAttributes="Bold" />
                 </StackLayout>
