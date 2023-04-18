@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dinein_UserApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,17 @@ namespace Dinein_UserApp.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Order(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new BillPage());
+
+        }
+
+        private void Button_Cancel(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CancelPage());
+        }
     }
 }
+

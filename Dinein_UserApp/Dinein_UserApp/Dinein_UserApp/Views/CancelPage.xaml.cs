@@ -16,5 +16,10 @@ namespace Dinein_UserApp.Views
         {
             InitializeComponent();
         }
+
+        private void Button_Reserve(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ReservationPage());
+        }
     }
 }
