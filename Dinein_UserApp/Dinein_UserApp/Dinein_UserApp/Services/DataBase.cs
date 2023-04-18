@@ -25,6 +25,22 @@ namespace Dinein_UserApp.Services
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIkey));
         }
+        public async Task<bool> ReservationModelUpdate(ReservationModel reservation)
+        {
+            try
+            {
+
+                await fc.Child(nameof(ReservationModel)).PutAsync(JsonConvert.SerializeObject(reservation));
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         public async Task<bool> ReservationModelSave(ReservationModel reservation)
         {
             try
