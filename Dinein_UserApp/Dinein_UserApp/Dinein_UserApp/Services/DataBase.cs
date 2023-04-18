@@ -1,6 +1,7 @@
 ﻿using Dinein_UserApp.Models;
 using Firebase.Auth;
 using Firebase.Database;
+using Firebase.Database.Query;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -87,7 +88,20 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+        public async Task<bool> UserSave(Users user)
+        {
+            try
+            {
+                await fc.Child(nameof(Users)).PostAsync(JsonConvert.SerializeObject(user));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
+                return false;
+            }
+        }
         public async Task<string> SignIn(string email, string password)
         {
             var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
@@ -116,6 +130,8 @@ namespace Dinein_UserApp.Services
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
+                Application.Current.Properties["UID"] = token.User.LocalId;
+
                 return true;
             }
             return false;
@@ -154,6 +170,39 @@ namespace Dinein_UserApp.Services
                     Console.WriteLine($"Exception: {ex.Message}");
                     return null;
                 }
+            }
+        }
+        public async Task<ReservationModel> GetCurrentReservation(string userId)
+        {
+            try
+            {
+                var reservations = await fc.Child(nameof(ReservationModel)).OrderBy("UserId").EqualTo(userId).OnceAsync<ReservationModel>();
+                if (reservations.Any())
+                {
+                    // Select the latest reservation based on the TimePicker
+                    var latestReservation = reservations.OrderByDescending(r => TimeSpan.Parse(r.Object.TimePicker)).FirstOrDefault();
+                    if (latestReservation != null && latestReservation.Object != null)
+                    {
+                        var reservation = latestReservation.Object;
+                        reservation.UserId = latestReservation.Key;
+                        reservation.ReservationId = latestReservation.Key;
+
+                        Console.WriteLine($"Retrieved current reservation: {reservation.UserId}, {reservation.ReservationId}, {reservation.TimePicker}, {reservation.NumberOfPeople}");
+
+                        return reservation;
+                    }
+                }
+                return null;
+            }
+            catch (FirebaseException ex)
+            {
+                Console.WriteLine($"Firebase Exception: {ex.Message}");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}");
+                return null;
             }
         }
     }
