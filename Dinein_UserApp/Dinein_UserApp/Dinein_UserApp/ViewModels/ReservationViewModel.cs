@@ -116,8 +116,7 @@ namespace Dinein_UserApp.ViewModels
                 reservationModel.Note = note;
                 reservationModel.UserId = (string)Application.Current.Properties["UID"];
                 reservationModel.ReservationId = Guid.NewGuid().ToString();
-                reservationModel.UserEmail = (string)Application.Current.Properties["Email"];
-                reservationModel.UserName = (string)Application.Current.Properties["Username"];
+               
 
                 DataBase dataBase = new DataBase();
                 var isSaved = await dataBase.ReservationModelSave(reservationModel);

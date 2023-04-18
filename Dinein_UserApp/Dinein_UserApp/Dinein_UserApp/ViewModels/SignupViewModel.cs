@@ -1,4 +1,6 @@
 ﻿using Dinein_UserApp.Models;
+using Dinein_UserApp.Services;
+using Firebase.Auth;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +20,8 @@ namespace Dinein_UserApp.ViewModels
         private string _password;
         private string _confirmPassword;
         private bool _isBusy;
-
+        private Users _users;
+        private DataBase _dataBase;
         public event PropertyChangedEventHandler PropertyChanged;
         public string Name
         {
@@ -53,6 +56,8 @@ namespace Dinein_UserApp.ViewModels
         public SignupViewModel()
         {
             _userModel = new UserModel();
+            _users = new Users();
+            _dataBase= new DataBase();
         }
 
         public Command RegisterCommand => new Command(async () => await RegisterUserAsync());
@@ -103,6 +108,12 @@ namespace Dinein_UserApp.ViewModels
 
                 if (isSaved)
                 {
+
+                    _users.Id = (string)Application.Current.Properties["UID"];
+                    _users.Email = Email;
+                    _users.Password = Password;
+                    _users.UserName = Name;
+                    await _dataBase.UserSave(_users);
                     await Application.Current.MainPage.DisplayAlert("Register User", "Registration completed", "Ok");
                     await Shell.Current.GoToAsync("//LoginPage");
 

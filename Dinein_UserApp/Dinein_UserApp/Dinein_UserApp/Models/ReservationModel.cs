@@ -11,8 +11,7 @@ namespace Dinein_UserApp.Models
         public string TimePicker { get; set; }
         public string NumberOfPeople { get; set; }
         public string Note { get; set; }
-        public string UserEmail { get; set; }
-        public string UserName { get; set; }
+        
 
     }
 }

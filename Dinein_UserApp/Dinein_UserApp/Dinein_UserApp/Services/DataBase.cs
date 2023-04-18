@@ -71,7 +71,20 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+        public async Task<bool> UserSave(Users user)
+        {
+            try
+            {
+                await fc.Child(nameof(Users)).PostAsync(JsonConvert.SerializeObject(user));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
+                return false;
+            }
+        }
         public async Task<string> SignIn(string email, string password)
         {
             var authLink = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
@@ -100,6 +113,8 @@ namespace Dinein_UserApp.Services
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
             if (!string.IsNullOrEmpty(token.FirebaseToken))
             {
+                Application.Current.Properties["UID"] = token.User.LocalId;
+
                 return true;
             }
             return false;

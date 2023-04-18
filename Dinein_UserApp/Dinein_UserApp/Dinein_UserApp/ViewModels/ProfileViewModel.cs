@@ -29,7 +29,7 @@ namespace Dinein_UserApp.ViewModels
            
             var user = await dataBase.GetUser("Id");
          
-            Name = user.Username;
+            Name = user.UserName;
             Email = user.Email;
             
 
