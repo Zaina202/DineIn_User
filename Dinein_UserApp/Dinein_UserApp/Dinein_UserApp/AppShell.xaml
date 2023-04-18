@@ -34,21 +34,23 @@
 
     <TabBar >
         <ShellContent Title="Home" Icon="home.png" Route="Home" ContentTemplate="{DataTemplate local:Reserve}" />
-        <ShellContent Title="Current" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:CurrentReservationPage}" />
+        <ShellContent Title="Current" Icon="icon_feed.png" Route="CurrentReservationPage" ContentTemplate="{DataTemplate local:CurrentReservationPage}" />
         <ShellContent Title="Profile" Icon="profile.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
+        
     </TabBar>
 
-    <ShellContent Title="Login" ContentTemplate="{DataTemplate local:LoginPage}" Route="LoginPage" />
-    <ShellContent Title="Login" ContentTemplate="{DataTemplate local:SignupPage}" Route="SigupPage" />
+    <FlyoutItem Title="Cancel" Route="CancelPage">
+        <ShellContent ContentTemplate="{DataTemplate local:CancelPage}" />
+    </FlyoutItem>
 
-    <ShellContent Title="Reserve" ContentTemplate="{DataTemplate local:Reserve}" />
+    <FlyoutItem Title="Edit" Route="EditReservationPage">
+        <ShellContent ContentTemplate="{DataTemplate local:EditReservationPage}" />
+    </FlyoutItem>
     <!--
         If you would like to navigate to this content you can do so by calling
         await Shell.Current.GoToAsync("//LoginPage");
     -->
-    <!--<TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>-->
+    
 
 
 </Shell>

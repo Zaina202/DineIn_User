@@ -1,36 +1,73 @@
-﻿using Dinein_UserApp.Models;
-using Dinein_UserApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using Dinein_UserApp.Models;
+using Dinein_UserApp.Services;
+using Firebase.Database;
+using Firebase.Database.Query;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
     class CurrentViewModel : INotifyPropertyChanged
     {
-        private int _editButtonCornerRadius = 20;
-        public int EditButtonCornerRadius
+        private ReservationModel selectedReservation;
+
+        public ICommand EditReservationCommand { get; private set; }
+        public ICommand CancelReservationCommand { get; private set; }
+
+        public CurrentViewModel()
         {
-            get => _editButtonCornerRadius;
+            EditReservationCommand = new Command(OnEditReservation);
+            CancelReservationCommand = new Command(OnCancelReservation);
+        }
+        public ReservationModel SelectedReservation
+        {
+            get { return selectedReservation; }
             set
             {
-                _editButtonCornerRadius = value;
-                OnPropertyChanged(nameof(EditButtonCornerRadius));
+                selectedReservation = value;
+                OnPropertyChanged(nameof(SelectedReservation));
             }
         }
 
-        private int _cancelButtonCornerRadius = 20;
-        public int CancelButtonCornerRadius
+        private async void OnEditReservation()
         {
-            get => _cancelButtonCornerRadius;
-            set
+             EditReservationCommand = new Command(OnEditReservation);
+            await Shell.Current.GoToAsync("//EditReservationPage");
+
+        }
+
+        private async void OnCancelReservation()
+        {
+            string userId = Application.Current.Properties["UID"] as string;
+
+            var reservations = await new FirebaseClient(DataBase.FirebaseClient)
+                .Child(nameof(ReservationModel))
+                .OrderBy(nameof(ReservationModel.UserId))
+                .EqualTo(userId)
+                .OnceAsync<ReservationModel>();
+
+            if (reservations.Any())
             {
-                _cancelButtonCornerRadius = value;
-                OnPropertyChanged(nameof(CancelButtonCornerRadius));
+                await new FirebaseClient(DataBase.FirebaseClient)
+                    .Child(nameof(ReservationModel))
+                    .Child(reservations.First().Key)
+                    .DeleteAsync();
+
+                await Shell.Current.GoToAsync("//CancelPage");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error", "Reservation not found", "OK");
             }
         }
+
 
         private DataBase dataBase;
         private ReservationModel reservation;
@@ -72,6 +109,7 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(NumPeople));
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {
