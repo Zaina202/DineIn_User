@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Input;
 using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using Firebase.Database;
 using Firebase.Database.Query;
 using Newtonsoft.Json;
@@ -40,7 +41,7 @@ namespace Dinein_UserApp.ViewModels
         private async void OnEditReservation()
         {
              EditReservationCommand = new Command(OnEditReservation);
-            await Shell.Current.GoToAsync("//EditReservationPage");
+            await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
 
         }
 
@@ -61,7 +62,7 @@ namespace Dinein_UserApp.ViewModels
                     .Child(reservations.First().Key)
                     .DeleteAsync();
 
-                await Shell.Current.GoToAsync("//CancelPage");
+                await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
             }
             else
             {

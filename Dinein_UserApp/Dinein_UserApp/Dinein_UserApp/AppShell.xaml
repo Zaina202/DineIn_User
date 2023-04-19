@@ -39,9 +39,7 @@
         
     </TabBar>
 
-    <FlyoutItem Title="Cancel" Route="CancelPage">
-        <ShellContent ContentTemplate="{DataTemplate local:CancelPage}" />
-    </FlyoutItem>
+ 
  
 
     <FlyoutItem Title="Edit" Route="EditReservationPage">

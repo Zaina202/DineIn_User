@@ -8,6 +8,9 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout>
+                <Label Text="New Current Reservation : " FontAttributes="Bold" FontSize="25"  VerticalOptions="CenterAndExpand" Margin="10,40,0,0" TextColor="Black"/> 
+            </StackLayout>
             <StackLayout Padding="20,20,20,20">
                 <StackLayout Margin="0,50,0,0">
                     <Grid>
@@ -16,7 +19,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions >
                         <Image Margin="0,0,7,2" Source="Clock.png" Grid.Column="0"/>
-                        <Label  Text="Time"  FontSize="25" HeightRequest="33" FontAttributes="Bold" TextColor="Black"  Grid.Column="1"/>
+                        <Label  Text="Time"  FontSize="Title" HeightRequest="33" FontAttributes="Bold" TextColor="Black"  Grid.Column="1"/>
                     </Grid>
                     <Grid Padding="20,0,20,0" BackgroundColor="White">
                         <Grid.RowDefinitions>
@@ -36,7 +39,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions >
                         <Image Margin="0,0,10,0" Source="People.png" Grid.Column="0"/>
-                        <Label Text="Numper of people"  FontSize="25" HeightRequest="35" FontAttributes="Bold" TextColor="Black"  Grid.Column="1" />
+                        <Label Text="Numper of people"  FontSize="Title" HeightRequest="35" FontAttributes="Bold" TextColor="Black"  Grid.Column="1" />
                     </Grid>
                     <Grid Padding="7">
                         <Grid.ColumnDefinitions>

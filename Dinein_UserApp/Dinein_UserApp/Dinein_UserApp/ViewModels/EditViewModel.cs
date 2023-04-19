@@ -1,5 +1,6 @@
 ﻿using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -129,6 +130,7 @@ namespace Dinein_UserApp.ViewModels
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", "Your reservation update failed, please try again", "Ok");
                 }
+                await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
 
             }
         }

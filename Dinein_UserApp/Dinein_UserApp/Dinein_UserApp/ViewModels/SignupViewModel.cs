@@ -1,5 +1,6 @@
 ﻿using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using Firebase.Auth;
 using System;
 using System.Collections.Generic;
@@ -115,7 +116,7 @@ namespace Dinein_UserApp.ViewModels
                     _users.UserName = Name;
                     await _dataBase.UserSave(_users);
                     await Application.Current.MainPage.DisplayAlert("Register User", "Registration completed", "Ok");
-                    await Shell.Current.GoToAsync("//LoginPage");
+                    await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
 
                 }
                 else
