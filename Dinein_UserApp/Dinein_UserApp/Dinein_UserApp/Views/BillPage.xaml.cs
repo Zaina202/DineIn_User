@@ -15,6 +15,11 @@ namespace Dinein_UserApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BillPage : ContentPage
     {
+        public BillPage()
+        {
+            InitializeComponent();
+
+        }
         public BillPage(int totalPrice, List<Order> orders)
         {
             InitializeComponent();

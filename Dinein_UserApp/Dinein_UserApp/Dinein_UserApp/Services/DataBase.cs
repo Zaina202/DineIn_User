@@ -74,7 +74,7 @@ namespace Dinein_UserApp.Services
             return MenuList;
         }
 
-        public async Task<bool> OrderSave(Order order)
+        public async Task<bool> OrderSave(List<Order> order)
         {
             try
             {
