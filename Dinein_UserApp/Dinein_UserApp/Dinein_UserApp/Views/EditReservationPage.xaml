@@ -18,7 +18,6 @@
                         <Image Margin="0,0,7,2" Source="Clock.png" Grid.Column="0"/>
                         <Label  Text="Time"  FontSize="25" HeightRequest="33" FontAttributes="Bold" TextColor="Black"  Grid.Column="1"/>
                     </Grid>
-
                     <Grid Padding="20,0,20,0" BackgroundColor="White">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50"/>
@@ -54,11 +53,8 @@
                         <RadioButton Content=">10" IsChecked="{Binding IsSixChecked}" Grid.Column="4" />
                     </Grid>
                 </StackLayout>
-
-               
-
                 <Button Style="{StaticResource LargButton}"
-                Margin="60,45,60,10" Text="Edit" Clicked="Button_Clicked"
+                Margin="60,45,60,10" Text="Edit"
                     Command="{Binding EditCommand}"
                     />
             </StackLayout>

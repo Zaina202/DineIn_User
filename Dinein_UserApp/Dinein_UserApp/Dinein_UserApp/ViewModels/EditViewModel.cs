@@ -228,7 +228,7 @@ namespace Dinein_UserApp.ViewModels
                     _isSixChecked = value;
                     if (value)
                     {
-                        selectedValue = "more than 10 people";
+                        selectedValue = "more than 10";
                     }
                     OnPropertyChanged(nameof(IsSixChecked));
 

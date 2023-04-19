@@ -24,6 +24,8 @@ namespace Dinein_UserApp.ViewModels
         {
             EditReservationCommand = new Command(OnEditReservation);
             CancelReservationCommand = new Command(OnCancelReservation);
+            dataBase = new DataBase();
+            LoadCurrentReservation();
         }
         public ReservationModel SelectedReservation
         {
@@ -81,7 +83,7 @@ namespace Dinein_UserApp.ViewModels
                 }
                 else
                 {
-                    return "No current reservation";
+                    return "00:00";
                 }
             }
         }
@@ -93,11 +95,7 @@ namespace Dinein_UserApp.ViewModels
         }
 
 
-        public CurrentViewModel()
-        {
-            dataBase = new DataBase();
-            LoadCurrentReservation();
-        }
+       
 
         private async void LoadCurrentReservation()
         {
