@@ -80,7 +80,7 @@
 
 
             <Button Style="{StaticResource LargButton}" 
-                    Margin="20,0,20,50"
+                    Margin="35,0,35,50"
                     Text="Reserve"
                     Clicked="Start_Reserve"/>
 
