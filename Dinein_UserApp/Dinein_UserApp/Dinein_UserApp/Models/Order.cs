@@ -12,6 +12,8 @@ namespace Dinein_UserApp.Models
         public string Image { get; set; }
         public int TotalPrice { get; set; }
         public string UserId { get; set; }
+        public string OrderId { get; set; }
+        public string ReservationId { get; set; }
 
 
     }
