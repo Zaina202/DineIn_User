@@ -1,5 +1,6 @@
 ﻿using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -116,8 +117,8 @@ namespace Dinein_UserApp.ViewModels
                 reservationModel.Note = note;
                 reservationModel.UserId = (string)Application.Current.Properties["UID"];
                 reservationModel.ReservationId = Guid.NewGuid().ToString();
-               
 
+                await Application.Current.MainPage.Navigation.PushAsync(new MenuPage(reservationModel.ReservationId));
                 DataBase dataBase = new DataBase();
                 var isSaved = await dataBase.ReservationModelSave(reservationModel);
 

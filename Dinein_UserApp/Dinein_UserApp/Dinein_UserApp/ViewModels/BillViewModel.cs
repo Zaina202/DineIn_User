@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dinein_UserApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Dinein_UserApp.ViewModels
         {
             
         }
+      
         private int _totalPrice;
 
         public int TotalPrice
