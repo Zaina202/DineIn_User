@@ -11,9 +11,9 @@ using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
-    class ReservationViewModel : INotifyPropertyChanged
-    {
 
+    class EditViewModel : INotifyPropertyChanged
+    {
         private bool _isOneTwoChecked;
         private bool _isTwoThreeChecked;
         private bool _isFourChecked;
@@ -21,7 +21,6 @@ namespace Dinein_UserApp.ViewModels
         private bool _isSixChecked;
         private int _selectedValue;
         private string selectedValue;
-        private string note;
 
 
 
@@ -29,6 +28,8 @@ namespace Dinein_UserApp.ViewModels
         private int _minute = 0;
 
         private string _time = "00:00";
+        private String reservationId;
+
         public string Time
         {
             get { return _time; }
@@ -54,7 +55,7 @@ namespace Dinein_UserApp.ViewModels
         public ICommand MinusButtonCommand { get; }
         public ICommand PlusButtonCommand { get; }
         public ICommand ConfirmButtonCommand { get; }
-        public ReservationViewModel()
+        public EditViewModel()
         {
 
             MinusButtonCommand = new Command(OnMinusButtonClicked);
@@ -100,40 +101,40 @@ namespace Dinein_UserApp.ViewModels
 
 
 
-        public ICommand ConfirmCommand => new Command(async () => await Confirm());
+        public ICommand EditCommand => new Command(async () => await OnEditReservation(reservationId));
 
-        public async Task Confirm()
+        public async Task OnEditReservation(String reservationId)
         {
-            if (string.IsNullOrEmpty(Time) )
+            if (string.IsNullOrEmpty(Time))
             {
                 await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time! and Number of People", "Cancel");
             }
-
             else
             {
                 ReservationModel reservationModel = new ReservationModel();
+                reservationModel.ReservationId = reservationId; 
                 reservationModel.TimePicker = Time;
                 reservationModel.NumberOfPeople = selectedValue;
-                reservationModel.Note = note;
                 reservationModel.UserId = (string)Application.Current.Properties["UID"];
-                reservationModel.ReservationId = Guid.NewGuid().ToString();
 
-                await Application.Current.MainPage.Navigation.PushAsync(new MenuPage(reservationModel.ReservationId));
                 DataBase dataBase = new DataBase();
-                var isSaved = await dataBase.ReservationModelSave(reservationModel);
+                var isUpdated = await dataBase.ReservationModelUpdate(reservationModel); 
 
-
-                if (isSaved)
+                if (isUpdated)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is: {Time} with {selectedValue} People", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time has been updated to: {Time} with {selectedValue} People", "Ok");
                     Clear();
                 }
                 else
+
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Your reservation update failed, please try again", "Ok");
                 }
+                await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+
             }
         }
+
 
         public void Clear()
         {
@@ -216,8 +217,6 @@ namespace Dinein_UserApp.ViewModels
                         selectedValue = "7-10";
                     }
                     OnPropertyChanged(nameof(IsFiveChecked));
-
-
                 }
             }
         }
@@ -231,7 +230,7 @@ namespace Dinein_UserApp.ViewModels
                     _isSixChecked = value;
                     if (value)
                     {
-                        selectedValue = "more than 10 people";
+                        selectedValue = "more than 10";
                     }
                     OnPropertyChanged(nameof(IsSixChecked));
 
@@ -253,14 +252,6 @@ namespace Dinein_UserApp.ViewModels
                 }
             }
         }
-        public string Note
-        {
-            get { return note; }
-            set
-            {
-                note = value;
-                OnPropertyChanged(nameof(Note));
-            }
-        }
+       
     }
 }

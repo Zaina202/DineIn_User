@@ -8,9 +8,15 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Cancel Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Current Reservation" TextColor="Black" FontSize="Title"  FontAttributes="Bold" Margin="0,50,0,20" HorizontalTextAlignment="Center"  />
+            <StackLayout Orientation="Vertical"  Margin="0,20,0,0">
+                <StackLayout BackgroundColor="{StaticResource Secondry}"  Margin="50,0,50,0" HeightRequest="200" WidthRequest="130">
+                    <Image Source="cancel.png" Margin="20"/>
+                    <Label Text="Your reserve has been" TextColor="Black" FontAttributes="Bold" FontSize="Large" Margin="20,0,0,0"/>
+                    <Label Text=" canceled...!!" TextColor="Black" FontAttributes="Bold" FontSize="Large" Margin="20,0,0,0"/>
+                </StackLayout>
+                <Button Text="Reserve" Clicked="Button_Reserve" Margin="90,90,90,0" CornerRadius="20" HeightRequest="60"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

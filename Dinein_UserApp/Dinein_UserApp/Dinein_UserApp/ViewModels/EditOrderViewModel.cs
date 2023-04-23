@@ -1,17 +1,15 @@
 ﻿using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
-using Dinein_UserApp.Views;
+
 namespace Dinein_UserApp.ViewModels
 {
-    class MenuViewModel : INotifyPropertyChanged
+    class EditOrderViewModel : INotifyPropertyChanged
     {
         private DataBase dataBase;
 
@@ -37,17 +35,16 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(reservationId));
             }
         }
-        public MenuViewModel(string resId)
+        public EditOrderViewModel(string resId)
         {
             reservationId = resId;
         }
-        public MenuViewModel()
+        public EditOrderViewModel()
         {
-            PlusCommand = new Command<Models.Menu>(OnPlusClicked);
-            MinusCommand = new Command<Models.Menu>(OnMinusClicked);
-            SaveOrderCommand = new Command(OnSaveOrderClicked);
+         
+            SaveOrderCommand = new Command(OnSaveEditClicked);
 
-           
+
             dataBase = new DataBase();
             LoadMenuItems();
         }
@@ -70,27 +67,14 @@ namespace Dinein_UserApp.ViewModels
         public Command SaveOrderCommand { get; }
 
 
-        private void OnPlusClicked(Models.Menu selectedItem)
-        {
-            selectedItem.Quantity++;
-            OnPropertyChanged(nameof(MenuItems));
-        }
+      
 
-        private void OnMinusClicked(Models.Menu selectedItem)
-        {
-            if (selectedItem.Quantity > 0)
-            {
-                selectedItem.Quantity--;
-                OnPropertyChanged(nameof(MenuItems));
-            }
-        }
-
-        private async void OnSaveOrderClicked()
+        private async void OnSaveEditClicked()
         {
             var totalPrice = 0;
             var orderList = new List<Order>();
             var userId = (string)Application.Current.Properties["UID"];
-            var odrerId= Guid.NewGuid().ToString();
+            var odrerId = Guid.NewGuid().ToString();
             foreach (var menuItem in MenuItems)
             {
                 if (menuItem.Quantity > 0)
@@ -102,7 +86,7 @@ namespace Dinein_UserApp.ViewModels
                         Quantity = menuItem.Quantity,
                         TotalPrice = menuItem.Quantity * menuItem.Price,
                         UserId = userId,
-                        ReservationId= reservationId
+                        ReservationId = reservationId
                     };
                     order.OrderId = odrerId;
                     totalPrice += order.TotalPrice;
@@ -116,8 +100,3 @@ namespace Dinein_UserApp.ViewModels
 
     }
 }
-    
-
-
-    
-

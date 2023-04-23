@@ -10,16 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Dinein_UserApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CancelPage : ContentPage
+    public partial class EditReservationPage : ContentPage
     {
-        public CancelPage()
+        public EditReservationPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Reserve(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new ReservationPage());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,7 +38,7 @@ namespace Dinein_UserApp.ViewModels
                 if (result)
                 {
                     await Application.Current.MainPage.DisplayAlert("Success", "Password reset email sent", "Ok");
-                    await Shell.Current.GoToAsync("//LoginPage");
+                    await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
 
                 }
                 else

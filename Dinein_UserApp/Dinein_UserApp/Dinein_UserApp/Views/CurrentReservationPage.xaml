@@ -7,10 +7,58 @@
         <local:CurrentViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
+        
         <StackLayout>
-            <Label Text="Welcome to Current Reservation Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <Label Text="Current Reservation" TextColor="Black" FontSize="Title"  FontAttributes="Bold" Margin="0,50,0,20" HorizontalTextAlignment="Center"  />
+
+            <StackLayout BackgroundColor="{StaticResource Secondry}" Margin="20,0,20,0">
+                <Image Source="current.png" Margin="0,20,0,0" />
+                <StackLayout>
+                    
+                    <Label Margin="30,10,0,0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="If you are late more than " FontSize="Large" TextColor="Black" />
+                                <Span Text="(15 minutes), the" FontSize="Large" TextColor="Black" FontAttributes="Bold" />
+                            
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="reservation will be" TextColor="Black" FontSize="Large" Margin="30,-10,0,0"/>
+                        
+                    </StackLayout>
+                    <Label Margin="30,-10,0,10">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="canceled." FontSize="Large" TextColor="Black" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+            
+            <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
+                <StackLayout BackgroundColor="{StaticResource Secondry}"  Margin="50,0,0,0" HeightRequest="100" WidthRequest="130">
+                    <Image Source="Clock.png" Margin="10"/>
+                    <Label Text="{Binding Time}" FontSize="Medium" TextColor="Black" FontAttributes="Bold"  Margin="40,10,0,0" />
+                </StackLayout>
+                <StackLayout BackgroundColor="{StaticResource Secondry}"  Margin="40,0,0,0" HeightRequest="100" WidthRequest="130">
+                    <Image Source="People.png" Margin="10"/>
+                    <Label Text="{Binding NumPeople}" FontSize="Medium" TextColor="Black" FontAttributes="Bold" Margin="50,10,0,0" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" >
+                <Button Text="Edit"  CornerRadius="20" Margin="55,10,30,0"  WidthRequest="130"  Command="{Binding EditReservationCommand}"/>
+                <Button Text="Cancel" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130"  Command="{Binding CancelReservationCommand}" />
+            </StackLayout>
+
+            <StackLayout BackgroundColor="{StaticResource Secondry}" Orientation="Horizontal" Margin="30,20,30,0" Padding="5"  HeightRequest="90">
+                <Label Text="Your Order" FontAttributes="Bold" FontSize="Large" TextColor="Black" Margin="30,15,0,0"  />
+                <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="115,0,0,0" Clicked="Button_Order"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

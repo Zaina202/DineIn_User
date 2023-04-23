@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
+             x:Class="Dinein_UserApp.Views.EditReservationPage">
+    <ContentPage.BindingContext>
+        <local:EditViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label Text="New Current Reservation : " FontAttributes="Bold" FontSize="25"  VerticalOptions="CenterAndExpand" Margin="10,40,0,0" TextColor="Black"/> 
+            </StackLayout>
+            <StackLayout Padding="20,20,20,20">
+                <StackLayout Margin="0,50,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions >
+                        <Image Margin="0,0,7,2" Source="Clock.png" Grid.Column="0"/>
+                        <Label  Text="Time"  FontSize="Title" HeightRequest="33" FontAttributes="Bold" TextColor="Black"  Grid.Column="1"/>
+                    </Grid>
+                    <Grid Padding="20,0,20,0" BackgroundColor="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <Button  ImageSource="Top.png"  Grid.Row="0"  Command="{Binding PlusButtonCommand}"  BackgroundColor="White"/>
+                        <Entry x:Name="textTime" Placeholder="00 : 00" Keyboard="Numeric"  HorizontalTextAlignment="Center" Text="{Binding Time}" BackgroundColor="{StaticResource Secondry}" Margin="30,0,30,0" FontSize="Medium" Grid.Row="1"  />
+                        <Button ImageSource="Down.png"  Grid.Row="2"  Command="{Binding MinusButtonCommand}"  BackgroundColor="White" />
+                    </Grid>
+                </StackLayout>
+                <StackLayout Margin="0,20,0,0" >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions >
+                        <Image Margin="0,0,10,0" Source="People.png" Grid.Column="0"/>
+                        <Label Text="Numper of people"  FontSize="Title" HeightRequest="35" FontAttributes="Bold" TextColor="Black"  Grid.Column="1" />
+                    </Grid>
+                    <Grid Padding="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions >
+                        <RadioButton Content="1-2" IsChecked="{Binding IsOneTwoChecked}" Grid.Column="0" />
+                        <RadioButton Content="3-4" IsChecked="{Binding IsTwoThreeChecked}" Grid.Column="1"/>
+                        <RadioButton Content="5-6" IsChecked="{Binding IsFourChecked}" Grid.Column="2"/>
+                        <RadioButton Content="7-10" IsChecked="{Binding IsFiveChecked}" Grid.Column="3"/>
+                        <RadioButton Content=">10" IsChecked="{Binding IsSixChecked}" Grid.Column="4" />
+                    </Grid>
+                </StackLayout>
+                <Button Style="{StaticResource LargButton}"
+                Margin="60,45,60,10" Text="Edit"
+                    Command="{Binding EditCommand}"
+                    />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
