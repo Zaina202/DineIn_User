@@ -176,11 +176,10 @@ namespace Dinein_UserApp.Services
         {
             try
             {
-                var reservations = await fc.Child(nameof(ReservationModel)).OrderBy("UserId").EqualTo(userId).OnceAsync<ReservationModel>();
+                var reservations = await fc.Child(nameof(ReservationModel)).OrderBy(nameof(ReservationModel.UserId)).EqualTo(userId).OnceAsync<ReservationModel>();
                 if (reservations.Any())
                 {
-                    // Select the latest reservation based on the TimePicker
-                    var latestReservation = reservations.OrderByDescending(r => TimeSpan.Parse(r.Object.TimePicker)).FirstOrDefault();
+                    var latestReservation = reservations.OrderByDescending(r => r.Key).FirstOrDefault();
                     if (latestReservation != null && latestReservation.Object != null)
                     {
                         var reservation = latestReservation.Object;
