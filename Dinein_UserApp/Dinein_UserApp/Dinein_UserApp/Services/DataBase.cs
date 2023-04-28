@@ -142,36 +142,23 @@ namespace Dinein_UserApp.Services
             return true;
 
         }
-        public async Task<Users> GetUser(string userId)
+        public async Task<Users> GetUserById(string userId)
         {
+            var userQueryResult = await fc.Child("Users")
+                    .OrderBy("Id")
+                    .EqualTo(userId)
+                    .OnceAsync<Users>();
+
+            if (userQueryResult.Any())
             {
-                try
-                {
-                    var userSnapshot = await fc.Child(nameof(Users)).OnceAsync<Users>();
-                    var userFirebaseObject = userSnapshot.FirstOrDefault();
-                    if (userFirebaseObject != null)
-                    {
-                        var user = userFirebaseObject.Object;
-                        user.Id = userFirebaseObject.Key;
-                        return user;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                catch (FirebaseException ex)
-                {
-                    Console.WriteLine($"Firebase Exception: {ex.Message}");
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Exception: {ex.Message}");
-                    return null;
-                }
+                var user = userQueryResult.First().Object;
+                return user;
             }
+            return null;
         }
+
+
+
         public async Task<ReservationModel> GetCurrentReservation(string userId)
         {
             try

@@ -4,40 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
 
     public class ProfileViewModel : INotifyPropertyChanged
     {
-        private readonly FirebaseAuth _firebaseAuth;
-
-        private DataBase dataBase;
+        private readonly DataBase database;
+        private string id = (string)Application.Current.Properties["UID"];
         public ProfileViewModel()
         {
-            dataBase = new DataBase();
-            LoadUserData();
-
+            database = new DataBase();
+            _ = LoadData(id);
         }
-        private List<Models.Users> _UserInfo;
 
-
-        private async void LoadUserData()
+        public async Task LoadData(string userId)
         {
+            var user = await database.GetUserById(userId);
 
-           
-            var user = await dataBase.GetUser("Id");
-         
-            Name = user.UserName;
-            Email = user.Email;
-            
-
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (user != null)
+            {
+                Name = user.UserName;
+                Email = user.Email;
+            }
         }
         private string name;
         public string Name
@@ -54,9 +45,6 @@ namespace Dinein_UserApp.ViewModels
             }
         }
 
-
-
-
         private string email;
         public string Email
         {
@@ -71,5 +59,10 @@ namespace Dinein_UserApp.ViewModels
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

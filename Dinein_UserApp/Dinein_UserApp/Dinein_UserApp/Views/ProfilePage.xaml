@@ -32,7 +32,7 @@
                    FontAttributes="Bold" />
                 </StackLayout>
                 <StackLayout Spacing="3">
-                    <Label Text="Phone Number:"
+                    <Label Text="Email:"
                       FontSize="Small"
                    FontAttributes="Italic"
                        TextColor="Gray"
