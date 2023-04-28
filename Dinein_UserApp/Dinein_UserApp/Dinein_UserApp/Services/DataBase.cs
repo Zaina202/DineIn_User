@@ -73,6 +73,23 @@ namespace Dinein_UserApp.Services
             }
             return MenuList;
         }
+        public async Task<int> GetReservationCountByTime(string Time)
+        {
+
+            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+
+            int count = 0;
+
+            foreach (var reservation in reservations)
+            {
+                if (reservation.Object.TimePicker == Time)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
 
         public async Task<bool> OrderSave(List<Order> order)
         {
