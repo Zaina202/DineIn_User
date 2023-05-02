@@ -20,12 +20,11 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
 
         }
-        public BillPage(int totalPrice, List<Order> orders)
+        public BillPage(int totalPrice)
         {
             InitializeComponent();
             Task.Run(async () =>
             {
-                var dataBase = new DataBase();
                 var _totalPrice = totalPrice;
                 var viewModel = new BillViewModel(_totalPrice);
                 Device.BeginInvokeOnMainThread(() =>

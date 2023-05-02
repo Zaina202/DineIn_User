@@ -122,7 +122,6 @@ namespace Dinein_UserApp.ViewModels
                 reservationModel.Note = note;
                 reservationModel.UserId = (string)Application.Current.Properties["UID"];
                 reservationModel.ReservationId = Guid.NewGuid().ToString();
-               
 
                 DataBase dataBase = new DataBase();
                 int count = await dataBase.GetReservationCountByTime(Time);
@@ -139,7 +138,7 @@ namespace Dinein_UserApp.ViewModels
                     {
                         await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {Time} ) with ( {selectedValue} ) People", "Ok");
                         Clear();
-                        await Application.Current.MainPage.Navigation.PushAsync(new MenuPage());
+                        await Application.Current.MainPage.Navigation.PushAsync(new MenuPage(reservationModel.ReservationId));
                     }
                     else
                     {

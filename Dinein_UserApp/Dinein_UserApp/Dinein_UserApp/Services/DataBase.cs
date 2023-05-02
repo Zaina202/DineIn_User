@@ -91,11 +91,11 @@ namespace Dinein_UserApp.Services
             return count;
         }
 
-        public async Task<bool> OrderSave(List<Order> order)
+        public async Task<bool> OrderSave(BillOrder order)
         {
             try
             {
-                await fc.Child(nameof(Order)).PostAsync(JsonConvert.SerializeObject(order));
+                await fc.Child(nameof(BillOrder)).PostAsync(JsonConvert.SerializeObject(order));
                 return true;
             }
             catch (Exception ex)
