@@ -26,31 +26,9 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(MenuItems));
             }
         }
-        private string _reservationId;
-
-        public string reservationId
-        {
-            get { return _reservationId; }
-            set
-            {
-                _reservationId = value;
-                OnPropertyChanged(nameof(reservationId));
-            }
-        }
-        public MenuViewModel(string resId)
-        {
-            reservationId = resId;
-        }
-        public MenuViewModel()
-        {
-            PlusCommand = new Command<Models.Menu>(OnPlusClicked);
-            MinusCommand = new Command<Models.Menu>(OnMinusClicked);
-            SaveOrderCommand = new Command(OnSaveOrderClicked);
-
-           
-            dataBase = new DataBase();
-            LoadMenuItems();
-        }
+        
+       
+       
 
         private async void LoadMenuItems()
         {
@@ -84,13 +62,38 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(MenuItems));
             }
         }
+        private string _reservationId;
 
+        public string ReservationID
+        {
+            get { return _reservationId; }
+            set
+            {
+                _reservationId = value;
+                OnPropertyChanged(nameof(ReservationID));
+            }
+        }
+        public MenuViewModel()
+        {
+
+        }
+        public MenuViewModel(string resId)
+        {
+            PlusCommand = new Command<Models.Menu>(OnPlusClicked);
+            MinusCommand = new Command<Models.Menu>(OnMinusClicked);
+            SaveOrderCommand = new Command(OnSaveOrderClicked);
+            dataBase = new DataBase();
+            LoadMenuItems();
+            ReservationID = resId;
+        }
         private async void OnSaveOrderClicked()
         {
+            BillOrder billOrder = new BillOrder();
+            billOrder.OrderList = new List<Order>();
             var totalPrice = 0;
-            var orderList = new List<Order>();
+           // var orderList = new List<Order>();
             var userId = (string)Application.Current.Properties["UID"];
-            var odrerId= Guid.NewGuid().ToString();
+            var orderId= Guid.NewGuid().ToString();
             foreach (var menuItem in MenuItems)
             {
                 if (menuItem.Quantity > 0)
@@ -101,17 +104,20 @@ namespace Dinein_UserApp.ViewModels
                         MenuItemPrice = menuItem.Price,
                         Quantity = menuItem.Quantity,
                         TotalPrice = menuItem.Quantity * menuItem.Price,
-                        UserId = userId,
-                        ReservationId= reservationId
+                       // UserId = userId,
+                       // ReservationId= reservationId
                     };
-                    order.OrderId = odrerId;
+                    //order.OrderId = odrerId;
                     totalPrice += order.TotalPrice;
-                    orderList.Add(order);
+                   billOrder.OrderList.Add(order);
                 }
             }
-
-            await dataBase.OrderSave(orderList);
-            await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice, orderList));
+            billOrder.UserID= userId;
+            billOrder.BillOrderNo = orderId;
+            billOrder.ReservationId = ReservationID;
+            billOrder.OrderTotalPrice = totalPrice;
+            await dataBase.OrderSave(billOrder);
+            await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice));
         }
 
     }
