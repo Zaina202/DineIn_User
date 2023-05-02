@@ -115,7 +115,7 @@ namespace Dinein_UserApp.ViewModels
             billOrder.UserID= userId;
             billOrder.BillOrderNo = orderId;
             billOrder.ReservationId = ReservationID;
-            billOrder.TotalPrice = totalPrice;
+            billOrder.OrderTotalPrice = totalPrice;
             await dataBase.OrderSave(billOrder);
             await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice));
         }
