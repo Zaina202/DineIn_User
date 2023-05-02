@@ -33,7 +33,7 @@
 
 
     <TabBar >
-        <ShellContent Title="Home" Icon="home.png" Route="Home" ContentTemplate="{DataTemplate local:Reserve}" />
+        <ShellContent Title="Home" Icon="home.png" Route="Home" ContentTemplate="{DataTemplate local:LoginPage}" />
         <ShellContent Title="Current" Icon="icon_feed.png" Route="CurrentReservationPage" ContentTemplate="{DataTemplate local:CurrentReservationPage}" />
         <ShellContent Title="Profile" Icon="profile.png" ContentTemplate="{DataTemplate local:ProfilePage}" />
         
