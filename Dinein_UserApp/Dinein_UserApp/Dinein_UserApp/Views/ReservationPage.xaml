@@ -73,7 +73,7 @@
                 <Button Style="{StaticResource LargButton}"
                 Margin="30,15,30,10" Text="Confirm"
                     Command="{Binding ConfirmCommand}"
-                    Clicked="ButtonConfirm_Clicked"/>
+                   />
             </StackLayout>
 
         </StackLayout>

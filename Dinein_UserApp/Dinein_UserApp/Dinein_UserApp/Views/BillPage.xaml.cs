@@ -20,12 +20,16 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
 
         }
-        public BillPage(int totalPrice, List<Order> orders)
+
+     
+        
+
+        public BillPage(int totalPrice, List<OrderItem> orders)
+
         {
             InitializeComponent();
             Task.Run(async () =>
             {
-                var dataBase = new DataBase();
                 var _totalPrice = totalPrice;
                 var viewModel = new BillViewModel(_totalPrice);
                 Device.BeginInvokeOnMainThread(() =>
@@ -40,10 +44,6 @@ namespace Dinein_UserApp.Views
             Navigation.PushAsync(new CurrentReservationPage());
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new EditOrderPage());
-
-        }
+       
     }
 }

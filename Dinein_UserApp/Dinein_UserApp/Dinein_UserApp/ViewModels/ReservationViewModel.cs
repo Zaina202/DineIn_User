@@ -28,7 +28,7 @@ namespace Dinein_UserApp.ViewModels
         private int _hour = 0;
         private int _minute = 0;
 
-        private string _time = "00:00";
+        private string _time ;
         public string Time
         {
             get { return _time; }
@@ -104,11 +104,16 @@ namespace Dinein_UserApp.ViewModels
 
         public async Task Confirm()
         {
-            if (string.IsNullOrEmpty(Time) )
+            if (string.IsNullOrEmpty(Time) && string.IsNullOrEmpty(selectedValue))
             {
-                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time! and Number of People", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time!and Number of People", "Cancel");
+                return;
             }
-
+           if (string.IsNullOrEmpty(Time) || string.IsNullOrEmpty(selectedValue))
+            {
+                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time!or Number of People", "Cancel");
+                return;
+            }
             else
             {
                 ReservationModel reservationModel = new ReservationModel();
@@ -118,19 +123,35 @@ namespace Dinein_UserApp.ViewModels
                 reservationModel.UserId = (string)Application.Current.Properties["UID"];
                 reservationModel.ReservationId = Guid.NewGuid().ToString();
 
-                await Application.Current.MainPage.Navigation.PushAsync(new MenuPage(reservationModel.ReservationId));
                 DataBase dataBase = new DataBase();
-                var isSaved = await dataBase.ReservationModelSave(reservationModel);
-
-
-                if (isSaved)
+                int _timecount = await dataBase.GetReservationCountByTime(Time);
+                int _idCount= await dataBase.GetReservationCountByUserID(reservationModel.UserId);
+                if(_idCount == 1)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is: {Time} with {selectedValue} People", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Information", $"Sorry,You already have a Current Reservation", "Ok");
+                    await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+
                     Clear();
+                }
+                else if (_timecount == 10)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Information", $"Sorry, the selected time ({Time}) is not available. Please select another time.", "Ok");
+                    Clear();
+
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
+                    var isSaved = await dataBase.ReservationModelSave(reservationModel);
+                    if (isSaved)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {Time} ) with ( {selectedValue} ) People", "Ok");
+                        Clear();
+                        await Application.Current.MainPage.Navigation.PushAsync(new MenuPage(reservationModel.ReservationId));
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
+                    }
                 }
             }
         }
@@ -139,6 +160,7 @@ namespace Dinein_UserApp.ViewModels
         {
             Time = string.Empty;
             selectedValue = string.Empty;
+            Note = string.Empty;
 
         }
 

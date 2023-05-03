@@ -22,14 +22,13 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
         }
 
-        public MenuPage(string resId)
+        public MenuPage(string ResId)
         {
             InitializeComponent();
-        
             Task.Run(async () =>
             {
-                var reservationId = resId;
-                var viewModel = new MenuViewModel(reservationId);
+                var _reservationId = ResId;
+                var viewModel = new MenuViewModel(_reservationId);
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     BindingContext = viewModel;
@@ -37,7 +36,7 @@ namespace Dinein_UserApp.Views
             });
         }
 
-     
+
 
     }
 }

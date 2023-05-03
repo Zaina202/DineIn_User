@@ -73,21 +73,60 @@ namespace Dinein_UserApp.Services
             }
             return MenuList;
         }
+        public async Task<int> GetReservationCountByTime(string Time)
+        {
 
-        public async Task<bool> OrderSave(List<Order> order)
+            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+
+            int count = 0;
+
+            foreach (var reservation in reservations)
+            {
+                if (reservation.Object.TimePicker == Time)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+        public async Task<int> GetReservationCountByUserID(string id)
+        {
+
+            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+
+            int count = 0;
+
+        public async Task<bool> OrderSave(BillOrder order)
+            foreach (var reservation in reservations)
+            {
+                if (reservation.Object.UserId == id)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+    
+        public async Task<List<BillOrder>> GetOrderById(string userId)
         {
             try
             {
-                await fc.Child(nameof(Order)).PostAsync(JsonConvert.SerializeObject(order));
-                return true;
+                var orderQueryResult = await fc.Child("BillOrders")
+                    .OnceAsync<BillOrder>();
+
+                return orderQueryResult.Where(el => el.Object.UserId == userId).Select(el => el.Object).ToList();
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
-                return false;
+                Console.WriteLine($"An error occurred while getting the order by ID: {ex.Message}");
+                return null;
             }
         }
+
         public async Task<bool> UserSave(Users user)
         {
             try
@@ -117,7 +156,7 @@ namespace Dinein_UserApp.Services
         }
         public async Task<int> GetTotalPrice()
         {
-            var orders = await fc.Child("Order").OnceAsync<Order>();
+            var orders = await fc.Child("Order").OnceAsync<OrderItem>();
             int totalPrice = 0;
             foreach (var order in orders)
             {
@@ -125,6 +164,7 @@ namespace Dinein_UserApp.Services
             }
             return totalPrice;
         }
+
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
@@ -142,45 +182,30 @@ namespace Dinein_UserApp.Services
             return true;
 
         }
-        public async Task<Users> GetUser(string userId)
+        public async Task<Users> GetUserById(string userId)
         {
+            var userQueryResult = await fc.Child("Users")
+                    .OrderBy("Id")
+                    .EqualTo(userId)
+                    .OnceAsync<Users>();
+
+            if (userQueryResult.Any())
             {
-                try
-                {
-                    var userSnapshot = await fc.Child(nameof(Users)).OnceAsync<Users>();
-                    var userFirebaseObject = userSnapshot.FirstOrDefault();
-                    if (userFirebaseObject != null)
-                    {
-                        var user = userFirebaseObject.Object;
-                        user.Id = userFirebaseObject.Key;
-                        return user;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                catch (FirebaseException ex)
-                {
-                    Console.WriteLine($"Firebase Exception: {ex.Message}");
-                    return null;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Exception: {ex.Message}");
-                    return null;
-                }
+                var user = userQueryResult.First().Object;
+                return user;
             }
+            return null;
         }
+
+
         public async Task<ReservationModel> GetCurrentReservation(string userId)
         {
             try
             {
-                var reservations = await fc.Child(nameof(ReservationModel)).OrderBy("UserId").EqualTo(userId).OnceAsync<ReservationModel>();
+                var reservations = await fc.Child(nameof(ReservationModel)).OrderBy(nameof(ReservationModel.UserId)).EqualTo(userId).OnceAsync<ReservationModel>();
                 if (reservations.Any())
                 {
-                    // Select the latest reservation based on the TimePicker
-                    var latestReservation = reservations.OrderByDescending(r => TimeSpan.Parse(r.Object.TimePicker)).FirstOrDefault();
+                    var latestReservation = reservations.OrderByDescending(r => r.Key).FirstOrDefault();
                     if (latestReservation != null && latestReservation.Object != null)
                     {
                         var reservation = latestReservation.Object;

@@ -32,34 +32,30 @@ namespace Dinein_UserApp.ViewModels
             {
                 if (string.IsNullOrEmpty(Email))
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "Type Email", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Enter Email", "Ok");
                     return;
                 }
                 if (string.IsNullOrEmpty(Password))
                 {
-                    await Application.Current.MainPage.DisplayAlert("warning", "Type password", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("warning", "Enter password", "Ok");
                     return;
                 }
                 string token = await dataBase.SignIn(Email, Password);
                 if (!string.IsNullOrEmpty(token))
                 {
-                    await Application.Current.MainPage.Navigation.PushAsync(new ReservationPage());
+                    await Application.Current.MainPage.Navigation.PushAsync(new Home());
                 }
                 else
                 {
                     await DisplayAlert("Log in", "log in failed", "ok");
+                    return;
                 }
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("EMAIL_NOT_FOUND"))
+                if (ex.Message.Contains("EMAIL_NOT_FOUND")|| ex.Message.Contains("INVALID_PASSWORD"))
                 {
-                    await Application.Current.MainPage.DisplayAlert("Unauthorrized", "email not found", "ok");
-
-                }
-                else if (ex.Message.Contains("INVALID_PASSWORD"))
-                {
-                    await Application.Current.MainPage.DisplayAlert("Unauthorrized", "password incorrect", "ok");
+                    await Application.Current.MainPage.DisplayAlert("Unauthorrized", "email not found or password incorrect", "ok");
 
                 }
                 else
