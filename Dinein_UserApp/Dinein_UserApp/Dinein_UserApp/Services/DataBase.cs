@@ -91,7 +91,7 @@ namespace Dinein_UserApp.Services
             return count;
         }
 
-        public async Task<bool> OrderSave(List<Order> order)
+        public async Task<bool> OrderSave(List<OrderItem> order)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace Dinein_UserApp.Services
         }
         public async Task<int> GetTotalPrice()
         {
-            var orders = await fc.Child("Order").OnceAsync<Order>();
+            var orders = await fc.Child("Order").OnceAsync<OrderItem>();
             int totalPrice = 0;
             foreach (var order in orders)
             {
