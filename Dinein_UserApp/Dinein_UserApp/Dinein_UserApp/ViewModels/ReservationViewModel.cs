@@ -125,8 +125,16 @@ namespace Dinein_UserApp.ViewModels
                
 
                 DataBase dataBase = new DataBase();
-                int count = await dataBase.GetReservationCountByTime(Time);
-                if (count == 10)
+                int _timecount = await dataBase.GetReservationCountByTime(Time);
+                int _idCount= await dataBase.GetReservationCountByUserID(reservationModel.UserId);
+                if(_idCount == 1)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Information", $"Sorry,You already have a Current Reservation", "Ok");
+                    await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+
+                    Clear();
+                }
+                else if (_timecount == 10)
                 {
                     await Application.Current.MainPage.DisplayAlert("Information", $"Sorry, the selected time ({Time}) is not available. Please select another time.", "Ok");
                     Clear();

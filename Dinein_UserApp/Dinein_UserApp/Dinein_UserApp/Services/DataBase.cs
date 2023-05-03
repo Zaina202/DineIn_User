@@ -90,6 +90,23 @@ namespace Dinein_UserApp.Services
 
             return count;
         }
+        public async Task<int> GetReservationCountByUserID(string id)
+        {
+
+            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+
+            int count = 0;
+
+            foreach (var reservation in reservations)
+            {
+                if (reservation.Object.UserId == id)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
 
         public async Task<bool> OrderSave(List<Order> order)
         {
@@ -132,16 +149,7 @@ namespace Dinein_UserApp.Services
                 return "";
             }
         }
-        public async Task<int> GetTotalPrice()
-        {
-            var orders = await fc.Child("Order").OnceAsync<Order>();
-            int totalPrice = 0;
-            foreach (var order in orders)
-            {
-                totalPrice += order.Object.TotalPrice;
-            }
-            return totalPrice;
-        }
+
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
@@ -173,7 +181,6 @@ namespace Dinein_UserApp.Services
             }
             return null;
         }
-
 
 
         public async Task<ReservationModel> GetCurrentReservation(string userId)
