@@ -76,6 +76,11 @@ namespace Dinein_UserApp.ViewModels
         public MenuViewModel()
         {
 
+            PlusCommand = new Command<Models.Menu>(OnPlusClicked);
+            MinusCommand = new Command<Models.Menu>(OnMinusClicked);
+            SaveOrderCommand = new Command(OnSaveOrderClicked);
+            dataBase = new DataBase();
+            LoadMenuItems();
         }
         public MenuViewModel(string resId)
         {

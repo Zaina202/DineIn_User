@@ -57,7 +57,7 @@
 
             <StackLayout BackgroundColor="{StaticResource Secondry}" Orientation="Horizontal" Margin="30,20,30,0" Padding="5"  HeightRequest="90">
                 <Label Text="Your Order" FontAttributes="Bold" FontSize="Large" TextColor="Black" Margin="30,15,0,0"  />
-                <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="115,0,0,0" Clicked="Button_Order"/>
+                <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="115,0,0,0" Clicked="Button_Order" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
@@ -21,13 +22,19 @@ namespace Dinein_UserApp.ViewModels
         public ICommand EditReservationCommand { get; private set; }
         public ICommand CancelReservationCommand { get; private set; }
 
+
         public CurrentViewModel()
         {
             EditReservationCommand = new Command(OnEditReservation);
             CancelReservationCommand = new Command(OnCancelReservation);
+
             dataBase = new DataBase();
             LoadCurrentReservation();
         }
+
+       
+       
+
         public ReservationModel SelectedReservation
         {
             get { return selectedReservation; }

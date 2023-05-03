@@ -1,31 +1,72 @@
 ﻿using Dinein_UserApp.Models;
 using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
+using Firebase.Database;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
  
     class BillViewModel : INotifyPropertyChanged
     {
-        public BillViewModel()
-        {
-            
-        }
+       
 
+
+     
         private List<BillOrder> _orders;
         private List<Order> _OrderItems;
 
         private DataBase _dataBase;
 
         public event PropertyChangedEventHandler PropertyChanged;
-      
 
-       
+        public BillViewModel()
+        {
+            EditOrderCommand = new Command(OnEditOrder);
+            CancelOrderCommand = new Command(OnCancelOrder);
+
+            _dataBase = new DataBase();
+            _ = LoadOrders(Application.Current.Properties["UID"] as string);
+
+        }
+
+        private async void OnCancelOrder(object obj)
+        {
+            string userId = Application.Current.Properties["UID"] as string;
+
+            var reservations = await new FirebaseClient(DataBase.FirebaseClient)
+                .Child(nameof(BillOrder))
+                .OrderBy(nameof(BillOrder.UserId))
+                .EqualTo(userId)
+                .OnceAsync<BillOrder>();
+
+            if (reservations.Any())
+            {
+                await new FirebaseClient(DataBase.FirebaseClient)
+                    .Child(nameof(BillOrder))
+                    .Child(reservations.First().Key)
+                    .DeleteAsync();
+                await Application.Current.MainPage.DisplayAlert("Info","your order sucssfully deleted", "OK");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error", "Order not found", "OK");
+            }
+        }
+
+        public ICommand EditOrderCommand { get; private set; }
+        public ICommand CancelOrderCommand { get; private set; }
+
+
         public BillViewModel(string userId)
         {
             _dataBase = new DataBase();
@@ -33,7 +74,32 @@ namespace Dinein_UserApp.ViewModels
 
             _ = LoadOrders(userId);
         }
-      
+        private async void OnEditOrder()
+        {
+            string userId = Application.Current.Properties["UID"] as string;
+
+            var reservations = await new FirebaseClient(DataBase.FirebaseClient)
+                .Child(nameof(BillOrder))
+                .OrderBy(nameof(BillOrder.UserId))
+                .EqualTo(userId)
+                .OnceAsync<BillOrder>();
+
+            if (reservations.Any())
+            {
+                await new FirebaseClient(DataBase.FirebaseClient)
+                    .Child(nameof(BillOrder))
+                    .Child(reservations.First().Key)
+                    .DeleteAsync();
+
+                await Application.Current.MainPage.Navigation.PushAsync(new MenuPage());
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error", "Order not found", "OK");
+            }
+        }
+
         public List<BillOrder> Orders
         {
             get { return _orders; }

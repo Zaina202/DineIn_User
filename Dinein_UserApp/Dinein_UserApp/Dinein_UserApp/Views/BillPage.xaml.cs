@@ -40,10 +40,6 @@ namespace Dinein_UserApp.Views
             Navigation.PushAsync(new CurrentReservationPage());
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new EditOrderPage());
-
-        }
+       
     }
 }

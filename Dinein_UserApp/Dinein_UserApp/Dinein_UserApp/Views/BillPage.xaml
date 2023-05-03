@@ -60,8 +60,8 @@
                         </Label.FormattedText>
                     </Label>
                     <StackLayout Orientation="Horizontal" >
-                        <Button Text="Edit"  CornerRadius="20" Margin="30,10,30,0"  WidthRequest="130"  Clicked="Button_Clicked"/>
-                        <Button Text="Confirm" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130"  Clicked="ConfirmButton_Clicked" />
+                        <Button Text="Edit"  CornerRadius="20" Margin="30,10,30,0"  WidthRequest="130"   Command="{Binding EditOrderCommand}"/>
+                        <Button Text="Confirm" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130"   Command="{Binding CancelOrderCommand}" />
                     </StackLayout>
 
                 </StackLayout>
