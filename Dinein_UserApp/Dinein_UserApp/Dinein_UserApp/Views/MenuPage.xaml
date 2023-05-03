@@ -42,9 +42,7 @@
                                                 <ColumnDefinition Width="26" />
                                             </Grid.ColumnDefinitions>
 
-                                            <Button BackgroundColor="Transparent" Grid.Column="0" Command="{Binding Path=BindingContext.MinusCommand, Source={x:Reference ItemListView}}" CommandParameter="{Binding .}" ImageSource="minus.png" />
-                                            <Entry IsReadOnly="True" Grid.Column="1" Text="{Binding Quantity}" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
-                                            <Button BackgroundColor="Transparent" Grid.Column="2" Command="{Binding Path=BindingContext.PlusCommand, Source={x:Reference ItemListView}}" CommandParameter="{Binding .}" ImageSource="plus.png"  />
+                                            <Entry IsReadOnly="False" Grid.Column="1" Text="{Binding Quantity}" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
 
 
                                         </Grid>

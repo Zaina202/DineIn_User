@@ -20,8 +20,12 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
 
         }
+
      
-        public BillPage(int totalPrice)
+        
+
+        public BillPage(int totalPrice, List<OrderItem> orders)
+
         {
             InitializeComponent();
             Task.Run(async () =>

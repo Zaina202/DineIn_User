@@ -43,7 +43,7 @@ namespace Dinein_UserApp.ViewModels
                 string token = await dataBase.SignIn(Email, Password);
                 if (!string.IsNullOrEmpty(token))
                 {
-                    await Application.Current.MainPage.Navigation.PushAsync(new ReservationPage());
+                    await Application.Current.MainPage.Navigation.PushAsync(new Home());
                 }
                 else
                 {
