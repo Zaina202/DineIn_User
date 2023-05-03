@@ -8,7 +8,7 @@ namespace Dinein_UserApp.Models
     {
         public List<Order> OrderList { get; set; }
         public string BillOrderNo { get; set; }
-        public string UserID { get; set; }
+        public string UserId { get; set; }
         public int OrderTotalPrice { get; set; }
         public string ReservationId { get; set; }
     }

@@ -105,6 +105,23 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+        public async Task<List<BillOrder>> GetOrderById(string userId)
+        {
+            try
+            {
+                var orderQueryResult = await fc.Child("BillOrders")
+                    .OnceAsync<BillOrder>();
+
+                return orderQueryResult.Where(el => el.Object.UserId == userId).Select(el => el.Object).ToList();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while getting the order by ID: {ex.Message}");
+                return null;
+            }
+        }
+
         public async Task<bool> UserSave(Users user)
         {
             try

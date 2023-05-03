@@ -8,14 +8,45 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Bill Page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                <ListView ItemsSource="{Binding OrderItems}" 
+          CachingStrategy="RecycleElement"
+          RowHeight="120"  SeparatorColor="Transparent" SeparatorVisibility="Default" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}" Margin="5" Padding="3">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
+                                        <StackLayout Margin="10,4,10,0">
+                                            <Label Text="{Binding MenuItemName}" FontAttributes="Bold" TextColor="Black" FontSize="Large" />
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,-8,0,0">
+                                            <Label Text="{Binding Quantity}" FontSize="Medium" />
+                                            <Label Text="{Binding MenuItemPrice}" FontSize="Medium" Margin="10,0,0,0" />
+
+                                        </StackLayout>
+
+                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,10,0,0">
+
+                                            <Label Grid.Row="2" Text="{Binding TotalPrice}" FontSize="Medium" Margin="5,10,0,10" />
+                                        </StackLayout>
+
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             <StackLayout>
-        </StackLayout>
+            </StackLayout>
 
-                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}"  HorizontalOptions="FillAndExpand"  Margin="10" >
+            <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}"  HorizontalOptions="FillAndExpand"  Margin="10" >
 
                 <StackLayout >
                     <Label  FontSize="Large" TextColor="black" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" Margin="3" >
@@ -27,28 +58,14 @@
                                 <Span Text="   NIS" ></Span>
                             </FormattedString>
                         </Label.FormattedText>
-
-
                     </Label>
-
-
                     <StackLayout Orientation="Horizontal" >
                         <Button Text="Edit"  CornerRadius="20" Margin="30,10,30,0"  WidthRequest="130"  Clicked="Button_Clicked"/>
                         <Button Text="Confirm" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130"  Clicked="ConfirmButton_Clicked" />
                     </StackLayout>
 
                 </StackLayout>
-                    
-
-                    
-
-
-                </Frame>
-
-        
-
-
-            
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

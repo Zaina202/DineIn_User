@@ -20,6 +20,7 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
 
         }
+     
         public BillPage(int totalPrice)
         {
             InitializeComponent();

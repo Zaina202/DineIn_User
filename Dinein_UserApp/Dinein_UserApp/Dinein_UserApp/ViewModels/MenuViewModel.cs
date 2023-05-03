@@ -112,7 +112,7 @@ namespace Dinein_UserApp.ViewModels
                    billOrder.OrderList.Add(order);
                 }
             }
-            billOrder.UserID= userId;
+            billOrder.UserId= userId;
             billOrder.BillOrderNo = orderId;
             billOrder.ReservationId = ReservationID;
             billOrder.OrderTotalPrice = totalPrice;
