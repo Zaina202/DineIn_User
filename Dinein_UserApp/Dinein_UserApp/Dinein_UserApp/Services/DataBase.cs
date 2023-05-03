@@ -97,6 +97,7 @@ namespace Dinein_UserApp.Services
 
             int count = 0;
 
+        public async Task<bool> OrderSave(BillOrder order)
             foreach (var reservation in reservations)
             {
                 if (reservation.Object.UserId == id)
@@ -108,20 +109,24 @@ namespace Dinein_UserApp.Services
             return count;
         }
 
-        public async Task<bool> OrderSave(List<OrderItem> order)
+    
+        public async Task<List<BillOrder>> GetOrderById(string userId)
         {
             try
             {
-                await fc.Child(nameof(Order)).PostAsync(JsonConvert.SerializeObject(order));
-                return true;
+                var orderQueryResult = await fc.Child("BillOrders")
+                    .OnceAsync<BillOrder>();
+
+                return orderQueryResult.Where(el => el.Object.UserId == userId).Select(el => el.Object).ToList();
+
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
-                return false;
+                Console.WriteLine($"An error occurred while getting the order by ID: {ex.Message}");
+                return null;
             }
         }
+
         public async Task<bool> UserSave(Users user)
         {
             try

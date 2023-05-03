@@ -24,10 +24,7 @@ namespace Dinein_UserApp.Views
 
         }
 
-        private void Button_Cancel(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new CancelPage());
-        }
+
     }
 }
 

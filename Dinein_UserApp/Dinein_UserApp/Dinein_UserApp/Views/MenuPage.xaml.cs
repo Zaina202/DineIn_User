@@ -22,9 +22,21 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
         }
 
-     
+        public MenuPage(string ResId)
+        {
+            InitializeComponent();
+            Task.Run(async () =>
+            {
+                var _reservationId = ResId;
+                var viewModel = new MenuViewModel(_reservationId);
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    BindingContext = viewModel;
+                });
+            });
+        }
 
-     
+
 
     }
 }

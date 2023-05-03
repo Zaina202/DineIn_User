@@ -94,8 +94,8 @@ namespace Dinein_UserApp.ViewModels
                 }
             }
 
-            await dataBase.OrderSave(orderList);
-            await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice, orderList));
+           // await dataBase.OrderSave(orderList);
+            await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice));
         }
 
     }
