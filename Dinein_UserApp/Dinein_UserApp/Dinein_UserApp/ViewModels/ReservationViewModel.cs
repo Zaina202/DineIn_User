@@ -146,7 +146,7 @@ namespace Dinein_UserApp.ViewModels
                     {
                         await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {Time} ) with ( {selectedValue} ) People", "Ok");
                         Clear();
-                        await Application.Current.MainPage.Navigation.PushAsync(new MenuPage(reservationModel.ReservationId));
+                       await Application.Current.MainPage.Navigation.PushAsync(new MenuPage());
                     }
                     else
                     {

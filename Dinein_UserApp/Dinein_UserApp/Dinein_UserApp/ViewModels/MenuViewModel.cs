@@ -62,17 +62,6 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(MenuItems));
             }
         }
-        private string _reservationId;
-
-        public string ReservationID
-        {
-            get { return _reservationId; }
-            set
-            {
-                _reservationId = value;
-                OnPropertyChanged(nameof(ReservationID));
-            }
-        }
         public MenuViewModel()
         {
 
@@ -82,15 +71,7 @@ namespace Dinein_UserApp.ViewModels
             dataBase = new DataBase();
             LoadMenuItems();
         }
-        public MenuViewModel(string resId)
-        {
-            PlusCommand = new Command<Models.Menu>(OnPlusClicked);
-            MinusCommand = new Command<Models.Menu>(OnMinusClicked);
-            SaveOrderCommand = new Command(OnSaveOrderClicked);
-            dataBase = new DataBase();
-            LoadMenuItems();
-            ReservationID = resId;
-        }
+
         private async void OnSaveOrderClicked()
         {
             BillOrder billOrder = new BillOrder();
@@ -99,7 +80,7 @@ namespace Dinein_UserApp.ViewModels
 
            // var orderList = new List<Order>();
 
-            var orderList = new List<OrderItem>();
+            //var orderList = new List<OrderItem>();
 
             var userId = (string)Application.Current.Properties["UID"];
             var orderId= Guid.NewGuid().ToString();
@@ -107,7 +88,7 @@ namespace Dinein_UserApp.ViewModels
             {
                 if (menuItem.Quantity > 0)
                 {
-                    var order = new OrderItem()
+                    var order = new Order()
                     {
                         MenuItemName = menuItem.Name,
                         MenuItemPrice = menuItem.Price,
@@ -117,7 +98,7 @@ namespace Dinein_UserApp.ViewModels
                        // UserId = userId,
                        // ReservationId= reservationId
 
-                        ReservationId= reservationId
+                       // ReservationId= reservationId
 
                     };
                     //order.OrderId = odrerId;
@@ -127,7 +108,6 @@ namespace Dinein_UserApp.ViewModels
             }
             billOrder.UserId= userId;
             billOrder.BillOrderNo = orderId;
-            billOrder.ReservationId = ReservationID;
             billOrder.OrderTotalPrice = totalPrice;
             await dataBase.OrderSave(billOrder);
             await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice));

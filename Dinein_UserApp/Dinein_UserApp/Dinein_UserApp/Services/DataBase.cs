@@ -56,7 +56,20 @@ namespace Dinein_UserApp.Services
                 return false;
             }
         }
+        public async Task<bool> OrderSave(BillOrder order)
+        {
+            try
+            {
+                await fc.Child(nameof(BillOrder)).PostAsync(JsonConvert.SerializeObject(order));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
 
+                return false;
+            }
+        }
         public async Task<List<Menu>> GetAll()
         {
             var MenuList = new List<Menu>();
@@ -97,7 +110,6 @@ namespace Dinein_UserApp.Services
 
             int count = 0;
 
-        public async Task<bool> OrderSave(BillOrder order)
             foreach (var reservation in reservations)
             {
                 if (reservation.Object.UserId == id)
@@ -153,7 +165,7 @@ namespace Dinein_UserApp.Services
             {
                 return "";
             }
-        }
+        }/*
         public async Task<int> GetTotalPrice()
         {
             var orders = await fc.Child("Order").OnceAsync<OrderItem>();
@@ -164,7 +176,7 @@ namespace Dinein_UserApp.Services
             }
             return totalPrice;
         }
-
+        */
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
