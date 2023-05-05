@@ -126,9 +126,8 @@ namespace Dinein_UserApp.Services
         {
             try
             {
-                var orderQueryResult = await fc.Child("BillOrders")
+                var orderQueryResult = await fc.Child("BillOrder")
                     .OnceAsync<BillOrder>();
-
                 return orderQueryResult.Where(el => el.Object.UserId == userId).Select(el => el.Object).ToList();
 
             }
