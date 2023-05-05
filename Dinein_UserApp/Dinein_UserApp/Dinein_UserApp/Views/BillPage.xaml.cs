@@ -24,7 +24,7 @@ namespace Dinein_UserApp.Views
      
         
 
-        public BillPage(int totalPrice, List<OrderItem> orders)
+        public BillPage(int totalPrice)
 
         {
             InitializeComponent();
