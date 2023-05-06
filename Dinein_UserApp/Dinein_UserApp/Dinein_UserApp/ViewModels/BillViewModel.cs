@@ -23,7 +23,7 @@ namespace Dinein_UserApp.ViewModels
      
         private List<BillOrder> _orders;
         private List<Order> _OrderItems;
-
+        private string _userId = Application.Current.Properties["UID"] as string;
         private DataBase _dataBase;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -34,7 +34,7 @@ namespace Dinein_UserApp.ViewModels
             CancelOrderCommand = new Command(OnCancelOrder);
 
             _dataBase = new DataBase();
-            _ = LoadOrders(Application.Current.Properties["UID"] as string);
+           
 
         }
 
@@ -66,14 +66,6 @@ namespace Dinein_UserApp.ViewModels
         public ICommand EditOrderCommand { get; private set; }
         public ICommand CancelOrderCommand { get; private set; }
 
-
-        public BillViewModel(string userId)
-        {
-            _dataBase = new DataBase();
-
-
-            _ = LoadOrders(userId);
-        }
         private async void OnEditOrder()
         {
             string userId = Application.Current.Properties["UID"] as string;
@@ -120,7 +112,7 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(OrderItems));
             }
         }
-        public async Task LoadOrders(string userId)
+        public async void LoadOrders(string userId)
         {
             Orders = await _dataBase.GetOrderById(userId);
             OrderItems = Orders.Select(el => el.OrderList).First();
@@ -146,6 +138,8 @@ namespace Dinein_UserApp.ViewModels
         }
         public BillViewModel(int totalPrice)
         {
+            _dataBase = new DataBase();
+            LoadOrders(_userId);
             TotalPrice = totalPrice;
         }
     }

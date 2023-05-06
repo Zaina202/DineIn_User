@@ -8,7 +8,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-                <ListView ItemsSource="{Binding OrderItems}" 
+            <ListView ItemsSource="{Binding OrderItems}" 
           CachingStrategy="RecycleElement"
           RowHeight="120"  SeparatorColor="Transparent" SeparatorVisibility="Default" >
                     <ListView.ItemTemplate>
