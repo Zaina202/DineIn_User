@@ -22,81 +22,39 @@ namespace Dinein_UserApp.ViewModels
         private int _selectedValue;
         private string selectedValue;
         private string note;
-
-
-
-        private int _hour = 0;
-        private int _minute = 0;
-
-        private string _time ;
-        public string Time
-        {
-            get { return _time; }
-            set
-            {
-                if (_time != value)
-                {
-                    _time = value;
-                    OnPropertyChanged(nameof(Time));
-
-                    if (Time.Length == 5)
-                    {
-                        if (int.TryParse(Time.Substring(0, 2), out int hour) && int.TryParse(Time.Substring(3, 2), out int minute))
-                        {
-                            _hour = hour;
-                            _minute = minute;
-                        }
-                    }
-                }
-            }
-        }
-
-        public ICommand MinusButtonCommand { get; }
-        public ICommand PlusButtonCommand { get; }
+    
         public ICommand ConfirmButtonCommand { get; }
         public ReservationViewModel()
         {
 
-            MinusButtonCommand = new Command(OnMinusButtonClicked);
-            PlusButtonCommand = new Command(OnPlusButtonClicked);
+           
         }
 
-        private void OnMinusButtonClicked()
+        private string _reservationTime;
+        public string ReservationTime
         {
-            if (_hour > 0 || _minute >= 30)
+            get => _reservationTime;
+            set
             {
-                if (_minute >= 30)
+                if (_reservationTime != value)
                 {
-                    _minute -= 30;
-                }
-                else
-                {
-                    _hour--;
-                    _minute += 30;
+                    _reservationTime = value;
+                    OnPropertyChanged(nameof(ReservationTime));
                 }
             }
-
-            Time = $"{_hour:D2}:{_minute:D2}";
         }
 
-        private void OnPlusButtonClicked()
+        private TimeSpan _selectedTime;
+        public TimeSpan SelectedTime
         {
-            if (_hour < 23 || _minute < 30)
+            get => _selectedTime;
+            set
             {
-                if (_minute < 30)
-                {
-                    _minute += 30;
-                }
-                else
-                {
-                    _hour++;
-                    _minute -= 30;
-                }
+                _selectedTime = value;
+                ReservationTime = _selectedTime.ToString(@"hh\:mm");
+                OnPropertyChanged(nameof(SelectedTime));
             }
-
-            Time = $"{_hour:D2}:{_minute:D2}";
         }
-
 
 
 
@@ -104,27 +62,27 @@ namespace Dinein_UserApp.ViewModels
 
         public async Task Confirm()
         {
-            if (string.IsNullOrEmpty(Time) && string.IsNullOrEmpty(selectedValue))
+            if (string.IsNullOrEmpty(ReservationTime) && string.IsNullOrEmpty(selectedValue))
             {
-                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time!and Number of People", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time ! and Number of People", "Cancel");
                 return;
             }
-           if (string.IsNullOrEmpty(Time) || string.IsNullOrEmpty(selectedValue))
+           if (string.IsNullOrEmpty(ReservationTime) || string.IsNullOrEmpty(selectedValue))
             {
-                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time!or Number of People", "Cancel");
+                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time ! or Number of People", "Cancel");
                 return;
             }
             else
             {
                 ReservationModel reservationModel = new ReservationModel();
-                reservationModel.TimePicker = Time;
+                reservationModel.TimePicker = ReservationTime;
                 reservationModel.NumberOfPeople = selectedValue;
                 reservationModel.Note = note;
                 reservationModel.UserId = (string)Application.Current.Properties["UID"];
                 reservationModel.ReservationId = Guid.NewGuid().ToString();
 
                 DataBase dataBase = new DataBase();
-                int _timecount = await dataBase.GetReservationCountByTime(Time);
+                int _timecount = await dataBase.GetReservationCountByTime(ReservationTime);
                 int _idCount= await dataBase.GetReservationCountByUserID(reservationModel.UserId);
                 if(_idCount == 1)
                 {
@@ -135,7 +93,7 @@ namespace Dinein_UserApp.ViewModels
                 }
                 else if (_timecount == 10)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Information", $"Sorry, the selected time ({Time}) is not available. Please select another time.", "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Information", $"Sorry, the selected time ({ReservationTime}) is not available. Please select another time.", "Ok");
                     Clear();
 
                 }
@@ -144,7 +102,7 @@ namespace Dinein_UserApp.ViewModels
                     var isSaved = await dataBase.ReservationModelSave(reservationModel);
                     if (isSaved)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {Time} ) with ( {selectedValue} ) People", "Ok");
+                        await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {ReservationTime} ) with ( {selectedValue} ) People", "Ok");
                         Clear();
                        await Application.Current.MainPage.Navigation.PushAsync(new MenuPage());
                     }
@@ -158,7 +116,7 @@ namespace Dinein_UserApp.ViewModels
 
         public void Clear()
         {
-            Time = string.Empty;
+            ReservationTime = string.Empty;
             selectedValue = string.Empty;
             Note = string.Empty;
 
