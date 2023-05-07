@@ -10,9 +10,15 @@
         
         <StackLayout>
 
-            <Label Text="Current Reservation" TextColor="Black" FontSize="Title"  FontAttributes="Bold" Margin="0,50,0,20" HorizontalTextAlignment="Center"  />
+            <Label Text="Current Reservation" TextColor="Gray"  FontSize="Title"  FontAttributes="Bold" Margin="0,50,0,20" HorizontalTextAlignment="Center"  />
+            <StackLayout Padding="10,50,10,50" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  BackgroundColor="{StaticResource Secondry}" IsVisible="{Binding NoReservation}">
+                <Label Text="You don't have any current reservation" FontSize="Large" Margin="0,0,0,30"/>
+                <Button Text="Reserve" Style="{StaticResource LargButton}" Clicked="Go_Reserve"/>
 
-            <StackLayout BackgroundColor="{StaticResource Secondry}" Margin="20,0,20,0">
+            </StackLayout>
+            <StackLayout  IsVisible="{Binding HasReservation}">
+                
+            <StackLayout BackgroundColor="{StaticResource Secondry}" Margin="20,0,20,0" >
                 <Image Source="current.png" Margin="0,20,0,0" />
                 <StackLayout>
                     
@@ -59,6 +65,8 @@
                 <Label Text="Your Order" FontAttributes="Bold" FontSize="Large" TextColor="Black" Margin="30,15,0,0"  />
                 <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="115,0,0,0" Clicked="Button_Order" />
             </StackLayout>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

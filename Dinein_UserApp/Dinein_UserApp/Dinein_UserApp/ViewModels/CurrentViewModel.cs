@@ -103,7 +103,28 @@ namespace Dinein_UserApp.ViewModels
         }
 
 
-       
+        private bool hasReservation;
+
+        public bool HasReservation
+        {
+            get { return hasReservation; }
+            set
+            {
+                hasReservation = value;
+                OnPropertyChanged(nameof(HasReservation));
+            }
+        }
+        private bool noReservation;
+
+        public bool NoReservation
+        {
+            get { return noReservation; }
+            set
+            {
+                noReservation = value;
+                OnPropertyChanged(nameof(NoReservation));
+            }
+        }
 
         private async void LoadCurrentReservation()
         {
@@ -111,8 +132,15 @@ namespace Dinein_UserApp.ViewModels
             reservation = await dataBase.GetCurrentReservation(userId);
             if (reservation != null)
             {
+                HasReservation = true;
+                NoReservation = false;
                 OnPropertyChanged(nameof(Time));
                 OnPropertyChanged(nameof(NumPeople));
+            }
+            else
+            {
+                HasReservation = false;
+                NoReservation = true;
             }
         }
 
