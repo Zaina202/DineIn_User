@@ -37,7 +37,28 @@ namespace Dinein_UserApp.ViewModels
            
 
         }
+        private bool hasOrder;
 
+        public bool HasOrder
+        {
+            get { return hasOrder; }
+            set
+            {
+                hasOrder = value;
+                OnPropertyChanged(nameof(HasOrder));
+            }
+        }
+        private bool noOrder;
+
+        public bool NoOrder
+        {
+            get { return noOrder; }
+            set
+            {
+                noOrder = value;
+                OnPropertyChanged(nameof(NoOrder));
+            }
+        }
         private async void OnCancelOrder(object obj)
         {
             string userId = Application.Current.Properties["UID"] as string;
@@ -55,11 +76,15 @@ namespace Dinein_UserApp.ViewModels
                     .Child(reservations.First().Key)
                     .DeleteAsync();
                 await Application.Current.MainPage.DisplayAlert("Info","your order sucssfully deleted", "OK");
+                HasOrder = true;
+                NoOrder = false;
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert(
                     "Error", "Order not found", "OK");
+                HasOrder = false;
+                NoOrder = true;
             }
         }
 
