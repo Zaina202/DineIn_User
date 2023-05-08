@@ -19,16 +19,13 @@
                         <Label  Text="Time"  FontSize="25" HeightRequest="33" TextColor="Black"  Grid.Column="1"/>
                     </Grid>
 
-                    <Grid Padding="20,0,20,0" BackgroundColor="Transparent">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="50" />
-                        </Grid.RowDefinitions>
-                        <Button  ImageSource="Top.png"  Grid.Row="0" Clicked="OnMinusButtonClicked" Command="{Binding PlusButtonCommand}"  BackgroundColor="Transparent"/>
-                        <Entry x:Name="textTime" Placeholder="00 : 00" Keyboard="Numeric"  HorizontalTextAlignment="Center" Text="{Binding Time}" BackgroundColor="White" Margin="30,0,30,0" FontSize="Medium" Grid.Row="1"  />
-                        <Button ImageSource="Down.png"  Grid.Row="2" Clicked="OnPlusButtonClicked" Command="{Binding MinusButtonCommand}"  BackgroundColor="Transparent" />
-                    </Grid>
+                    <!--Time Picker-->
+                    <Label Text="Reservation Time" FontSize="Medium" />
+                    <TimePicker
+                        Format="hh:mm"
+                        Time="{Binding SelectedTime, Mode=TwoWay}"> 
+                    </TimePicker>
+
                 </StackLayout>
                 
                     <Grid >
