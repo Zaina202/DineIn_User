@@ -8,13 +8,14 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Your Order : " TextColor="Black" FontAttributes="Bold" FontSize="Large" Margin="10"/>
             <ListView ItemsSource="{Binding OrderItems}" 
           CachingStrategy="RecycleElement"
           RowHeight="120"  SeparatorColor="Transparent" SeparatorVisibility="Default" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}" Margin="5" Padding="3">
+                                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}" Margin="5,15,5,5" Padding="3">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
@@ -23,18 +24,19 @@
                                         </Grid.RowDefinitions>
 
                                         <StackLayout Margin="10,4,10,0">
-                                            <Label Text="{Binding MenuItemName}" FontAttributes="Bold" TextColor="Black" FontSize="Large" />
+                                            <Label Text="{Binding MenuItemName}" FontAttributes="Italic" TextColor="Black" FontSize="Large" />
                                         </StackLayout>
 
-                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,-8,0,0">
-                                            <Label Text="{Binding Quantity}" FontSize="Medium" />
-                                            <Label Text="{Binding MenuItemPrice}" FontSize="Medium" Margin="10,0,0,0" />
+                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="25,-8,0,0" HorizontalOptions="Center">
+
+                                        <Label Text="{Binding Quantity, StringFormat='Quantity : {0:N0}'}" FontSize="Medium" />
+                                        <Label Text="{Binding MenuItemPrice , StringFormat='Price : {0:C2}'}" FontSize="Medium" Margin="10,0,0,0" />
 
                                         </StackLayout>
 
-                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,10,0,0">
+                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,10,0,0" HorizontalOptions="Center">
 
-                                            <Label Grid.Row="2" Text="{Binding TotalPrice}" FontSize="Medium" Margin="5,10,0,10" />
+                                        <Label Grid.Row="2" Text="{Binding TotalPrice ,StringFormat='Total : {0:C2}'}" FontSize="Medium" Margin="5,10,0,10" />
                                         </StackLayout>
 
                                     </Grid>
