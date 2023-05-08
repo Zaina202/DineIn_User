@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
-             x:Class="Dinein_UserApp.Views.ReservationPage">
+             x:Class="Dinein_UserApp.Views.ReservationPage" BackgroundColor="{StaticResource Secondry}">
     <ContentPage.BindingContext>
         <local:ReservationViewModel />
     </ContentPage.BindingContext>
@@ -15,8 +15,8 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions >
-                        <Image Margin="0,0,7,2" Source="Clock.png" Grid.Column="0"/>
-                        <Label  Text="Time"  FontSize="25" HeightRequest="33" FontAttributes="Bold" TextColor="Black"  Grid.Column="1"/>
+                        <Image Margin="0,0,7,2" Source="Clock1.png" Grid.Column="0"/>
+                        <Label  Text="Time"  FontSize="25" HeightRequest="33" TextColor="Black"  Grid.Column="1"/>
                     </Grid>
 
                     <!--Time Picker-->
@@ -25,17 +25,19 @@
                         Format="hh:mm"
                         Time="{Binding SelectedTime, Mode=TwoWay}"> 
                     </TimePicker>
+
                 </StackLayout>
-                <StackLayout  >
+                
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions >
                         <Image Margin="0,0,10,0" Source="People.png" Grid.Column="0"/>
-                        <Label Text="Numper of people"  FontSize="25" HeightRequest="35" FontAttributes="Bold" TextColor="Black"  Grid.Column="1" />
+                        <Label Text="Numper of people"  FontSize="25" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1" />
                     </Grid>
-                    <Grid Padding="7" >
+                <Frame  Margin="15,0,0,0" Style="{StaticResource BorderFrame}">
+                    <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
@@ -43,13 +45,13 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions >
-                        <RadioButton Content="1-2" IsChecked="{Binding IsOneTwoChecked}" Grid.Column="0" />
-                        <RadioButton Content="3-4" IsChecked="{Binding IsTwoThreeChecked}" Grid.Column="1"/>
-                        <RadioButton Content="5-6" IsChecked="{Binding IsFourChecked}" Grid.Column="2"/>
-                        <RadioButton Content="7-10" IsChecked="{Binding IsFiveChecked}" Grid.Column="3"/>
-                        <RadioButton Content=">10" IsChecked="{Binding IsSixChecked}" Grid.Column="4" />
+                        <RadioButton TextColor="Gray" Content="1-2" IsChecked="{Binding IsOneTwoChecked}" Grid.Column="0" />
+                        <RadioButton TextColor="Gray" Content="3-4" IsChecked="{Binding IsTwoThreeChecked}" Grid.Column="1"/>
+                        <RadioButton TextColor="Gray" Content="5-6" IsChecked="{Binding IsFourChecked}" Grid.Column="2"/>
+                        <RadioButton TextColor="Gray" Content="7-10" IsChecked="{Binding IsFiveChecked}" Grid.Column="3"/>
+                        <RadioButton TextColor="Gray" Content=">10" IsChecked="{Binding IsSixChecked}" Grid.Column="4" />
                     </Grid>
-                </StackLayout>
+                </Frame>
 
                 <StackLayout  Margin="0,30,0,0">
                     <Grid>
@@ -57,19 +59,22 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions >
-                        <Image Margin="0,0,10,0" Source="Note.png" Grid.Column="0"/>
-                        <Label Text="Note" FontSize="25" HeightRequest="35" FontAttributes="Bold" TextColor="Black"  Grid.Column="1"/>
+                        <Image Margin="0,0,10,0" Source="Note1.png" Grid.Column="0"/>
+                        <Label Text="Note" FontSize="25" HeightRequest="35"  TextColor="Black"  Grid.Column="1"/>
                     </Grid>
-                    <StackLayout Padding="10">
-                        <Editor Keyboard="Text" Placeholder="Any Note to add?!" HeightRequest="80" WidthRequest="100" BackgroundColor="{StaticResource Secondry}"
+
+                    <Frame Style="{StaticResource BorderFrame}">
+                        <StackLayout Padding="5">
+                            <Editor Keyboard="Text" Placeholder="Any Note to add?!" HeightRequest="80" WidthRequest="100" BackgroundColor="White"
                            Text="{Binding Note}"/>
-                    </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    
                 </StackLayout>
 
                 <Button Style="{StaticResource LargButton}"
-                Margin="30,15,30,10" Text="Confirm"
-                    Command="{Binding ConfirmCommand}"
-                   />
+                      Text="Confirm"
+                    Command="{Binding ConfirmCommand}"  Margin="40,15,40,10"/>
             </StackLayout>
 
         </StackLayout>

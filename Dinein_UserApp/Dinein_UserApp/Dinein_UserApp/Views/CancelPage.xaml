@@ -15,7 +15,7 @@
                     <Label Text="Your reserve has been" TextColor="Black" FontAttributes="Bold" FontSize="Large" Margin="20,0,0,0"/>
                     <Label Text=" canceled...!!" TextColor="Black" FontAttributes="Bold" FontSize="Large" Margin="20,0,0,0"/>
                 </StackLayout>
-                <Button Text="Reserve" Clicked="Button_Reserve" Margin="90,90,90,0" CornerRadius="20" HeightRequest="60"/>
+                <Button Text="Reserve"  Style="{StaticResource LargButton}" Clicked="Button_Reserve" Margin="90,90,90,0" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

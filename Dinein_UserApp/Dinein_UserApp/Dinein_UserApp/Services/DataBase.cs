@@ -15,13 +15,13 @@ namespace Dinein_UserApp.Services
 {
     public class DataBase
     {
-        public static string FirebaseClient = "https://dine-in-54308-default-rtdb.firebaseio.com/";
+        public static string FirebaseClient = "https://dine-in2-default-rtdb.firebaseio.com/";
         public static string FirebaseSecret = "1AO003FSpm2dGZn4321C88RKPu2T6DPnKLfBr1Dg";
 
         public FirebaseClient fc = new FirebaseClient(FirebaseClient,
         new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FirebaseSecret) });
-        static string webAPIkey = "\r\nAIzaSyBs4FwBJ8G5xNjnRKdFDYpv_lPuvSVWCyA";
-        FirebaseAuthProvider authProvider;
+        private static readonly string webAPIkey = "\r\nAIzaSyCOwJmK-r_qQ5lKDjcjPZYV6s4WHHW7fH4";
+        private readonly FirebaseAuthProvider authProvider;
         public DataBase()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIkey));

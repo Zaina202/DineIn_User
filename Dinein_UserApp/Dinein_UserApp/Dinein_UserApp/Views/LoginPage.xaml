@@ -9,19 +9,19 @@
     <ContentPage.Content>
         <StackLayout>   
 
-            <Image Source="DinInLogo.png" Aspect="AspectFit"  Margin="0,150,15,20" WidthRequest="200" HeightRequest="90"/>
+            <Image Source="Dinein.png" Aspect="AspectFit"  Margin="0,150,15,20" WidthRequest="200" HeightRequest="90"/>
             
             <StackLayout Padding="20,20,20,0" Spacing="20" Margin="0,40,0,0" >
-                <Frame BorderColor="LightGray" HasShadow="True" CornerRadius="20" Padding="5" Margin="25,0,25,0" >
+                <Frame Style="{StaticResource BorderFrame}" Margin="25,0,25,0" >
                     <StackLayout Orientation="Horizontal" Padding="15,0,0,0" >
-                    <Image Source="username.png" />
+                    <Image Source="user.png" />
                         <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" WidthRequest="250" />
                 </StackLayout>
             </Frame>
 
-            <Frame BorderColor="LightGray" HasShadow="True" CornerRadius="20" Padding="5" Margin="25,0,25,0" >
+                <Frame Style="{StaticResource BorderFrame}" Margin="25,0,25,0" >
                 <StackLayout Orientation="Horizontal" Padding="15,0,0,0">
-                    <Image Source="password.png" />
+                    <Image Source="lock.png" />
                         <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" WidthRequest="250"/>
                 </StackLayout>
             </Frame>
