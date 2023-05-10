@@ -16,7 +16,7 @@ namespace Dinein_UserApp.Services
     public class DataBase
     {
         public static string FirebaseClient = "https://dine-in2-default-rtdb.firebaseio.com/";
-        public static string FirebaseSecret = "1AO003FSpm2dGZn4321C88RKPu2T6DPnKLfBr1Dg";
+        public static string FirebaseSecret = "pVOv2WoG1nNrDAZsbmzV8OPS51oPcgdntCXDqjHK";
 
         public FirebaseClient fc = new FirebaseClient(FirebaseClient,
         new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FirebaseSecret) });
