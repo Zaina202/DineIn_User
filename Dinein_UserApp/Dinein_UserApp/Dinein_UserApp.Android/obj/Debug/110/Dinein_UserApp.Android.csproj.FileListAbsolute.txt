@@ -1775,7 +1775,6 @@ C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_U
 C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\minus.png
 C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\plus.png
 C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\shekel.png
-C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\dinein1.png
 C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\phone1.png
 C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\password.png
 C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\username.png
@@ -2412,3 +2411,11 @@ C:\Users\Deema\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein
 C:\Users\Deema\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\stamp\_GenerateJavaStubs.stamp
 C:\Users\Deema\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Deema\Documents\GitHub\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\dinein.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\lock.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\user.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\location1.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\note2.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\clock1.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\clock2.png
+C:\Users\User0\Desktop\mobile\DineIn_User\Dinein_UserApp\Dinein_UserApp\Dinein_UserApp.Android\obj\Debug\110\res\drawable\note1.png
