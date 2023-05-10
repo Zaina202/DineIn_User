@@ -2,13 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
-             x:Class="Dinein_UserApp.Views.ReservationPage" BackgroundColor="{StaticResource Secondry}">
+             x:Class="Dinein_UserApp.Views.ReservationPage" BackgroundColor="#FFD9A0">
     <ContentPage.BindingContext>
         <local:ReservationViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content >
         <StackLayout>
-            <StackLayout Padding="20,20,20,20">
+            <StackLayout Padding="20,20,20,20" Margin="0,20,0,0">
+                <StackLayout>
+                    <Label Text="Fill in your reservation information" FontSize="Title"  TextColor="DimGray"/>
+                </StackLayout>
                 <StackLayout Margin="0,20,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -16,27 +19,27 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions >
                         <Image Margin="0,0,7,2" Source="Clock1.png" Grid.Column="0"/>
-                        <Label  Text="Time"  FontSize="25" HeightRequest="33" TextColor="Black"  Grid.Column="1"/>
+                        <Label  Text="Time"  FontSize="Large" HeightRequest="33" TextColor="Black" FontAttributes="Italic" Grid.Column="1"/>
                     </Grid>
-
-                    <!--Time Picker-->
-                    <Label Text="Reservation Time" FontSize="Medium" />
-                    <TimePicker
+                    <Frame Margin="7,10,10,20" Style="{StaticResource BorderFrame}" Padding="10">
+                        <StackLayout WidthRequest="100"   >
+                            <TimePicker
                         Format="hh:mm"
                         Time="{Binding SelectedTime, Mode=TwoWay}"> 
                     </TimePicker>
-
+                    </StackLayout>
+                    </Frame>
                 </StackLayout>
                 
-                    <Grid >
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions >
                         <Image Margin="0,0,10,0" Source="People.png" Grid.Column="0"/>
-                        <Label Text="Numper of people"  FontSize="25" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1" />
+                    <Label Text="Numper of people"  FontSize="Large" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1" />
                     </Grid>
-                <Frame  Margin="15,0,0,0" Style="{StaticResource BorderFrame}">
+                <Frame  Margin="15,0,0,0" Style="{StaticResource BorderFrame}" Padding="10">
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -60,7 +63,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions >
                         <Image Margin="0,0,10,0" Source="Note1.png" Grid.Column="0"/>
-                        <Label Text="Note" FontSize="25" HeightRequest="35"  TextColor="Black"  Grid.Column="1"/>
+                        <Label Text="Note" FontSize="Large" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1"/>
                     </Grid>
 
                     <Frame Style="{StaticResource BorderFrame}">

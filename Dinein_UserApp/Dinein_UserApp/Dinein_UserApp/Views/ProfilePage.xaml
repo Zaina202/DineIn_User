@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
-             x:Class="Dinein_UserApp.Views.ProfilePage">
+             x:Class="Dinein_UserApp.Views.ProfilePage" BackgroundColor="#FFD9A0">
     <ContentPage.BindingContext>
         <local:ProfileViewModel />
     </ContentPage.BindingContext>
@@ -15,16 +15,16 @@
             </Frame>
             <StackLayout Spacing="15">
                 <StackLayout Spacing="3">
-                    <Label Text="Name:" FontSize="Medium" FontAttributes="Italic" TextColor="Gray"/>
+                    <Label Text="Name:" FontSize="Medium" FontAttributes="Italic" TextColor="DimGray"/>
                     <Label Text="{Binding Name}" FontSize="Large" FontAttributes="Bold" TextColor="Black" Margin="10,0,0,0"/>
                 </StackLayout>
                 <StackLayout Spacing="3">
-                    <Label Text="Email:" FontSize="Medium" FontAttributes="Italic" TextColor="Gray"/>
+                    <Label Text="Email:" FontSize="Medium" FontAttributes="Italic" TextColor="DimGray"/>
                     <Label Text="{Binding Email}" FontSize="Large" FontAttributes="Bold" TextColor="Black" Margin="10,0,0,0"/>
                 </StackLayout>
                 
                 <StackLayout Spacing="10">
-                    <Label Text="Offers:" FontSize="Medium" FontAttributes="Italic" TextColor="Gray"/>
+                    <Label Text="Offers:" FontSize="Medium" FontAttributes="Italic" TextColor="DimGray"/>
                     <Frame BackgroundColor="{StaticResource Secondry}" Margin="5" Style="{StaticResource BorderFrame}" Padding="20">
                         <ContentView  VerticalOptions="CenterAndExpand">
                             <Label Text="Hi there!    
