@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
-             x:Class="Dinein_UserApp.Views.BillPage" BackgroundColor="#FFD9A0">
+             x:Class="Dinein_UserApp.Views.BillPage" BackgroundColor="#FFD9A0" Shell.TabBarIsVisible="False" >
     <ContentPage.BindingContext>
         <local:BillViewModel />
     </ContentPage.BindingContext>
