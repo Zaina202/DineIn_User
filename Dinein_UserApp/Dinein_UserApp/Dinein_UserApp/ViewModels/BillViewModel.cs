@@ -163,6 +163,8 @@ namespace Dinein_UserApp.ViewModels
         }
         public BillViewModel(int totalPrice)
         {
+            EditOrderCommand = new Command(OnEditOrder);
+            CancelOrderCommand = new Command(OnCancelOrder);
             _dataBase = new DataBase();
             LoadOrders(_userId);
             TotalPrice = totalPrice;

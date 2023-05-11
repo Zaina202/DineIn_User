@@ -96,14 +96,17 @@ namespace Dinein_UserApp.ViewModels
                 if (isUpdated)
                 {
                     await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time has been updated to: {ReservationTime} with {selectedValue} People", "Ok");
+
                     Clear();
+                    await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+
                 }
                 else
 
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", "Your reservation update failed, please try again", "Ok");
+                    return;
                 }
-                await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
 
             }
         }
