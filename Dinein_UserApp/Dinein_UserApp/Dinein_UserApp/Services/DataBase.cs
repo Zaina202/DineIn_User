@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Menu = Dinein_UserApp.Models.Menu;
 
+
 namespace Dinein_UserApp.Services
 {
     public class DataBase
@@ -248,6 +249,19 @@ namespace Dinein_UserApp.Services
             {
                 Console.WriteLine($"Exception: {ex.Message}");
                 return null;
+            }
+        }
+        public async Task<bool> Logout()
+        {
+            try
+            { 
+                Application.Current.Properties.Remove("UID");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while logging out: {ex.Message}");
+                return false;
             }
         }
     }

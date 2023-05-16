@@ -8,7 +8,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Margin="30, 10, 30, 30">
-            <Button HorizontalOptions="End" ImageSource="logout.png" BackgroundColor="Transparent" Clicked="Logout" Margin="0,0,-30,0"/>
+            <Button HorizontalOptions="End" ImageSource="logout.png" BackgroundColor="Transparent" Command="{Binding LogoutCommand}" Margin="0,0,-30,0"/>
             <Frame Padding="2" HeightRequest="150" WidthRequest="150" BackgroundColor="white" CornerRadius="100" BorderColor="LightGray"
                   HorizontalOptions="Center"  VerticalOptions="Center">
                 <Image Source="profilpage.png" Scale="1" ></Image>

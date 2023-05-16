@@ -1,10 +1,12 @@
 ﻿using Dinein_UserApp.Services;
+using Dinein_UserApp.Views;
 using Firebase.Auth;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
@@ -12,12 +14,42 @@ namespace Dinein_UserApp.ViewModels
 
     public class ProfileViewModel : INotifyPropertyChanged
     {
+        public ICommand LogoutCommand { get; }
         private readonly DataBase database;
         private string id = (string)Application.Current.Properties["UID"];
         public ProfileViewModel()
         {
             database = new DataBase();
             _ = LoadData(id);
+            LogoutCommand = new Command(async () => await Logout());
+        }
+
+        private async Task Logout()
+        {
+            bool confirmed = await Application.Current.MainPage.DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
+
+            if (confirmed)
+            {
+                try
+                {
+                    bool success = await database.Logout();
+                    if (success)
+                    {
+                        Application.Current.Properties.Remove("UID");
+                        await Application.Current.MainPage.Navigation.PopToRootAsync();
+                        await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
+                        Console.WriteLine("heloooooooooo");
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Logout Failed", "Unable to log out. Please try again.", "OK");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while logging out: {ex.Message}");
+                }
+            }
         }
 
         public async Task LoadData(string userId)
@@ -58,6 +90,7 @@ namespace Dinein_UserApp.ViewModels
                 }
             }
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
