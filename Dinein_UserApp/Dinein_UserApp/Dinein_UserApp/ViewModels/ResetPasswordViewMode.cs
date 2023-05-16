@@ -9,11 +9,10 @@ using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
-    class ResetPasswordViewModel : INotifyPropertyChanged
+    class ResetPasswordViewModel 
     {
         private readonly DataBase dataBase;
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public ResetPasswordViewModel()
         {
@@ -48,7 +47,7 @@ namespace Dinein_UserApp.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+                Console.WriteLine("Error", ex.Message);
             }
         }
     }

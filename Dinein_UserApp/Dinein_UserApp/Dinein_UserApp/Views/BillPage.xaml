@@ -56,7 +56,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Total Price is :  "></Span>
-                                <Span Text="{Binding  TotalPrice}"></Span>
+                                <Span Text="{Binding  OrderTotalPrice}"></Span>
                                 <Span Text="   NIS" ></Span>
                             </FormattedString>
                         </Label.FormattedText>

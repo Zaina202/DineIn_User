@@ -9,11 +9,11 @@ using Xamarin.Forms;
 
 namespace Dinein_UserApp.ViewModels
 {
-    class LoginViewModel : INotifyPropertyChanged
+    class LoginViewModel 
     {
         private readonly DataBase dataBase;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+       
 
         public LoginViewModel()
         {
@@ -60,7 +60,7 @@ namespace Dinein_UserApp.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "ok");
+                    Console.WriteLine("Error", ex.Message);
 
                 }
             }

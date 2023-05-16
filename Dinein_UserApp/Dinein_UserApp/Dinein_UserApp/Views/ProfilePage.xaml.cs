@@ -16,11 +16,5 @@ namespace Dinein_UserApp.Views
         {
             InitializeComponent();
         }
-
-        private void Logout(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new LoginPage());
-
-        }
     }
 }

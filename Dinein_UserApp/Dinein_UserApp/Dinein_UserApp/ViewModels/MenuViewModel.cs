@@ -41,32 +41,10 @@ namespace Dinein_UserApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-
-        public Command PlusCommand { get; }
-        public Command MinusCommand { get; }
         public Command SaveOrderCommand { get; }
 
-
-        private void OnPlusClicked(Models.Menu selectedItem)
-        {
-            selectedItem.Quantity++;
-            OnPropertyChanged(nameof(MenuItems));
-        }
-
-        private void OnMinusClicked(Models.Menu selectedItem)
-        {
-            if (selectedItem.Quantity > 0)
-            {
-                selectedItem.Quantity--;
-                OnPropertyChanged(nameof(MenuItems));
-            }
-        }
         public MenuViewModel()
         {
-
-            PlusCommand = new Command<Models.Menu>(OnPlusClicked);
-            MinusCommand = new Command<Models.Menu>(OnMinusClicked);
             SaveOrderCommand = new Command(OnSaveOrderClicked);
             dataBase = new DataBase();
             LoadMenuItems();
@@ -77,11 +55,6 @@ namespace Dinein_UserApp.ViewModels
             BillOrder billOrder = new BillOrder();
             billOrder.OrderList = new List<Order>();
             var totalPrice = 0;
-
-           // var orderList = new List<Order>();
-
-            //var orderList = new List<OrderItem>();
-
             var userId = (string)Application.Current.Properties["UID"];
             var orderId= Guid.NewGuid().ToString();
             foreach (var menuItem in MenuItems)
@@ -95,13 +68,7 @@ namespace Dinein_UserApp.ViewModels
                         Quantity = menuItem.Quantity,
                         TotalPrice = menuItem.Quantity * menuItem.Price,
 
-                       // UserId = userId,
-                       // ReservationId= reservationId
-
-                       // ReservationId= reservationId
-
                     };
-                    //order.OrderId = odrerId;
                     totalPrice += order.TotalPrice;
                    billOrder.OrderList.Add(order);
                 }
@@ -110,7 +77,7 @@ namespace Dinein_UserApp.ViewModels
             billOrder.BillOrderNo = orderId;
             billOrder.OrderTotalPrice = totalPrice;
             await dataBase.OrderSave(billOrder);
-            await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice));
+            await Application.Current.MainPage.Navigation.PushAsync(new BillPage());
         }
 
     }

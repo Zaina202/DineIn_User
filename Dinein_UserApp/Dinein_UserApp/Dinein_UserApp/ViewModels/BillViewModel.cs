@@ -32,8 +32,9 @@ namespace Dinein_UserApp.ViewModels
         {
             EditOrderCommand = new Command(OnEditOrder);
             CancelOrderCommand = new Command(OnCancelOrder);
-
             _dataBase = new DataBase();
+            LoadOrders(_userId);
+            
            
 
         }
@@ -127,7 +128,20 @@ namespace Dinein_UserApp.ViewModels
             }
         }
 
-       
+        private string _OrderTotalPrice;
+
+        public string OrderTotalPrice
+        {
+            get { return _OrderTotalPrice; }
+            set
+            {
+                if (_OrderTotalPrice != value)
+                {
+                    _OrderTotalPrice = value;
+                    OnPropertyChanged(nameof(OrderTotalPrice));
+                }
+            }
+        }
         public List<Order> OrderItems
         {
             get { return _OrderItems; }
@@ -141,33 +155,24 @@ namespace Dinein_UserApp.ViewModels
         {
             Orders = await _dataBase.GetOrderById(userId);
             OrderItems = Orders.Select(el => el.OrderList).First();
-
-        }
-
-        private int _totalPrice;
-
-        public int TotalPrice
-        {
-            get { return _totalPrice; }
-            set
+            decimal totalPrice = 0;
+            foreach (var item in OrderItems)
             {
-                _totalPrice = value;
-                OnPropertyChanged(nameof(TotalPrice));
+                totalPrice += item.TotalPrice;
             }
+
+
+            OrderTotalPrice = totalPrice.ToString("c");
+
         }
+
+       
 
         
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public BillViewModel(int totalPrice)
-        {
-            EditOrderCommand = new Command(OnEditOrder);
-            CancelOrderCommand = new Command(OnCancelOrder);
-            _dataBase = new DataBase();
-            LoadOrders(_userId);
-            TotalPrice = totalPrice;
-        }
+       
     }
 }
