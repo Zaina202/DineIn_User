@@ -16,6 +16,8 @@ namespace Dinein_UserApp
             InitializeComponent();
 
             // DependencyService.Register<MockDataStore>();
+            string email = SecureStorage.GetAsync("Email").Result;
+            string password = SecureStorage.GetAsync("Password").Result;
             MainPage = new AppShell();
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
