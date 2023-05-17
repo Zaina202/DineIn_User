@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
+             x:Class="Dinein_UserApp.Views.EditReservationPage" BackgroundColor="#FFD9A0" Shell.TabBarIsVisible="False" >
+    <ContentPage.BindingContext>
+        <local:EditViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label Text="New Current Reservation : " FontAttributes="Bold" FontSize="25"  VerticalOptions="CenterAndExpand" Margin="10,40,0,0" TextColor="Black"/> 
+            </StackLayout>
+            <StackLayout Padding="20,20,20,20">
+                <StackLayout Margin="0,20,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions >
+                        <Image Margin="0,0,7,2" Source="Clock1.png" Grid.Column="0"/>
+                        <Label  Text="Time"  FontSize="Large" HeightRequest="33" TextColor="Black" FontAttributes="Italic" Grid.Column="1"/>
+                    </Grid>
+                    <Frame Margin="7,10,10,20" Style="{StaticResource BorderFrame}" Padding="10">
+                        <StackLayout WidthRequest="100"   >
+                            <TimePicker
+                        Format="hh:mm"
+                        Time="{Binding SelectedTime, Mode=TwoWay}">
+                            </TimePicker>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions >
+                    <Image Margin="0,0,10,0" Source="People.png" Grid.Column="0"/>
+                    <Label Text="Numper of people"  FontSize="Large" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1" />
+                </Grid>
+                <Frame  Margin="10,0,0,0" Style="{StaticResource BorderFrame}" Padding="5">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions >
+                        <RadioButton TextColor="Gray" Content="1-2" IsChecked="{Binding IsOneTwoChecked}" Grid.Column="0" />
+                        <RadioButton TextColor="Gray" Content="3-4" IsChecked="{Binding IsTwoThreeChecked}" Grid.Column="1"/>
+                        <RadioButton TextColor="Gray" Content="5-6" IsChecked="{Binding IsFourChecked}" Grid.Column="2"/>
+                        <RadioButton TextColor="Gray" Content="7-10" IsChecked="{Binding IsFiveChecked}" Grid.Column="3"/>
+                        <RadioButton TextColor="Gray" Content=">10" IsChecked="{Binding IsSixChecked}" Grid.Column="4" />
+                    </Grid>
+                </Frame>
+                
+                <StackLayout  Margin="0,30,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions >
+                        <Image Margin="0,0,10,0" Source="Note1.png" Grid.Column="0"/>
+                        <Label Text="Note" FontSize="Large" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1"/>
+                    </Grid>
+
+                    <Frame Style="{StaticResource BorderFrame}">
+                        <StackLayout Padding="5">
+                            <Editor Keyboard="Text" Placeholder="Any Note to add?!" HeightRequest="80" WidthRequest="100" BackgroundColor="White"
+                           Text="{Binding Note}"/>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+
+                <Button Style="{StaticResource LargButton}"
+                Margin="60,45,60,10" Text="Edit"
+                    Command="{Binding EditCommand}"
+                    />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

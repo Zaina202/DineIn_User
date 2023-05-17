@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
+             x:Class="Dinein_UserApp.Views.LoginPage" Shell.TabBarIsVisible="False" Shell.NavBarIsVisible="False" Shell.FlyoutItemIsVisible="False">
+    <ContentPage.BindingContext>
+        <local:LoginViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>   
+
+            <Image Source="Dinein.png" Aspect="AspectFit"  Margin="0,150,15,20" WidthRequest="200" HeightRequest="90"/>
+            
+            <StackLayout Padding="20,20,20,0" Spacing="20" Margin="0,40,0,0" >
+                <Frame Style="{StaticResource BorderFrame}" Margin="25,0,25,0" >
+                    <StackLayout Orientation="Horizontal" Padding="15,0,0,0" >
+                    <Image Source="user.png" />
+                        <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" WidthRequest="250" />
+                </StackLayout>
+            </Frame>
+
+                <Frame Style="{StaticResource BorderFrame}" Margin="25,0,25,0" >
+                <StackLayout Orientation="Horizontal" Padding="15,0,0,0">
+                    <Image Source="lock.png" />
+                        <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True" WidthRequest="250"/>
+                </StackLayout>
+            </Frame>
+                <Button Text="Forget Password?"  TextColor="Blue" FontSize="Small"  BackgroundColor="Transparent" Margin="160,-25,0,-7" Clicked="Reset_Password"/>
+            </StackLayout>
+
+            <Button Style="{StaticResource LargButton}" 
+                Margin="65,0,65,0"
+               Text="Log In"
+               Command="{Binding LogInCommand}" />
+          
+
+            <Frame BackgroundColor="{StaticResource Secondry}" Margin="0,180,0,0"  >
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+                <Label Text="Don't have an account? " TextColor="Gray" FontSize="Body" Margin="30,0,0,0" />
+                <Button Text="Sign Up" Clicked="Button_SignUp" TextColor="Black" BackgroundColor="Transparent" BorderColor="Transparent" Margin="-17,-12,20,0" />
+            </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
