@@ -56,25 +56,10 @@ namespace Dinein_UserApp.ViewModels
         {
             string userId = Application.Current.Properties["UID"] as string;
 
-            var reservations = await new FirebaseClient(DataBase.FirebaseClient)
-                .Child(nameof(ReservationModel))
-                .OrderBy(nameof(ReservationModel.UserId))
-                .EqualTo(userId)
-                .OnceAsync<ReservationModel>();
+            await dataBase.DeleteOrderAsync(userId);
+            await dataBase.DeleteReservationAsync(userId);
+            await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
 
-            if (reservations.Any())
-            {
-                await new FirebaseClient(DataBase.FirebaseClient)
-                    .Child(nameof(ReservationModel))
-                    .Child(reservations.First().Key)
-                    .DeleteAsync();
-                await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Error", "Reservation not found", "OK");
-            }
         }
 
 

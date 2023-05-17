@@ -219,6 +219,54 @@ namespace Dinein_UserApp.Services
         }
 
 
+
+        public async Task DeleteOrderAsync(string userId)
+        {
+            bool response = await App.Current.MainPage.DisplayAlert("Alert", "Do you want to delete this order?", "Yes", "No");
+
+            if (response)
+            {
+                var toDeleteOrder = await fc
+                          .Child("BillOrder")
+                          .OnceAsync<Order>();
+
+                foreach (var x in toDeleteOrder)
+                {
+                    if (x.Object.UserId == userId)
+                    {
+                        await fc
+                            .Child("BillOrder")
+                            .Child(x.Key)
+                           .DeleteAsync();
+                    }
+                }
+                await App.Current.MainPage.DisplayAlert("Success", "Deletion Succeeded", "Ok");
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Failed", "Delete Failed", "Ok");
+            }
+        }
+
+        public async Task DeleteReservationAsync(string userId)
+        {
+            var toDeleteRes = await fc
+                      .Child("ReservationModel")
+                      .OnceAsync<Order>();
+
+            foreach (var x in toDeleteRes)
+            {
+                if (x.Object.UserId == userId)
+                {
+                    await fc
+                        .Child("ReservationModel")
+                        .Child(x.Key)
+                       .DeleteAsync();
+                }
+            }
+        }
+
         public async Task<ReservationModel> GetCurrentReservation(string userId)
         {
             try
