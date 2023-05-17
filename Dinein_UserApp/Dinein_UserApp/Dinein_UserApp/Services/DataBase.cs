@@ -242,18 +242,5 @@ namespace Dinein_UserApp.Services
                 return null;
             }
         }
-        public async Task<bool> Logout()
-        {
-            try
-            { 
-                Application.Current.Properties.Remove("UID");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred while logging out: {ex.Message}");
-                return false;
-            }
-        }
     }
 }

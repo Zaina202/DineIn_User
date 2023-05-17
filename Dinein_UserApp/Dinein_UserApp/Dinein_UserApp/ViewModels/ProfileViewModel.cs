@@ -32,18 +32,10 @@ namespace Dinein_UserApp.ViewModels
             {
                 try
                 {
-                    bool success = await database.Logout();
-                    if (success)
-                    {
-                        Application.Current.Properties.Remove("UID");
-                        await Application.Current.MainPage.Navigation.PopToRootAsync();
-                        await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
-                        Console.WriteLine("heloooooooooo");
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Logout Failed", "Unable to log out. Please try again.", "OK");
-                    }
+                    Application.Current.Properties.Remove("UID");
+                    await Application.Current.SavePropertiesAsync();
+                    await Application.Current.MainPage.Navigation.PopToRootAsync();
+                    await Application.Current.MainPage.Navigation.PushAsync(new LoginPage());
                 }
                 catch (Exception ex)
                 {
@@ -51,6 +43,7 @@ namespace Dinein_UserApp.ViewModels
                 }
             }
         }
+
 
         public async Task LoadData(string userId)
         {
