@@ -21,20 +21,15 @@ namespace Dinein_UserApp.ViewModels
         private bool _isSixChecked;
         private int _selectedValue;
         private string selectedValue;
+        private string note;
+        private DataBase _dataBase;
 
-
-
-      
-        private String reservationId;
-
-       
-
-     
-        public ICommand ConfirmButtonCommand { get; }
+        public ICommand EditButtonCommand { get; }
         public EditViewModel()
         {
+            _dataBase = new DataBase();
 
-            
+
         }
 
         private string _reservationTime;
@@ -65,18 +60,11 @@ namespace Dinein_UserApp.ViewModels
 
 
 
+        public ICommand EditCommand => new Command(async () => await Edit());
 
-
-
-        public ICommand EditCommand => new Command(async () => await OnEditReservation(reservationId));
-
-        public async Task OnEditReservation(String reservationId)
+        public async Task Edit()
         {
-            if (string.IsNullOrEmpty(ReservationTime) && string.IsNullOrEmpty(selectedValue))
-            {
-                await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time! and Number of People", "Cancel");
-                return;
-            }
+
             if (string.IsNullOrEmpty(ReservationTime) || string.IsNullOrEmpty(selectedValue))
             {
                 await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time ! or Number of People", "Cancel");
@@ -84,38 +72,42 @@ namespace Dinein_UserApp.ViewModels
             }
             else
             {
-                ReservationModel reservationModel = new ReservationModel();
-                reservationModel.ReservationId = reservationId; 
-                reservationModel.TimePicker = ReservationTime;
-                reservationModel.NumberOfPeople = selectedValue;
-                reservationModel.UserId = (string)Application.Current.Properties["UID"];
-
-                DataBase dataBase = new DataBase();
-                var isUpdated = await dataBase.ReservationModelUpdate(reservationModel); 
-
-                if (isUpdated)
+                ReservationModel reservationModel = new ReservationModel
                 {
-                    await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time has been updated to: {ReservationTime} with {selectedValue} People", "Ok");
+                    TimePicker = ReservationTime,
+                    NumberOfPeople = selectedValue,
+                    Note = note,
+                    UserId = (string)Application.Current.Properties["UID"],
+                    ReservationId = Guid.NewGuid().ToString()
+                };
 
-                    Clear();
-                    await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
-
-                }
-                else
-
+                try
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Your reservation update failed, please try again", "Ok");
-                    return;
+                        var isSaved = await _dataBase.ReservationModelSave(reservationModel);
+                        if (isSaved)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {ReservationTime} ) with ( {selectedValue} ) People", "Ok");
+                            Clear();
+                            await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
+                        }
+                    
                 }
-
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
         }
-
 
         public void Clear()
         {
             ReservationTime = string.Empty;
             selectedValue = string.Empty;
+            Note = string.Empty;
 
         }
 
@@ -193,6 +185,8 @@ namespace Dinein_UserApp.ViewModels
                         selectedValue = "7-10";
                     }
                     OnPropertyChanged(nameof(IsFiveChecked));
+
+
                 }
             }
         }
@@ -206,7 +200,7 @@ namespace Dinein_UserApp.ViewModels
                     _isSixChecked = value;
                     if (value)
                     {
-                        selectedValue = "more than 10";
+                        selectedValue = "more than 10 people";
                     }
                     OnPropertyChanged(nameof(IsSixChecked));
 
@@ -228,6 +222,15 @@ namespace Dinein_UserApp.ViewModels
                 }
             }
         }
-       
+        public string Note
+        {
+            get { return note; }
+            set
+            {
+                note = value;
+                OnPropertyChanged(nameof(Note));
+            }
+        }
     }
 }
+       

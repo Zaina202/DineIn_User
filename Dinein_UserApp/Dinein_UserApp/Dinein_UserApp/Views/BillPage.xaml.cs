@@ -21,11 +21,6 @@ namespace Dinein_UserApp.Views
 
         }
 
-     
-        
-
-      
-
         private void ConfirmButton_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new CurrentReservationPage());

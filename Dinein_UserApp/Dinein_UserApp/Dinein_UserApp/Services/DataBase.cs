@@ -299,6 +299,27 @@ namespace Dinein_UserApp.Services
                 return null;
             }
         }
+        public async Task<bool> HasExistingOrder(string userId)
+        {
+            try
+            {
+                var orders = await fc.Child("BillOrder")
+                    .OrderBy(nameof(BillOrder.UserId))
+                    .EqualTo(userId)
+                    .OnceAsync<BillOrder>();
+
+                return orders.Any();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while checking for existing order: {ex.Message}");
+                return false;
+            }
+        }
+
+
+
+
         public async Task<bool> Logout()
         {
             try

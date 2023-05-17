@@ -50,13 +50,33 @@ namespace Dinein_UserApp.ViewModels
             LoadMenuItems();
         }
 
+        private bool isSavingOrder = false; 
+
         private async void OnSaveOrderClicked()
         {
+            if (isSavingOrder)
+            {
+                await Application.Current.MainPage.DisplayAlert("Alert", "Order saving is already in progress.", "OK");
+                return;
+            }
+
+            var userId = (string)Application.Current.Properties["UID"];
+
+            bool hasExistingOrder = await dataBase.HasExistingOrder(userId);
+            if (hasExistingOrder)
+            {
+                await Application.Current.MainPage.DisplayAlert("Existing Order", "You already have an existing order. Please complete or cancel your existing order before placing a new one.", "OK");
+                return;
+            }
+
+            isSavingOrder = true; 
+
             BillOrder billOrder = new BillOrder();
             billOrder.OrderList = new List<Order>();
             var totalPrice = 0;
-            var userId = (string)Application.Current.Properties["UID"];
-            var orderId= Guid.NewGuid().ToString();
+            var orderId = Guid.NewGuid().ToString();
+            bool hasOrder = false;
+
             foreach (var menuItem in MenuItems)
             {
                 if (menuItem.Quantity > 0)
@@ -70,15 +90,35 @@ namespace Dinein_UserApp.ViewModels
 
                     };
                     totalPrice += order.TotalPrice;
-                   billOrder.OrderList.Add(order);
+                    billOrder.OrderList.Add(order);
+                    hasOrder = true;
                 }
             }
-            billOrder.UserId= userId;
+
+            if (!hasOrder)
+            {
+                await Application.Current.MainPage.DisplayAlert("No Items Selected", "Please select at least one item to place an order.", "OK");
+                isSavingOrder = false; 
+                return;
+            }
+
+            billOrder.UserId = userId;
             billOrder.BillOrderNo = orderId;
             billOrder.OrderTotalPrice = totalPrice;
-            await dataBase.OrderSave(billOrder);
-            await Application.Current.MainPage.Navigation.PushAsync(new BillPage());
+
+            bool orderSaved = await dataBase.OrderSave(billOrder);
+            if (orderSaved)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new BillPage());
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Alert", "Failed to save the order.", "OK");
+            }
+
+            isSavingOrder = false; 
         }
+
 
     }
 }
