@@ -68,7 +68,6 @@ namespace Dinein_UserApp.ViewModels
                     .Child(nameof(ReservationModel))
                     .Child(reservations.First().Key)
                     .DeleteAsync();
-                //await Application.Current.MainPage.DisplayAlert("Information", "Your Reservation has been cancel", "OK");
                 await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
             }
             else
