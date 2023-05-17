@@ -23,9 +23,7 @@
                     </Grid>
                     <Frame Margin="7,10,10,20" Style="{StaticResource BorderFrame}" Padding="10">
                         <StackLayout WidthRequest="100"   >
-                            <TimePicker
-                        Format="hh:mm"
-                        Time="{Binding SelectedTime, Mode=TwoWay}"> 
+                            <TimePicker Format="hh:mm" Time="{Binding SelectedTime, Mode=TwoWay}" > 
                     </TimePicker>
                     </StackLayout>
                     </Frame>
