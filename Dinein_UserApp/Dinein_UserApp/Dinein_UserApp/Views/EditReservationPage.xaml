@@ -55,6 +55,25 @@
                         <RadioButton TextColor="Gray" Content=">10" IsChecked="{Binding IsSixChecked}" Grid.Column="4" />
                     </Grid>
                 </Frame>
+                
+                <StackLayout  Margin="0,30,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions >
+                        <Image Margin="0,0,10,0" Source="Note1.png" Grid.Column="0"/>
+                        <Label Text="Note" FontSize="Large" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1"/>
+                    </Grid>
+
+                    <Frame Style="{StaticResource BorderFrame}">
+                        <StackLayout Padding="5">
+                            <Editor Keyboard="Text" Placeholder="Any Note to add?!" HeightRequest="80" WidthRequest="100" BackgroundColor="White"
+                           Text="{Binding Note}"/>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
 
                 <Button Style="{StaticResource LargButton}"
                 Margin="60,45,60,10" Text="Edit"

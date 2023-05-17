@@ -89,36 +89,56 @@ namespace Dinein_UserApp.Services
         }
         public async Task<int> GetReservationCountByTime(string Time)
         {
-
-            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
-
             int count = 0;
-
-            foreach (var reservation in reservations)
+            try
             {
-                if (reservation.Object.TimePicker == Time)
+                if (Time == null)
                 {
-                    count++;
+                    return 0;
+                }
+                else
+                {
+                    var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+                    foreach (var reservation in reservations)
+                    {
+                        if (reservation.Object.TimePicker == Time)
+                        {
+                            count++;
+                        }
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving reservation count by time: {ex.Message}");
+            }
             return count;
         }
         public async Task<int> GetReservationCountByUserID(string id)
         {
-
-            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
-
             int count = 0;
-
-            foreach (var reservation in reservations)
+            try
             {
-                if (reservation.Object.UserId == id)
+                if (id == null)
                 {
-                    count++;
+                    return 0;
+                }
+                else
+                {
+                    var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+                    foreach (var reservation in reservations)
+                    {
+                        if (reservation.Object.UserId == id)
+                        {
+                            count++;
+                        }
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving reservation count by id: {ex.Message}");
+            }
             return count;
         }
 
@@ -165,18 +185,7 @@ namespace Dinein_UserApp.Services
             {
                 return "";
             }
-        }/*
-        public async Task<int> GetTotalPrice()
-        {
-            var orders = await fc.Child("Order").OnceAsync<OrderItem>();
-            int totalPrice = 0;
-            foreach (var order in orders)
-            {
-                totalPrice += order.Object.TotalPrice;
-            }
-            return totalPrice;
         }
-        */
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
@@ -242,5 +251,24 @@ namespace Dinein_UserApp.Services
                 return null;
             }
         }
+
+        public async Task<bool> HasExistingOrder(string userId)
+        {
+            try
+            {
+                var orders = await fc.Child("BillOrder")
+                    .OrderBy(nameof(BillOrder.UserId))
+                    .EqualTo(userId)
+                    .OnceAsync<BillOrder>();
+
+                return orders.Any();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while checking for existing order: {ex.Message}");
+                return false;
+            }
+        }
+ 
     }
 }

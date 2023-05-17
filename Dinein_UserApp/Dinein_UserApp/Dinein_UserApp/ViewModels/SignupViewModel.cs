@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -112,7 +113,12 @@ namespace Dinein_UserApp.ViewModels
 
                     _users.Id = (string)Application.Current.Properties["UID"];
                     _users.Email = Email;
-                    _users.Password = Password;
+                    using (SHA256 sha256 = SHA256.Create())
+                    {
+                        byte[] passwordBytes = Encoding.UTF8.GetBytes(Password);
+                        byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                        _users.Password = Convert.ToBase64String(hashBytes);
+                    }
                     _users.UserName = Name;
                     await _dataBase.UserSave(_users);
                     await Application.Current.MainPage.DisplayAlert("Register User", "Registration completed", "Ok");
@@ -132,7 +138,7 @@ namespace Dinein_UserApp.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "ok");
+                   Console.WriteLine("Error", ex.Message);
                 }
             }
             finally

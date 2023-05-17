@@ -43,8 +43,6 @@ namespace Dinein_UserApp.ViewModels
         {
          
             SaveOrderCommand = new Command(OnSaveEditClicked);
-
-
             dataBase = new DataBase();
             LoadMenuItems();
         }
@@ -61,9 +59,6 @@ namespace Dinein_UserApp.ViewModels
         }
 
 
-
-        public Command PlusCommand { get; }
-        public Command MinusCommand { get; }
         public Command SaveOrderCommand { get; }
 
 
@@ -93,8 +88,7 @@ namespace Dinein_UserApp.ViewModels
                 }
             }
 
-           // await dataBase.OrderSave(orderList);
-            await Application.Current.MainPage.Navigation.PushAsync(new BillPage(totalPrice));
+            await Application.Current.MainPage.Navigation.PushAsync(new BillPage());
         }
 
     }
