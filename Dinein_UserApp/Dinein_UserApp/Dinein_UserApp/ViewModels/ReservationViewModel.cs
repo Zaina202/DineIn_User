@@ -55,6 +55,7 @@ namespace Dinein_UserApp.ViewModels
                 _selectedTime = value;
                 ReservationTime = _selectedTime.ToString(@"hh\:mm");
                 OnPropertyChanged(nameof(SelectedTime));
+              
             }
         }
 
@@ -64,8 +65,8 @@ namespace Dinein_UserApp.ViewModels
 
         public async Task Confirm()
         {
-       
-        
+
+
             if (string.IsNullOrEmpty(ReservationTime) && string.IsNullOrEmpty(selectedValue))
             {
                 await Application.Current.MainPage.DisplayAlert("Warning", "Please enter a Time ! and Number of People", "Cancel");
@@ -78,51 +79,64 @@ namespace Dinein_UserApp.ViewModels
             }
             else
             {
-                ReservationModel reservationModel = new ReservationModel
+                TimeSpan startTime = TimeSpan.FromHours(9);
+                TimeSpan endTime = TimeSpan.FromHours(23);
+                TimeSpan selectedTimeSpan = TimeSpan.Parse(ReservationTime);
+
+                if (selectedTimeSpan < startTime || selectedTimeSpan > endTime)
                 {
-                    TimePicker = ReservationTime,
-                    NumberOfPeople = selectedValue,
-                    Note = note,
-                    UserId = (string)Application.Current.Properties["UID"],
-                    ReservationId = Guid.NewGuid().ToString()
-                };
+                    await Application.Current.MainPage.DisplayAlert("Time Outside Boundaries", "Please select a time between 9:00 AM and 11:00 PM.", "OK");
+                    return;
+                }
 
-                try
+                else
                 {
-                    int _timecount = await _dataBase.GetReservationCountByTime(ReservationTime);
-                    int _idCount = await _dataBase.GetReservationCountByUserID(reservationModel.UserId);
-                    if (_idCount == 1)
+                    ReservationModel reservationModel = new ReservationModel
                     {
-                        await Application.Current.MainPage.DisplayAlert("Information", $"Sorry,You already have a Current Reservation", "Ok");
-                        await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+                        TimePicker = ReservationTime,
+                        NumberOfPeople = selectedValue,
+                        Note = note,
+                        UserId = (string)Application.Current.Properties["UID"],
+                        ReservationId = Guid.NewGuid().ToString()
+                    };
 
-                        Clear();
-                    }
-                    else if (_timecount == 10)
+                    try
                     {
-                        await Application.Current.MainPage.DisplayAlert("Information", $"Sorry, the selected time ({ReservationTime}) is not available. Please select another time.", "Ok");
-                        Clear();
-
-                    }
-
-                    else
-                    {
-                        var isSaved = await _dataBase.ReservationModelSave(reservationModel);
-                        if (isSaved)
+                        int _timecount = await _dataBase.GetReservationCountByTime(ReservationTime);
+                        int _idCount = await _dataBase.GetReservationCountByUserID(reservationModel.UserId);
+                        if (_idCount == 1)
                         {
-                            await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {ReservationTime} ) with ( {selectedValue} ) People", "Ok");
+                            await Application.Current.MainPage.DisplayAlert("Information", $"Sorry,You already have a Current Reservation", "Ok");
+                            await Application.Current.MainPage.Navigation.PushAsync(new CurrentReservationPage());
+
                             Clear();
-                            await Application.Current.MainPage.Navigation.PushAsync(new MenuPage());
                         }
+                        else if (_timecount == 10)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Information", $"Sorry, the selected time ({ReservationTime}) is not available. Please select another time.", "Ok");
+                            Clear();
+
+                        }
+
                         else
                         {
-                            await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
+                            var isSaved = await _dataBase.ReservationModelSave(reservationModel);
+                            if (isSaved)
+                            {
+                                await Application.Current.MainPage.DisplayAlert("Information", $"Your Reservation Time is:( {ReservationTime} ) with ( {selectedValue} ) People", "Ok");
+                                Clear();
+                                await Application.Current.MainPage.Navigation.PushAsync(new MenuPage());
+                            }
+                            else
+                            {
+                                await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
                 }
             }
         }

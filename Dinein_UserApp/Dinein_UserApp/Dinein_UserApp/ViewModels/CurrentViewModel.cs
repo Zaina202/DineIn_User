@@ -47,48 +47,13 @@ namespace Dinein_UserApp.ViewModels
 
         private async void OnEditReservation()
         {
-            Delete();
-
-            Delete();
-            if (flag)
-            {
-                await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
-
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                 "Error", "Reservation not found", "OK");
-
-            }
-
-        }
-        private bool flag = true;
-
-        private async void OnCancelReservation()
-        {
-            Delete();
-           if(flag)
-            {
-                await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
-
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert(
-                 "Error", "Reservation not found", "OK");
-
-            }
-           
-        }
-        private async Task Delete()
-        {
             string userId = Application.Current.Properties["UID"] as string;
 
-            await dataBase.DeleteOrderAsync(userId);
-            await dataBase.DeleteReservationAsync(userId);
-            await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
-
+            var reservations = await new FirebaseClient(DataBase.FirebaseClient)
+                .Child(nameof(ReservationModel))
+                .OrderBy(nameof(ReservationModel.UserId))
+                .EqualTo(userId)
+                .OnceAsync<ReservationModel>();
 
             if (reservations.Any())
             {
@@ -96,14 +61,26 @@ namespace Dinein_UserApp.ViewModels
                     .Child(nameof(ReservationModel))
                     .Child(reservations.First().Key)
                     .DeleteAsync();
-                flag = true;
+                await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
+
             }
             else
             {
-                flag= false;
-             
+                await Application.Current.MainPage.DisplayAlert("Error", "Reservation not found", "OK");
             }
+
         }
+
+        private async void OnCancelReservation()
+        {
+            string userId = Application.Current.Properties["UID"] as string;
+
+            await dataBase.DeleteOrderAsync(userId);
+            await dataBase.DeleteReservationAsync(userId);
+            await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
+
+        }
+     
 
 
         private DataBase dataBase;

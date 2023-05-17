@@ -272,6 +272,7 @@ namespace Dinein_UserApp.Services
             try
             {
                 var reservations = await fc.Child(nameof(ReservationModel)).OrderBy(nameof(ReservationModel.UserId)).EqualTo(userId).OnceAsync<ReservationModel>();
+
                 if (reservations.Any())
                 {
                     var latestReservation = reservations.OrderByDescending(r => r.Key).FirstOrDefault();
