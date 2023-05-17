@@ -23,7 +23,7 @@ namespace Dinein_UserApp.ViewModels
      
         private List<BillOrder> _orders;
         private List<Order> _OrderItems;
-
+        private string _userId = Application.Current.Properties["UID"] as string;
         private DataBase _dataBase;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -32,12 +32,34 @@ namespace Dinein_UserApp.ViewModels
         {
             EditOrderCommand = new Command(OnEditOrder);
             CancelOrderCommand = new Command(OnCancelOrder);
-
             _dataBase = new DataBase();
-            _ = LoadOrders(Application.Current.Properties["UID"] as string);
+            LoadOrders(_userId);
+            
+           
 
         }
+        private bool hasOrder;
 
+        public bool HasOrder
+        {
+            get { return hasOrder; }
+            set
+            {
+                hasOrder = value;
+                OnPropertyChanged(nameof(HasOrder));
+            }
+        }
+        private bool noOrder;
+
+        public bool NoOrder
+        {
+            get { return noOrder; }
+            set
+            {
+                noOrder = value;
+                OnPropertyChanged(nameof(NoOrder));
+            }
+        }
         private async void OnCancelOrder(object obj)
         {
             string userId = Application.Current.Properties["UID"] as string;
@@ -55,25 +77,21 @@ namespace Dinein_UserApp.ViewModels
                     .Child(reservations.First().Key)
                     .DeleteAsync();
                 await Application.Current.MainPage.DisplayAlert("Info","your order sucssfully deleted", "OK");
+                HasOrder = true;
+                NoOrder = false;
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert(
                     "Error", "Order not found", "OK");
+                HasOrder = false;
+                NoOrder = true;
             }
         }
 
         public ICommand EditOrderCommand { get; private set; }
         public ICommand CancelOrderCommand { get; private set; }
 
-
-        public BillViewModel(string userId)
-        {
-            _dataBase = new DataBase();
-
-
-            _ = LoadOrders(userId);
-        }
         private async void OnEditOrder()
         {
             string userId = Application.Current.Properties["UID"] as string;
@@ -110,7 +128,20 @@ namespace Dinein_UserApp.ViewModels
             }
         }
 
-       
+        private string _OrderTotalPrice;
+
+        public string OrderTotalPrice
+        {
+            get { return _OrderTotalPrice; }
+            set
+            {
+                if (_OrderTotalPrice != value)
+                {
+                    _OrderTotalPrice = value;
+                    OnPropertyChanged(nameof(OrderTotalPrice));
+                }
+            }
+        }
         public List<Order> OrderItems
         {
             get { return _OrderItems; }
@@ -120,33 +151,28 @@ namespace Dinein_UserApp.ViewModels
                 OnPropertyChanged(nameof(OrderItems));
             }
         }
-        public async Task LoadOrders(string userId)
+        public async void LoadOrders(string userId)
         {
             Orders = await _dataBase.GetOrderById(userId);
             OrderItems = Orders.Select(el => el.OrderList).First();
-
-        }
-
-        private int _totalPrice;
-
-        public int TotalPrice
-        {
-            get { return _totalPrice; }
-            set
+            decimal totalPrice = 0;
+            foreach (var item in OrderItems)
             {
-                _totalPrice = value;
-                OnPropertyChanged(nameof(TotalPrice));
+                totalPrice += item.TotalPrice;
             }
+
+
+            OrderTotalPrice = totalPrice.ToString("0.00");
+
         }
+
+       
 
         
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public BillViewModel(int totalPrice)
-        {
-            TotalPrice = totalPrice;
-        }
+       
     }
 }

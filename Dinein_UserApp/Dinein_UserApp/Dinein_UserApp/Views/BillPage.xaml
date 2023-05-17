@@ -2,19 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
-             x:Class="Dinein_UserApp.Views.BillPage">
+             x:Class="Dinein_UserApp.Views.BillPage" BackgroundColor="#FFD9A0" Shell.TabBarIsVisible="False" >
     <ContentPage.BindingContext>
         <local:BillViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-                <ListView ItemsSource="{Binding OrderItems}" 
+            <Label Text="Your Order : " TextColor="Black" FontAttributes="Bold" FontSize="Large" Margin="10"/>
+            <ListView ItemsSource="{Binding OrderItems}" 
           CachingStrategy="RecycleElement"
           RowHeight="120"  SeparatorColor="Transparent" SeparatorVisibility="Default" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}" Margin="5" Padding="3">
+                                <Frame CornerRadius="10" BackgroundColor="{StaticResource Secondry}" Margin="5,15,5,5" Padding="3">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
@@ -23,18 +24,19 @@
                                         </Grid.RowDefinitions>
 
                                         <StackLayout Margin="10,4,10,0">
-                                            <Label Text="{Binding MenuItemName}" FontAttributes="Bold" TextColor="Black" FontSize="Large" />
+                                            <Label Text="{Binding MenuItemName}" FontAttributes="Italic" TextColor="Black" FontSize="Large" />
                                         </StackLayout>
 
-                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,-8,0,0">
-                                            <Label Text="{Binding Quantity}" FontSize="Medium" />
-                                            <Label Text="{Binding MenuItemPrice}" FontSize="Medium" Margin="10,0,0,0" />
+                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="25,-8,0,0" HorizontalOptions="Center">
+
+                                        <Label Text="{Binding Quantity, StringFormat='Quantity : {0:N0}'}" FontSize="Medium" />
+                                        <Label Text="{Binding MenuItemPrice , StringFormat='Price : {0: 0.00}₪'}" FontSize="Medium" Margin="10,0,0,0" />
 
                                         </StackLayout>
 
-                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,10,0,0">
+                                        <StackLayout Grid.Row="1" Orientation="Horizontal" Margin="5,10,0,0" HorizontalOptions="Center">
 
-                                            <Label Grid.Row="2" Text="{Binding TotalPrice}" FontSize="Medium" Margin="5,10,0,10" />
+                                        <Label Grid.Row="2" Text="{Binding TotalPrice ,StringFormat='Total : {0: 0.00}₪'}" FontSize="Medium" Margin="5,10,0,10" />
                                         </StackLayout>
 
                                     </Grid>
@@ -54,14 +56,14 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Total Price is :  "></Span>
-                                <Span Text="{Binding  TotalPrice}"></Span>
+                                <Span Text="{Binding  OrderTotalPrice}"></Span>
                                 <Span Text="   NIS" ></Span>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
                     <StackLayout Orientation="Horizontal" >
                         <Button Text="Edit"  CornerRadius="20" Margin="30,10,30,0"  WidthRequest="130"   Command="{Binding EditOrderCommand}"/>
-                        <Button Text="Confirm" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130"   Command="{Binding CancelOrderCommand}" />
+                        <Button Text="Confirm" CornerRadius="20" Margin="10,10,0,0" WidthRequest="130"   Clicked="ConfirmButton_Clicked" />
                     </StackLayout>
 
                 </StackLayout>

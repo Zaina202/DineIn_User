@@ -11,17 +11,18 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Menu = Dinein_UserApp.Models.Menu;
 
+
 namespace Dinein_UserApp.Services
 {
     public class DataBase
     {
-        public static string FirebaseClient = "https://dine-in-54308-default-rtdb.firebaseio.com/";
-        public static string FirebaseSecret = "1AO003FSpm2dGZn4321C88RKPu2T6DPnKLfBr1Dg";
+        public static string FirebaseClient = "https://dine-in2-default-rtdb.firebaseio.com/";
+        public static string FirebaseSecret = "pVOv2WoG1nNrDAZsbmzV8OPS51oPcgdntCXDqjHK";
 
         public FirebaseClient fc = new FirebaseClient(FirebaseClient,
         new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(FirebaseSecret) });
-        static string webAPIkey = "\r\nAIzaSyBs4FwBJ8G5xNjnRKdFDYpv_lPuvSVWCyA";
-        FirebaseAuthProvider authProvider;
+        private static readonly string webAPIkey = "\r\nAIzaSyCOwJmK-r_qQ5lKDjcjPZYV6s4WHHW7fH4";
+        private readonly FirebaseAuthProvider authProvider;
         public DataBase()
         {
             authProvider = new FirebaseAuthProvider(new FirebaseConfig(webAPIkey));
@@ -88,36 +89,56 @@ namespace Dinein_UserApp.Services
         }
         public async Task<int> GetReservationCountByTime(string Time)
         {
-
-            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
-
             int count = 0;
-
-            foreach (var reservation in reservations)
+            try
             {
-                if (reservation.Object.TimePicker == Time)
+                if (Time == null)
                 {
-                    count++;
+                    return 0;
+                }
+                else
+                {
+                    var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+                    foreach (var reservation in reservations)
+                    {
+                        if (reservation.Object.TimePicker == Time)
+                        {
+                            count++;
+                        }
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving reservation count by time: {ex.Message}");
+            }
             return count;
         }
         public async Task<int> GetReservationCountByUserID(string id)
         {
-
-            var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
-
             int count = 0;
-
-            foreach (var reservation in reservations)
+            try
             {
-                if (reservation.Object.UserId == id)
+                if (id == null)
                 {
-                    count++;
+                    return 0;
+                }
+                else
+                {
+                    var reservations = await fc.Child(nameof(ReservationModel)).OnceAsync<ReservationModel>();
+                    foreach (var reservation in reservations)
+                    {
+                        if (reservation.Object.UserId == id)
+                        {
+                            count++;
+                        }
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving reservation count by id: {ex.Message}");
+            }
             return count;
         }
 
@@ -126,9 +147,8 @@ namespace Dinein_UserApp.Services
         {
             try
             {
-                var orderQueryResult = await fc.Child("BillOrders")
+                var orderQueryResult = await fc.Child("BillOrder")
                     .OnceAsync<BillOrder>();
-
                 return orderQueryResult.Where(el => el.Object.UserId == userId).Select(el => el.Object).ToList();
 
             }
@@ -165,18 +185,7 @@ namespace Dinein_UserApp.Services
             {
                 return "";
             }
-        }/*
-        public async Task<int> GetTotalPrice()
-        {
-            var orders = await fc.Child("Order").OnceAsync<OrderItem>();
-            int totalPrice = 0;
-            foreach (var order in orders)
-            {
-                totalPrice += order.Object.TotalPrice;
-            }
-            return totalPrice;
         }
-        */
         public async Task<bool> Register(string email, string name, string password)
         {
             var token = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password, name);
@@ -210,11 +219,60 @@ namespace Dinein_UserApp.Services
         }
 
 
+
+        public async Task DeleteOrderAsync(string userId)
+        {
+            bool response = await App.Current.MainPage.DisplayAlert("Alert", "Do you want to delete this order?", "Yes", "No");
+
+            if (response)
+            {
+                var toDeleteOrder = await fc
+                          .Child("BillOrder")
+                          .OnceAsync<Order>();
+
+                foreach (var x in toDeleteOrder)
+                {
+                    if (x.Object.UserId == userId)
+                    {
+                        await fc
+                            .Child("BillOrder")
+                            .Child(x.Key)
+                           .DeleteAsync();
+                    }
+                }
+                await App.Current.MainPage.DisplayAlert("Success", "Deletion Succeeded", "Ok");
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Failed", "Delete Failed", "Ok");
+            }
+        }
+
+        public async Task DeleteReservationAsync(string userId)
+        {
+            var toDeleteRes = await fc
+                      .Child("ReservationModel")
+                      .OnceAsync<Order>();
+
+            foreach (var x in toDeleteRes)
+            {
+                if (x.Object.UserId == userId)
+                {
+                    await fc
+                        .Child("ReservationModel")
+                        .Child(x.Key)
+                       .DeleteAsync();
+                }
+            }
+        }
+
         public async Task<ReservationModel> GetCurrentReservation(string userId)
         {
             try
             {
                 var reservations = await fc.Child(nameof(ReservationModel)).OrderBy(nameof(ReservationModel.UserId)).EqualTo(userId).OnceAsync<ReservationModel>();
+
                 if (reservations.Any())
                 {
                     var latestReservation = reservations.OrderByDescending(r => r.Key).FirstOrDefault();
@@ -242,5 +300,24 @@ namespace Dinein_UserApp.Services
                 return null;
             }
         }
+
+        public async Task<bool> HasExistingOrder(string userId)
+        {
+            try
+            {
+                var orders = await fc.Child("BillOrder")
+                    .OrderBy(nameof(BillOrder.UserId))
+                    .EqualTo(userId)
+                    .OnceAsync<BillOrder>();
+
+                return orders.Any();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while checking for existing order: {ex.Message}");
+                return false;
+            }
+        }
+ 
     }
 }

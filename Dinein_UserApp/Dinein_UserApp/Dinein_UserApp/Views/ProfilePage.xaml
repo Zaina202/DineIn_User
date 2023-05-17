@@ -2,64 +2,33 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels"
-             x:Class="Dinein_UserApp.Views.ProfilePage">
+             x:Class="Dinein_UserApp.Views.ProfilePage" BackgroundColor="#FFD9A0">
     <ContentPage.BindingContext>
         <local:ProfileViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Margin="30, 10, 30, 30">
-            <Button HorizontalOptions="End" ImageSource="logout.png" BackgroundColor="Transparent" Clicked="Logout" Margin="0,0,-30,0"/>
-            <Frame Padding="0"
-                   HeightRequest="150"
-                  WidthRequest="150"
-                  BackgroundColor="white"
-                   CornerRadius="100"
-                   BorderColor="Teal"
-                  HorizontalOptions="Center"
-                  VerticalOptions="Center">
-                <Image Source="profilpage.png" Scale="1" ></Image>
+            <Button HorizontalOptions="End" ImageSource="logout.png" BackgroundColor="Transparent" Command="{Binding LogoutCommand}" Margin="0,0,-30,0"/>
+            <Frame Padding="2" HeightRequest="150" WidthRequest="150" BackgroundColor="white" CornerRadius="100" BorderColor="LightGray"
+                  HorizontalOptions="Center"  VerticalOptions="Center">
+                <Image Source="profile1.png" Scale="1" ></Image>
             </Frame>
-            <StackLayout 
-                     Spacing="15">
+            <StackLayout Spacing="15">
                 <StackLayout Spacing="3">
-                    <Label Text="Name:"
-                      FontSize="Small"
-                   FontAttributes="Italic"
-                       TextColor="Gray"
-                       />
-                    <Label Text="{Binding Name}"
-                   FontSize="Large"
-                   FontAttributes="Bold" />
+                    <Label Text="Name:" FontSize="Medium" FontAttributes="Italic" TextColor="DimGray"/>
+                    <Label Text="{Binding Name}" FontSize="Large" FontAttributes="Bold" TextColor="Black" Margin="10,0,0,0"/>
                 </StackLayout>
                 <StackLayout Spacing="3">
-                    <Label Text="Email:"
-                      FontSize="Small"
-                   FontAttributes="Italic"
-                       TextColor="Gray"
-                       />
-                    <Label Text="{Binding Email}"
-                   FontSize="Large"
-                   FontAttributes="Bold" />
+                    <Label Text="Email:" FontSize="Medium" FontAttributes="Italic" TextColor="DimGray"/>
+                    <Label Text="{Binding Email}" FontSize="Large" FontAttributes="Bold" TextColor="Black" Margin="10,0,0,0"/>
                 </StackLayout>
                 
                 <StackLayout Spacing="10">
-                    <Label Text="Offers:"
-                      FontSize="Small"
-                   FontAttributes="Italic"
-                       TextColor="Gray"
-                       />
-                    <Frame BackgroundColor="{StaticResource Secondry}" 
-                   Margin="5" 
-     
-                   CornerRadius="10">
+                    <Label Text="Offers:" FontSize="Medium" FontAttributes="Italic" TextColor="DimGray"/>
+                    <Frame BackgroundColor="{StaticResource Secondry}" Margin="5" Style="{StaticResource BorderFrame}" Padding="20">
                         <ContentView  VerticalOptions="CenterAndExpand">
-                            <Label Text="Hi there! We have some exciting offers for you to try. 
-                                   Get 10% off if the bill was more than 200 NIS. Don't miss out!"
-               FontSize="Medium"
-               FontAttributes="Bold"
-               TextColor="Black"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand" />
+                            <Label Text="Hi there!    
+                                                Get 10% off if the bill was more than 200 NIS. Don't miss out!" FontSize="Medium" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
                         </ContentView>
                     </Frame>
                 </StackLayout>

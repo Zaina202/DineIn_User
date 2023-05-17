@@ -21,24 +21,6 @@ namespace Dinein_UserApp.Views
 
         }
 
-     
-        
-
-        public BillPage(int totalPrice)
-
-        {
-            InitializeComponent();
-            Task.Run(async () =>
-            {
-                var _totalPrice = totalPrice;
-                var viewModel = new BillViewModel(_totalPrice);
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    BindingContext = viewModel;
-                });
-            });
-        }
-
         private void ConfirmButton_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new CurrentReservationPage());

@@ -47,13 +47,6 @@ namespace Dinein_UserApp.ViewModels
 
         private async void OnEditReservation()
         {
-             EditReservationCommand = new Command(OnEditReservation);
-            await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
-
-        }
-
-        private async void OnCancelReservation()
-        {
             string userId = Application.Current.Properties["UID"] as string;
 
             var reservations = await new FirebaseClient(DataBase.FirebaseClient)
@@ -68,15 +61,26 @@ namespace Dinein_UserApp.ViewModels
                     .Child(nameof(ReservationModel))
                     .Child(reservations.First().Key)
                     .DeleteAsync();
+                await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
 
-                await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Error", "Reservation not found", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Reservation not found", "OK");
             }
+
         }
+
+        private async void OnCancelReservation()
+        {
+            string userId = Application.Current.Properties["UID"] as string;
+
+            await dataBase.DeleteOrderAsync(userId);
+            await dataBase.DeleteReservationAsync(userId);
+            await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
+
+        }
+     
 
 
         private DataBase dataBase;
@@ -103,7 +107,28 @@ namespace Dinein_UserApp.ViewModels
         }
 
 
-       
+        private bool hasReservation;
+
+        public bool HasReservation
+        {
+            get { return hasReservation; }
+            set
+            {
+                hasReservation = value;
+                OnPropertyChanged(nameof(HasReservation));
+            }
+        }
+        private bool noReservation;
+
+        public bool NoReservation
+        {
+            get { return noReservation; }
+            set
+            {
+                noReservation = value;
+                OnPropertyChanged(nameof(NoReservation));
+            }
+        }
 
         private async void LoadCurrentReservation()
         {
@@ -111,8 +136,15 @@ namespace Dinein_UserApp.ViewModels
             reservation = await dataBase.GetCurrentReservation(userId);
             if (reservation != null)
             {
+                HasReservation = true;
+                NoReservation = false;
                 OnPropertyChanged(nameof(Time));
                 OnPropertyChanged(nameof(NumPeople));
+            }
+            else
+            {
+                HasReservation = false;
+                NoReservation = true;
             }
         }
 

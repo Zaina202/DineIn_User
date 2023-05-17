@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:view="clr-namespace:Dinein_UserApp.Views"
              xmlns:local="clr-namespace:Dinein_UserApp.ViewModels" 
-             x:Class="Dinein_UserApp.Views.MenuPage">
+             x:Class="Dinein_UserApp.Views.MenuPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"  BackgroundColor="#FFD9A0">
     <ContentPage.BindingContext>
         <local:MenuViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Button BackgroundColor="Transparent" ImageSource="Cart.png" Margin="300,0,0,0" Command="{Binding SaveOrderCommand}"/>
-            <!--x:Name="MenuListView"-->
+            <Button BackgroundColor="Transparent" ImageSource="Cart.png" HorizontalOptions="End" Command="{Binding SaveOrderCommand}"/>
             <ListView x:Name="ItemListView" 
                       ItemsSource="{Binding MenuItems}"
                   CachingStrategy="RecycleElement"
@@ -24,28 +22,18 @@
                                     <StackLayout BackgroundColor="{StaticResource Secondry}" Orientation="Horizontal" WidthRequest="370" Padding="5">
                                         <Image Source="{Binding ImageUrl}" HeightRequest="110" WidthRequest="100"/>
                                         <StackLayout HeightRequest="110" WidthRequest="220">
-                                            <Label Text="{Binding Name}" FontSize="Medium" TextColor="black" Margin="10,10,0,0"/>
-                                            <Grid Margin="10,10,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto" />
-                                                    <ColumnDefinition Width="Auto" />
-                                                </Grid.ColumnDefinitions>
-                                                <Label Text="{Binding Price}" FontSize="Medium" TextColor="black" Grid.Column="0"/>
-                                                <Image Source="shekel.png" Grid.Column="1"/>
-                                            </Grid>
+                                            <Label Text="{Binding Name}" FontSize="Medium" TextColor="black" FontAttributes="Bold" Margin="10,10,0,0"/>
+                                            <StackLayout Margin="10,10,0,0">
+                                               
+                                                <Label Text="{Binding Price ,StringFormat=' {0: 0.00}₪'}" FontSize="Medium" TextColor="black"/>
+                                            </StackLayout>
                                         </StackLayout>
-                                        <!--Margin="100,40,10,10"-->
-                                        <Grid HeightRequest="40" VerticalOptions="End" HorizontalOptions="Start" Margin="0,0,0,15" x:Name="stepperGrid">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="26" />
-                                                <ColumnDefinition Width="30"  />
-                                                <ColumnDefinition Width="26" />
-                                            </Grid.ColumnDefinitions>
+                                        <StackLayout HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,15" x:Name="stepperGrid">
+                                           
+                                            <Entry   Text="{Binding Quantity}" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
+                                            
 
-                                            <Entry IsReadOnly="False" Grid.Column="1" Text="{Binding Quantity}" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
-
-
-                                        </Grid>
+                                        </StackLayout>
                                     </StackLayout>
                                 </Frame>
                             </RelativeLayout>

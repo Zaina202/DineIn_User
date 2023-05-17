@@ -18,12 +18,18 @@ namespace Dinein_UserApp.Views
             InitializeComponent();
         }
 
+
         private void Button_Order(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new BillPage());
+            _ = Navigation.PushAsync(new BillPage());
 
         }
 
+        private void Go_Reserve(object sender, EventArgs e)
+        {
+            _ = Navigation.PushAsync(new ReservationPage());
+
+        }
 
     }
 }
