@@ -34,7 +34,7 @@
                Command="{Binding LogInCommand}" />
           
 
-            <Frame BackgroundColor="{StaticResource Secondry}" Margin="0,140,0,0">
+            <Frame BackgroundColor="{StaticResource Secondry}" Margin="0,180,0,0"  >
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
                 <Label Text="Don't have an account? " TextColor="Gray" FontSize="Body" Margin="30,0,0,0" />
                 <Button Text="Sign Up" Clicked="Button_SignUp" TextColor="Black" BackgroundColor="Transparent" BorderColor="Transparent" Margin="-17,-12,20,0" />

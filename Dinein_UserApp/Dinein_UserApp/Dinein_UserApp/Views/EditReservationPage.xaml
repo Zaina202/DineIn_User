@@ -39,7 +39,7 @@
                     <Image Margin="0,0,10,0" Source="People.png" Grid.Column="0"/>
                     <Label Text="Numper of people"  FontSize="Large" HeightRequest="35"  TextColor="Black" FontAttributes="Italic"  Grid.Column="1" />
                 </Grid>
-                <Frame  Margin="15,0,0,0" Style="{StaticResource BorderFrame}" Padding="10">
+                <Frame  Margin="10,0,0,0" Style="{StaticResource BorderFrame}" Padding="5">
                     <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

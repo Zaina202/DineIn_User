@@ -28,9 +28,8 @@
                                                 <Label Text="{Binding Price ,StringFormat=' {0: 0.00}₪'}" FontSize="Medium" TextColor="black"/>
                                             </StackLayout>
                                         </StackLayout>
-                                        <StackLayout HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,0,15" x:Name="stepperGrid">
-                                           
-                                            <Entry   Text="{Binding Quantity}" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
+                                        <StackLayout HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,0,10,15" x:Name="stepperGrid">
+                                            <Entry   Text="{Binding Quantity}" Keyboard="Numeric" Placeholder="0" BackgroundColor="White" HeightRequest="40" HorizontalOptions="CenterAndExpand" FontSize="Small"/>
                                             
 
                                         </StackLayout>

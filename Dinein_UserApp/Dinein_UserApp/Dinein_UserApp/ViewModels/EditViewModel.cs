@@ -72,17 +72,28 @@ namespace Dinein_UserApp.ViewModels
             }
             else
             {
-                ReservationModel reservationModel = new ReservationModel
-                {
-                    TimePicker = ReservationTime,
-                    NumberOfPeople = selectedValue,
-                    Note = note,
-                    UserId = (string)Application.Current.Properties["UID"],
-                    ReservationId = Guid.NewGuid().ToString()
-                };
+                TimeSpan startTime = TimeSpan.FromHours(9);
+                TimeSpan endTime = TimeSpan.FromHours(23);
+                TimeSpan selectedTimeSpan = TimeSpan.Parse(ReservationTime);
 
-                try
+                if (selectedTimeSpan < startTime || selectedTimeSpan > endTime)
                 {
+                    await Application.Current.MainPage.DisplayAlert("Time Outside Boundaries", "Please select a time between 9:00 AM and 11:00 PM.", "OK");
+                    return;
+                }
+                else
+                {
+                    ReservationModel reservationModel = new ReservationModel
+                    {
+                        TimePicker = ReservationTime,
+                        NumberOfPeople = selectedValue,
+                        Note = note,
+                        UserId = (string)Application.Current.Properties["UID"],
+                        ReservationId = Guid.NewGuid().ToString()
+                    };
+
+                    try
+                    {
                         var isSaved = await _dataBase.ReservationModelSave(reservationModel);
                         if (isSaved)
                         {
@@ -94,15 +105,15 @@ namespace Dinein_UserApp.ViewModels
                         {
                             await Application.Current.MainPage.DisplayAlert("Error", "Your reservation failed ,Enter time and number of people ", "Ok");
                         }
-                    
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
                 }
             }
         }
-
         public void Clear()
         {
             ReservationTime = string.Empty;
