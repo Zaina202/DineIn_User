@@ -47,12 +47,41 @@ namespace Dinein_UserApp.ViewModels
 
         private async void OnEditReservation()
         {
-             EditReservationCommand = new Command(OnEditReservation);
-            await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
+            Delete();
+
+            Delete();
+            if (flag)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new EditReservationPage());
+
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                 "Error", "Reservation not found", "OK");
+
+            }
 
         }
+        private bool flag = true;
 
         private async void OnCancelReservation()
+        {
+            Delete();
+           if(flag)
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
+
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                 "Error", "Reservation not found", "OK");
+
+            }
+           
+        }
+        private async Task Delete()
         {
             string userId = Application.Current.Properties["UID"] as string;
 
@@ -68,12 +97,12 @@ namespace Dinein_UserApp.ViewModels
                     .Child(nameof(ReservationModel))
                     .Child(reservations.First().Key)
                     .DeleteAsync();
-                await Application.Current.MainPage.Navigation.PushAsync(new CancelPage());
+                flag = true;
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    "Error", "Reservation not found", "OK");
+                flag= false;
+             
             }
         }
 
